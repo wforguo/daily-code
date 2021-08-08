@@ -5,9 +5,6 @@
         <h3>我是 child 组件</h3>
         <br />
         <hr />
-
-        <button class="button primary">按钮</button>
-
     </div>
 
 </template>
@@ -31,6 +28,12 @@ export default {
     },
     mounted() {
         console.log('child', 'mounted');
+    },
+    beforeDestroy() {
+        console.log('child', 'beforeDestroy');
+    },
+    destroyed() {
+        console.log('child', 'destroyed');
     },
     methods: {
 

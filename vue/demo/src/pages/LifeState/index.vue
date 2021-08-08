@@ -1,7 +1,6 @@
 <template>
 
     <div>
-        {{name}}
         <br/>
         <h3>我是 gradeFather 组件</h3>
         <br/>
@@ -25,6 +24,7 @@ import father from "./father";
 
 export default {
     name: "LifeState",
+    title: '生命周期',
     data() {
         return {
             name: 'grade',
@@ -35,20 +35,29 @@ export default {
         father
     },
     beforeCreate() {
+        console.log(this.$el);
         console.log('gradeFather', 'beforeCreate');
     },
     created() {
+        console.log(this.$el);
         console.log('gradeFather', 'created');
     },
     beforeMount() {
+        console.log(this.$el);
         console.log('gradeFather', 'beforeMount');
     },
     mounted() {
+        console.log(this.$el);
         console.log('gradeFather', 'mounted');
+    },
+    beforeUpdate() {
+        console.log(this.visible);
+    },
+    updated() {
+        console.log(this.visible);
     },
     methods: {
         handleVisible (...rest) {
-            this.grade = 'child';
             console.log(1);
             setTimeout(() => {
                 console.log('2');

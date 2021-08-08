@@ -1,5 +1,5 @@
 <template>
-    <div class="request">
+    <div className="request">
         <h3><code>axios应用</code></h3>
     </div>
 </template>
@@ -10,16 +10,18 @@ import request from '../../libs/request';
 import * as qs from "qs";
 
 export default {
-    name: "Request",
+    name: "request",
+    title: '接口请求',
     mounted() {
+        console.log('request');
         request.request({
             method: 'post',
-            url: '/api/weixin/share',
+            url: 'https://cloud-app.com.cn/wechat/sdk',
             data: qs.stringify({
                 url: window.location.href
             })
         }).then((res) => {
-            console.log(res.data);
+            console.log(res);
         }, (err) => {
             console.log(err);
         });

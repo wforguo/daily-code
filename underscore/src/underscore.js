@@ -37,8 +37,18 @@
      * @time: 2021/7/15 21:59
      * @description: 数组去重
      */
-    _.unique = function () {
+    _.unique = function (arr) {
+        // 1.Es6的写法
+        // return Array.from(new Set(arr)) 或者 [...new Set(arr))]
 
+        // 2.常规做法
+        var res = [];
+        arr.forEach(item => {
+            if (res.indexOf(item) === -1) {
+                res.push(item);
+            }
+        });
+        return res;
     }
 
     function flatten (array, shallow) {

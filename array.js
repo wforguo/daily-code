@@ -4,14 +4,18 @@
  * @description: 数组常用方法
  */
 
-let arrOrigin = [11, 3, 5, 6, 8, 13, 8];
+/**
+ * 箭头函数对于class构造出来的对象的this指向没有影响，但是对于构造函数创建出来的对象，他的this指向会发生改变
+ * @param arr
+ * @return {*}
+ */
 
 class Person {
     constructor() {
         this.name = 'person';
     }
     say = () => {
-        console.log(this.name);
+        console.log(this);  // 此时的this不变
     }
 }
 console.log(new Person().say());
@@ -19,15 +23,20 @@ console.log(new Person().say());
 function Stu () {
     this.name = 'stu';
 }
-
 Stu.prototype = {
     say: () => {
-        console.log(this.name);
+        console.log(this); // 此时的this为window
     }
 }
-
 console.log(new Stu().say());
 
+
+let arrOrigin = [11, 3, 5, 6, 8, 13, 8];
+/**
+ * @desc 冒泡排序算法
+ * @param arr
+ * @return {*}
+ */
 const maoPao = function (arr) {
     for (let i = arr.length - 1; i > 0; i--) {
         for (let j = 0; j < i; j++) {
@@ -43,19 +52,20 @@ const maoPao = function (arr) {
 };
 // maoPao(arrOrigin);
 
+
+/**
+ * 数组的高阶函数
+ * @author: forguo
+ * @time: 2021/5/28 16:20
+ * @description: 数组高阶函数的使用
+ */
+
 let reducerArr = arrOrigin.reduce((accumulator, currentValue, index, source) => {
     console.log(accumulator, currentValue, index);
     return accumulator + currentValue;
 });
 
 console.log('reducerArr', reducerArr);
-
-/**
- * 数组的高阶用法
- * @author: 数组filter的使用
- * @time: 2021/5/28 16:20
- * @description: sort.js
- */
 
 const filterArr = [
     {
@@ -94,7 +104,6 @@ const resArr2 = filterArr.filter(function (item) {
 })
 console.log(resArr2);
 
-
 /**
  * 返回数组中第一个找到一个给定元素的下标，否则为-1
  */
@@ -115,3 +124,26 @@ console.log(arrOrigin.find(element => element < 11));
  */
 console.log(arrOrigin.findIndex(element => element < 11));
 
+/**
+ * 如果说数组中有满足条件的，则返回true，否则为false
+ */
+console.log(arrOrigin.some(element => element < 11));
+
+/**
+ * @author: forguo
+ * @time: 2021/7/15 21:59
+ * @description: 数组去重
+ */
+_.unique = function (arr) {
+    // 1.Es6的写法
+    // return Array.from(new Set(arr)) 或者 [...new Set(arr))]
+
+    // 2.常规做法
+    var res = [];
+    arr.forEach(item => {
+        if (res.indexOf(item) === -1) {
+            res.push(item);
+        }
+    });
+    return res;
+}

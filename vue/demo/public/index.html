@@ -5,6 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title><%= htmlWebpackPlugin.options.title %></title>
+      <script>
+          window.login = function () {
+              // 跳转去授权
+              var loc = location.protocol + '//' + location.host + location.pathname;
+              var redirect = encodeURIComponent(loc);
+              window.location.replace('http://127.0.0.1:3003/wechat/auth?url=' + redirect);
+          }
+      </script>
   </head>
   <body>
     <noscript>

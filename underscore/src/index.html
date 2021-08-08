@@ -5,14 +5,31 @@
     <title>underscore</title>
 </head>
 <body>
-<h4>underscore</h4>
+<h4 style="height: 200vh">underscore</h4>
 </body>
 <script src="./underscore.js"></script>
 <script type="text/javascript">
     var arr = [1,2,3,4,5];
-    console.log(_(arr).chain());
+    // console.log(_(arr).chain());
 
-    var flattenArr = [1, [2, 3, [5, 6]], [7]];
-    console.log(_._flatten(flattenArr, false))
+    // var originArr = [1, [2, 3, [5, 6]], [2, 3, 4, 5, 6]];
+    // var flattenArr = _._flatten(originArr)
+    // console.log(flattenArr);
+
+    /**
+     * @desc 斐波那契数列 这个数列从第3项开始,每一项都等于前两项之和.
+     // 1 1 2 3 5 8 13 21 34 ...
+     * @param n
+     * @return []
+     */
+    var res = [];
+    var fibonacci = function (n) {
+        for (var i = 0; i <= n; i++) {
+            console.log(res, n);
+            i < 2 ? res.push(1) : res.push(res[i - 1] + res[i - 2]);
+        }
+        console.log(res);
+    };
+    fibonacci(5)
 </script>
 </html>

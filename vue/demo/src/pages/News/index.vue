@@ -30,7 +30,7 @@ export default {
             method: 'get',
             url: 'https://api.cloud-app.com.cn/rest-api/v1.0/cloud-news',
         }).then((res) => {
-            console.log(res.data);
+            console.log(res);
             this.list = res.data || [];
         }, (err) => {
             console.log(err);

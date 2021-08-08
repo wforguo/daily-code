@@ -7,13 +7,6 @@
         <hr />
 
         <child/>
-
-        <form action="" autocomplete="off">
-            <label>
-                <span>密码</span>
-                <input type="password" autocomplete="off" />
-            </label>
-        </form>
     </div>
 
 </template>
@@ -43,6 +36,12 @@ export default {
     },
     mounted() {
         console.log(`%c father %c mounted`, 'padding: 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060', 'padding: 1px 5px 1px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #42c02e');
+    },
+    beforeDestroy() {
+        console.log('father', 'beforeDestroy');
+    },
+    destroyed() {
+        console.log('father', 'destroyed');
     },
     methods: {}
 }

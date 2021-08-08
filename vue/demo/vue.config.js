@@ -67,11 +67,11 @@ module.exports = {
         port: '10086',
         proxy: {
             '/api': {
-                target: 'https://cloud-app.com.cn',
+                target: 'https://forguo.cn',
                 ws: true,
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/api': ''
+                    '^/api': '/api'
                 }
             }
         }
