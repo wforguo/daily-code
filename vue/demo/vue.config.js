@@ -22,11 +22,11 @@ process.env.VUE_APP_VERSION = require('./package.json').version;
 const cdnLoader = (prod = false) => {
     return {
         modules: [
-            {
-                name: 'axios',
-                var: 'axios',
-                path: 'axios.min.js'
-            },
+            // {
+            //     name: 'axios',
+            //     var: 'axios',
+            //     path: 'axios.min.js'
+            // },
             {
                 name: 'vue',
                 var: 'Vue',

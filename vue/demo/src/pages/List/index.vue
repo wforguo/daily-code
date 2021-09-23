@@ -59,7 +59,14 @@ export default {
             ]
         }
     },
+    activated() {
+        console.log('activated');
+    },
+    created() {
+        console.log('created');
+    },
     mounted() {
+        console.log('mount');
         // axios({
         //     url: 'http://192.168.40.234:3300/api/msg/list',
         //     method: 'get'
@@ -146,6 +153,11 @@ export default {
              */
             // this.$set(object, key, value);
             this.$set(this.list[index], 'price', index + Math.random());
+            // console.log(this.$route);
+            // console.log(this.$router);
+            // this.$router.push({
+            //     path: `/List?t=${Date.now()}`
+            // });
         }
     }
 }

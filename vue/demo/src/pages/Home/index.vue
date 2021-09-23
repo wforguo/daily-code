@@ -5,6 +5,10 @@
         <div v-for="(item, index) in routers" :key="index" class="router-item">
             <Cell :title="item.title" is-link :to="item.path" />
         </div>
+
+        {{$attrs}}
+        <MyButton type="primary" round :autoLoading="true" :loading-text="'提交中...'" @click="handleClick">提交</MyButton>
+
     </div>
 
 </template>
@@ -12,11 +16,13 @@
 <script>
 import { mapState } from 'vuex';
 import { Cell } from 'vant';
+import MyButton from '@/components/MyButton';
 
 export default {
     name: "Home",
     data() {
         return {
+            loading: true,
         }
     },
     computed: {
@@ -25,12 +31,20 @@ export default {
         ])
     },
     components: {
-        Cell
+        Cell,
+        MyButton
+    },
+    methods: {
+        handleClick (done) {
+            setTimeout(() => {
+                // 执行该回调，去关闭loading
+                done();
+            }, 1500)
+        }
     }
 }
 </script>
-
-<style scoped lang="scss">
+<style scoped lang="less">
 .home {
     overflow: hidden;
     .home-title {
@@ -44,6 +58,8 @@ export default {
             font-weight: bold;
         }
     }
+    /deep/ .van-cell {
+        background: transparent;
+    }
 }
-
 </style>

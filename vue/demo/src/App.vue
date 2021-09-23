@@ -1,5 +1,7 @@
 <template>
     <div id="app">
+        <div id="pageBg">
+        </div>
         <NavBar
             :title="routeName"
             :left-text="showBack ? '返回' : ''"
@@ -19,6 +21,7 @@
 
 import { mapActions } from "vuex";
 import { Icon, NavBar } from 'vant';
+import CanvasNest from 'canvas-nest.js';
 
 export default {
     name: 'App',
@@ -45,6 +48,14 @@ export default {
         }
     },
     mounted() {
+        const config = {
+            pointColor: '255,0,0',
+            count: 188,
+            pointR: 1,
+            opacity: 0.75
+        };
+        const element = document.getElementById('pageBg');
+        new CanvasNest(element, config);
         this.setRouters({
             routers: this.$router.options.routes
         });
@@ -92,5 +103,17 @@ body {
     position: fixed;
     bottom: 50px;
     right: 50px;
+}
+
+#pageBg {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 999;
+    pointer-events: none;
 }
 </style>

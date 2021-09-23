@@ -16,7 +16,8 @@ export default {
         console.log('request');
         request.request({
             method: 'post',
-            url: 'https://cloud-app.com.cn/wechat/sdk',
+            // url: 'https://cloud-app.com.cn/wechat/sdk',
+            url: 'http://127.0.0.1/common/wechat/sdk',
             data: qs.stringify({
                 url: window.location.href
             })

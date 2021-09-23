@@ -12,6 +12,7 @@
         "@sentry/browser": "^5.16.1",
         "@sentry/integrations": "^5.16.1",
         "axios": "^0.19.2",
+        "canvas-nest.js": "^2.0.4",
         "core-js": "^3.6.4",
         "normalize.css": "^8.0.1",
         "vant": "^2.12.21",
