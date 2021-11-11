@@ -6,7 +6,6 @@
             <Cell :title="item.title" is-link :to="item.path" />
         </div>
 
-        {{$attrs}}
         <MyButton type="primary" round :autoLoading="true" :loading-text="'提交中...'" @click="handleClick">提交</MyButton>
 
     </div>
@@ -17,7 +16,7 @@
 import { mapState } from 'vuex';
 import { Cell } from 'vant';
 import MyButton from '@/components/MyButton';
-
+import JsCookie from 'js-cookie';
 export default {
     name: "Home",
     data() {
@@ -32,11 +31,16 @@ export default {
     },
     components: {
         Cell,
-        MyButton
+        MyButton,
+    },
+    mounted() {
+        const token = JsCookie.get('admin-dealers_token');
+        console.log(token);
     },
     methods: {
         handleClick (done) {
             setTimeout(() => {
+                JsCookie.set('userToken', Date.now());
                 // 执行该回调，去关闭loading
                 done();
             }, 1500)

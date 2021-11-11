@@ -5,7 +5,10 @@
  * @Description: MuButton
 -->
 <template>
-    <Button v-bind="$attrs" :loading="loadingStatus" @click="handleClick"><slot /></Button>
+    <div>
+        {{$attrs}}
+        <Button v-bind="$attrs" :loading="loadingStatus" @click="handleClick"><slot /></Button>
+    </div>
 </template>
 
 <script>

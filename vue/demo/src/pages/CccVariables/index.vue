@@ -53,7 +53,6 @@ export default {
     color: #333;
     font-size: 18px;
     font-weight: bold;
-    --primary-text-color: red;
     .variables {
         color: var(--primary-text-color);
     }

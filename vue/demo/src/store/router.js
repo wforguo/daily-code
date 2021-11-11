@@ -11,7 +11,7 @@ const store = {
         ],
     },
     actions: {
-        setRouters ({state, commit}, {routers}) {
+        setRouters ({store, commit}, {routers}) {
             let routerList = routers.map(item => ({
                 name: item.name,
                 path: item.path,

@@ -76,6 +76,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    --primary-text-color: green;
 }
 
 body {
@@ -116,4 +117,5 @@ body {
     z-index: 999;
     pointer-events: none;
 }
+
 </style>
