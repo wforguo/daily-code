@@ -1,0 +1,31 @@
+{
+    "name": "typesctipt",
+    "version": "1.0.0",
+    "description": "typescript",
+    "scripts": {
+        "dev": "webpack --config ./config/webpack.dev.js",
+        "start": "npm run dev",
+        "build": "webpack --config ./config/webpack.prod.js"
+    },
+    "author": "wforguo",
+    "license": "ISC",
+    "dependencies": {
+        "cross-env": "^7.0.3",
+        "webpack": "^4.44.1",
+        "webpack-cli": "^3.3.12",
+        "webpack-dashboard": "^3.2.1",
+        "webpack-dev-server": "^3.11.0",
+        "webpack-merge": "^5.1.3",
+        "webpackbar": "^4.0.0"
+    },
+    "browserslist": [
+        "Android 2.3",
+        "Android >= 4",
+        "Chrome >= 20",
+        "Firefox >= 19",
+        "Explorer >= 8",
+        "iOS >= 6",
+        "Opera >= 12",
+        "Safari >= 6"
+    ]
+}

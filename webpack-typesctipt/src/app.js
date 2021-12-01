@@ -1,0 +1,1 @@
+var typescript  = 'typescript';

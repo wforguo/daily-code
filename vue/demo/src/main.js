@@ -8,6 +8,13 @@ import '@/directives';
 
 Vue.config.productionTip = false;
 
+import { Button, Card, Form } from 'vant';
+import { Field } from 'vant';
+Vue.use(Button);
+Vue.use(Card);
+Vue.use(Form);
+Vue.use(Field);
+
 new Vue({
     render: h => h(App),
     router,

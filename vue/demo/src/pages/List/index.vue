@@ -76,7 +76,6 @@ export default {
     },
     methods: {
         handleUploadFile(e) {
-            console.log(e.target.files);
             // const file = e.target.files[0];
             // const data = new FormData();
             // data.append('file', file);
@@ -90,10 +89,11 @@ export default {
             //     console.log(res);
             // });
             const file = e.target.files[0];
+            console.log(file);
             if (file) {
                 const data = new FormData();
                 data.append('file', file);
-                instance.post('http://localhost:3300/api/common/imgUpload', data).then(res => {
+                instance.post('http://localhost:3000/common/upload', data).then(res => {
                     console.log(res);
                 }).catch(err => {
                     console.log(err);

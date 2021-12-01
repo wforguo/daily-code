@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <div id="pageBg">
+        <div id="pageBg" style="display: none;">
         </div>
         <NavBar
             :title="routeName"
