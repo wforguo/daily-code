@@ -27,5 +27,10 @@
         "iOS >= 6",
         "Opera >= 12",
         "Safari >= 6"
-    ]
+    ],
+    "devDependencies": {
+        "@babel/core": "^7.16.0",
+        "@babel/preset-env": "^7.16.4",
+        "babel-loader": "^8.2.3"
+    }
 }

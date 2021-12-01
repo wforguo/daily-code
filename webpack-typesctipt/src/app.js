@@ -1,1 +1,4 @@
-var typescript  = 'typescript';
+setTimeout(() => {
+    const typescript  = 'typescript';
+    console.log(typescript);
+});

@@ -11,8 +11,25 @@ module.exports = {
         app: path.resolve(__dirname, '../src/app.js')
     },
     output: {
-        path: path.resolve(__dirname, '../dist'),
-        filename: "js/[name].[chunkhash:6].js",
-        publicPath: '/',
+        // path: path.resolve(__dirname, '../dist'),
+        filename: "js/[name].[hash:8].js",
+        // publicPath: '/',
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/, // 检测js
+                use: {
+                    loader: 'babel-loader', // 使用babel-loader
+                    // 打包参数
+                    options: {
+                        // 存储JavaScript不同标准的插件
+                        presets: [
+                            ['@babel/preset-env']
+                        ]
+                    }
+                }
+            }
+        ]
     }
 }
