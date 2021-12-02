@@ -16,3 +16,4 @@ yarn-error.log*
 .idea
 /.idea
 .vscode
+/webpack-typesctipt/dist/
