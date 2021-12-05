@@ -1,4 +1,5 @@
 import './main.ts';
+import './css/app.css';
 
 const fn = () => {
     return new Promise(setTimeout(() => {
