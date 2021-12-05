@@ -12,11 +12,10 @@ module.exports = {
     mode: 'production',
     entry: {
         app: ['babel-polyfill', path.resolve(__dirname, '../src/app.js')],
-        app2: ['babel-polyfill', path.resolve(__dirname, '../src/app2.js')],
     },
     output: {
         // path: path.resolve(__dirname, '../dist'),
-        filename: "js/[name].[chunkhash:8].js",
+        filename: "js/[name].[hash:8].js",
         // publicPath: '/',
     },
     module: {
@@ -24,19 +23,7 @@ module.exports = {
             {
                 test: /\.js$/, // 检测js
                 use: {
-                    loader: 'babel-loader', // 使用babel-loader
-                    // 打包参数
-                    options: {
-                        // 存储JavaScript不同标准的插件
-                        presets: [
-                            ['@babel/preset-env', {
-                                "targets": {
-                                    // 需要适配的浏览器类型
-                                    "browsers": ["> 1%", "last 2 versions", "not ie <= 8", "iOS 8"]
-                                }
-                            }]
-                        ]
-                    }
+                    loader: "babel-loader", // 使用babel-loader
                 }
             }
         ]
