@@ -29,7 +29,12 @@ module.exports = {
                     options: {
                         // 存储JavaScript不同标准的插件
                         presets: [
-                            ['@babel/preset-env']
+                            ['@babel/preset-env', {
+                                "targets": {
+                                    // 需要适配的浏览器类型
+                                    "browsers": ["> 1%", "last 2 versions", "not ie <= 8", "iOS 8"]
+                                }
+                            }]
                         ]
                     }
                 }
