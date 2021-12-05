@@ -1,5 +1,5 @@
 import './main.ts';
-import './css/app.css';
+import './css/app.less';
 
 const fn = () => {
     return new Promise(setTimeout(() => {

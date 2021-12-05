@@ -10,9 +10,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // installed via
 
 module.exports = {
     mode: 'production',
-    entry: {
-        app: ['babel-polyfill', path.resolve(__dirname, '../src/app.js')],
-    },
+    entry: ['babel-polyfill', path.resolve(__dirname, '../src/app.js')],
     output: {
         // path: path.resolve(__dirname, '../dist'),
         filename: "js/[name].[hash:8].js",
@@ -43,7 +41,27 @@ module.exports = {
                     },
                     {
                         loader: 'css-loader',
+                    },
+                    {
+                        loader: 'postcss-loader',
                     }
+                ]
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                    },
+                    {
+                        loader: 'postcss-loader',
+                    },
+                    {
+                        loader: 'less-loader',
+                    },
                 ]
             }
         ]
