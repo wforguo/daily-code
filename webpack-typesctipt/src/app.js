@@ -1,4 +1,11 @@
-new Promise(setTimeout(() => {
-    const typescript  = 'typescript';
-    console.log(typescript);
-}, 300))
+import './main.ts';
+
+const fn = () => {
+    return new Promise(setTimeout(() => {
+        return 'typescript';
+    }, 300))
+}
+
+fn().then(res => {
+    console.log(res);
+});

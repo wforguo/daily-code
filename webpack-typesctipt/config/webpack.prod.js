@@ -21,10 +21,19 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/, // 检测js
+                test: /\.js$/, // 检测js文件
                 use: {
                     loader: "babel-loader", // 使用babel-loader
                 }
+            },
+            {
+                test: /\.tsx?$/, // 检测ts或者tsx文件
+                use: {
+                    loader: 'ts-loader',
+                    options: {
+                        transpileOnly: true
+                    }
+                },
             }
         ]
     },
