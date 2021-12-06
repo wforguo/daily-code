@@ -25,15 +25,18 @@ module.exports = {
                 }
             },
             {
+                // https://www.dengwb.com/typescript/project/compile-tools.html#ts-loader
                 test: /\.tsx?$/, // 检测ts或者tsx文件
                 use: {
                     loader: 'ts-loader',
                     options: {
+                        // 忽略类型检查，提高编译速度
                         transpileOnly: true
                     }
                 },
             },
             {
+                // 从下往下编译的，所以css-loader在下
                 test: /\.css$/,
                 use: [
                     {
@@ -43,6 +46,7 @@ module.exports = {
                         loader: 'css-loader',
                     },
                     {
+                        // css前缀，处理兼容性
                         loader: 'postcss-loader',
                     }
                 ]
@@ -61,6 +65,23 @@ module.exports = {
                     },
                     {
                         loader: 'less-loader',
+                    },
+                ]
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                    },
+                    {
+                        loader: 'postcss-loader',
+                    },
+                    {
+                        loader: 'sass-loader',
                     },
                 ]
             }

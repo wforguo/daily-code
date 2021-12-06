@@ -1,5 +1,6 @@
 import './main.ts';
 import './css/app.less';
+import './css/index.scss';
 
 const fn = () => {
     return new Promise(setTimeout(() => {
