@@ -1,4 +1,5 @@
 import './main.ts';
+import './css/common.css';
 import './css/app.less';
 import './css/index.scss';
 
