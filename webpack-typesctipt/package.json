@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "typescript",
     "scripts": {
-        "dev": "webpack --env development --config ./config/webpack.common.js",
+        "dev": "webpack-dev-server --env development --config ./config/webpack.common.js",
         "start": "npm run dev",
         "build": "webpack --env production --config ./config/webpack.common.js"
     },

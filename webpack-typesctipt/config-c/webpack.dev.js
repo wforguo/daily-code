@@ -14,8 +14,6 @@ const common = require('./webpack.common.js');
 const domain = require('./domainConfig');
 const environmental = domain.env;
 
-console.log(ip.address());
-
 module.exports = merge(common, {
     mode: 'development',
     stats: {
@@ -33,7 +31,7 @@ module.exports = merge(common, {
         disableHostCheck: true,
         historyApiFallback: true,
         hot: true,
-        host: ip.address() || '0.0.0.0',
+        host: '0.0.0.0',
         noInfo: true, // 禁止显示诸如 Webpack 捆绑包信息之类的消息
         // useLocalIp: true,
         proxy: {

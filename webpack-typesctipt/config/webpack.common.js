@@ -34,7 +34,6 @@ module.exports = env => {
     // 是否是开发环境
     const _DEV_ = env === 'development';
     const commonConfig = {
-        devtool: "inline-source-map",
         // 默认打包出来是main.js
         // entry: ['babel-polyfill', path.resolve(__dirname, '../src/app.js')],
         entry: {
