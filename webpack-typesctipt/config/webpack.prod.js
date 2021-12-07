@@ -11,6 +11,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 // css打包提取为单独文件
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+// 自动创建 HTML 模板供 Webpack 打包结果使用，包括文件名称 模板参数 meta 标签配置 压缩等等。SPA 与 MPA 都会使用到。
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+// 是否是本地开发环境
+const _DEV_ = process.env === 'development';
+
 module.exports = {
     devtool: "inline-source-map",
     mode: 'production',
@@ -18,7 +24,7 @@ module.exports = {
     entry: ['babel-polyfill', path.resolve(__dirname, '../src/app.js')],
     output: {
         // path: path.resolve(__dirname, '../dist'),
-        filename: "js/[name].[hash:8].js",
+        filename: "js/[name].[contenthash:8].js",
         // publicPath: '/',
     },
     module: {
@@ -69,9 +75,29 @@ module.exports = {
         ]
     },
     plugins: [
+        new HtmlWebpackPlugin({
+            title: 'WebPack',
+            template: path.resolve(__dirname, "../public/index.html"),
+            filename: "index.html",
+            inject: true, // 是否自动引入资源
+            icon: path.join(__dirname, "../public/favicon.ico"),
+            minify: _DEV_ ? false : {
+                // collapseWhitespace: true,
+                // collapseBooleanAttributes: true,
+                // collapseInlineTagWhitespace: true,
+                removeComments: true,
+                removeRedundantAttributes: true,
+                removeScriptTypeAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                minifyCSS: true,
+                minifyJS: true,
+                minifyURLs: true,
+                useShortDoctype: true,
+            }
+        }),
         new CleanWebpackPlugin(), // outputPath
         new MiniCssExtractPlugin({
-            filename: '[name].[contenthash:8].css'
+            filename: 'css/[name].[contenthash:7].css'
         }),
     ]
 }
