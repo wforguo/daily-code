@@ -3,9 +3,9 @@
     "version": "1.0.0",
     "description": "typescript",
     "scripts": {
-        "dev": "webpack --config ./config/webpack.dev.js",
+        "dev": "webpack --env development --config ./config/webpack.common.js",
         "start": "npm run dev",
-        "build": "webpack --config ./config/webpack.prod.js"
+        "build": "webpack --env production --config ./config/webpack.common.js"
     },
     "author": "wforguo",
     "license": "ISC",
@@ -28,6 +28,7 @@
         "autoprefixer": "^9.6.0",
         "babel-loader": "^8.2.3",
         "babel-polyfill": "^6.26.0",
+        "chalk": "^5.0.0",
         "clean-webpack-plugin": "^4.0.0",
         "cross-env": "^7.0.3",
         "css-loader": "^5.2.7",
