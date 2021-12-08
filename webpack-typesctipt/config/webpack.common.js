@@ -9,11 +9,6 @@ const chalk = require("chalk");
 // merge配置合并
 const { merge } = require('webpack-merge');
 
-// dev配置
-const devConfig = require('./webpack.dev');
-// prod配置
-const prodConfig = require('./webpack.prod');
-
 // 在每次 build 后移除你的dist目录（可配置），默认情况下它会读取 webpack 配置的output.path。
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
@@ -27,6 +22,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackBar = require('webpackbar');
 
 const { name, version } = require("../package");
+
+
+// dev配置
+const devConfig = require('./webpack.dev');
+// prod配置
+const prodConfig = require('./webpack.prod');
 
 module.exports = env => {
     console.log(chalk.blue('Environment:'), chalk.yellowBright(env));

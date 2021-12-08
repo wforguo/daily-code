@@ -1,10 +1,10 @@
 {
-    "name": "typesctipt",
+    "name": "webpack-typescript",
     "version": "1.0.0",
-    "description": "typescript",
+    "description": "webpack-typescript",
     "scripts": {
-        "dev": "webpack-dev-server --env development --config ./config/webpack.common.js",
-        "start": "npm run dev",
+        "dev": "npm run start",
+        "start": "webpack-dev-server --env development --config ./config/webpack.common.js",
         "build": "webpack --env production --config ./config/webpack.common.js"
     },
     "author": "wforguo",
