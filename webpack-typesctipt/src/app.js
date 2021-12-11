@@ -1,3 +1,4 @@
+import './app.ws';
 import './main.ts';
 import './css/common.css';
 import './css/app.less';

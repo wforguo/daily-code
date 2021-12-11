@@ -48,6 +48,12 @@ module.exports = env => {
         module: {
             rules: [
                 {
+                    test: /\.ws$/, // 检测ws文件
+                    use: {
+                        loader: "./ws-loader/index", // 使用babel-loader
+                    }
+                },
+                {
                     test: /\.js$/, // 检测js文件
                     use: {
                         loader: "babel-loader", // 使用babel-loader
