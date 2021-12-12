@@ -4,8 +4,14 @@
  * @Description: development
  */
 const path = require("path");
+const webpack = require("webpack");
+// 友好的错误提示
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const ip = require("ip");
+
 const domain = require("./domainConfig");
 const env = domain.env;
+const server_port = 10086;
 
 module.exports = {
     mode: 'development',
@@ -14,8 +20,8 @@ module.exports = {
         filename: "js/[name].[hash].js",
     },
     devServer: {
-        open: 'Google Chrome', // 可以使用Boolean或者指定浏览器
-        port: 10086, // 服务端口
+        open: false, // 可以使用Boolean或者指定浏览器
+        port: server_port, // 服务端口
         hot: true, // 热更新 --> live reloading【浏览器会刷新】
         hotOnly: true, // 只使用热更新，不使用 live reloading
         host: '0.0.0.0', // 服务地址
@@ -35,5 +41,13 @@ module.exports = {
                 },
             }
         }
-    }
+    },
+    plugins:[
+        new webpack.HotModuleReplacementPlugin(),
+        new FriendlyErrorsWebpackPlugin({
+            compilationSuccessInfo: {
+                messages: [`App running at:\n- Local:   http://localhost:${server_port}\n- Network: http://${ip.address()}:${server_port}`],
+            }
+        }),
+    ],
 }

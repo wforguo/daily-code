@@ -1,1 +1,1 @@
-$guo
+console.log('$(forguo)');

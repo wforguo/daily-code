@@ -9,7 +9,10 @@
     },
     "author": "wforguo",
     "license": "ISC",
-    "dependencies": {},
+    "dependencies": {
+        "friendly-errors-webpack-plugin": "^1.7.0",
+        "ip": "^1.1.5"
+    },
     "browserslist": [
         "Android 2.3",
         "Android >= 4",
