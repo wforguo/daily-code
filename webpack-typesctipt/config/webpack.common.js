@@ -95,7 +95,26 @@ module.exports = env => {
                         "postcss-loader",
                         "sass-loader",
                     ],
-                }
+                },
+                {
+                    test: /\.(png|jpe?g|gif|svg|bmp|mp4)$/,
+                    use: [
+                        {
+                            loader: 'url-loader',
+                            options: {
+                                limit: 8000, // base64配置
+                                name: '/imgs/[name].[hash:4].[ext]'
+                            }
+                        }
+                    ]
+                },
+                {
+                    test: /\.(ttf|eot|woff2?)$/,
+                    loader: 'file-loader',
+                    options: {
+                        name: '/fonts/[name].[hash:4].[ext]',
+                    },
+                },
             ]
         },
         plugins: [
