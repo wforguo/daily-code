@@ -103,7 +103,7 @@ module.exports = env => {
                             loader: 'url-loader',
                             options: {
                                 outputPath: 'img/',
-                                publicPath: '../',
+                                publicPath: '../img/',
                                 // base64配置 小于 limit 字节的文件会被转为 base64，大于 limit 的使用 file-loader 进行处理，单独打包
                                 limit: 8000,
                                 name: '[name].[hash:4].[ext]'
