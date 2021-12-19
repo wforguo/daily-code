@@ -41,9 +41,9 @@ module.exports = env => {
             app: ['babel-polyfill', path.resolve(__dirname, '../src/app.js')]
         },
         output: {
-            // path: path.resolve(__dirname, '../dist'),
+            path: path.resolve(__dirname, '../dist'),
             filename: "js/[name].[contenthash:8].js",
-            // publicPath: '/',
+            publicPath: 'https://cloud-app.com.cn/app/',
         },
         module: {
             rules: [
@@ -102,10 +102,37 @@ module.exports = env => {
                         {
                             loader: 'url-loader',
                             options: {
-                                limit: 8000, // base64配置
-                                name: '/imgs/[name].[hash:4].[ext]'
+                                publicPath: 'img/',
+                                outputPath: 'img/',
+                                // base64配置 小于 limit 字节的文件会被转为 base64，大于 limit 的使用 file-loader 进行处理，单独打包
+                                limit: 8000,
+                                name: '[name].[hash:4].[ext]'
                             }
-                        }
+                        },
+                        {
+                            loader: 'image-webpack-loader',
+                            options: {
+                                mozjpeg: {
+                                    progressive: true,
+                                    quality: 65
+                                },
+                                // optipng.enabled: false will disable optipng
+                                optipng: {
+                                    enabled: false,
+                                },
+                                pngquant: {
+                                    quality: [0.65, 0.90],
+                                    speed: 4
+                                },
+                                gifsicle: {
+                                    interlaced: false,
+                                },
+                                // the webp option will enable WEBP
+                                webp: {
+                                    quality: 75
+                                }
+                            }
+                        },
                     ]
                 },
                 {
