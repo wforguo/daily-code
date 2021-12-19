@@ -5,7 +5,8 @@
     "scripts": {
         "dev": "npm run start",
         "start": "webpack-dev-server --env development --config ./config/webpack.common.js",
-        "build": "webpack --env production --config ./config/webpack.common.js"
+        "build": "webpack --env production --config ./config/webpack.common.js",
+        "test:clean": "rimraf dist"
     },
     "author": "wforguo",
     "license": "ISC",
