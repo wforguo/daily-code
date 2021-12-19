@@ -109,6 +109,7 @@ module.exports = env => {
                                 name: '[name].[hash:4].[ext]'
                             }
                         },
+                        /*********** loader for zip img  ***************/
                         {
                             loader: 'image-webpack-loader',
                             options: {
@@ -133,6 +134,7 @@ module.exports = env => {
                                 }
                             }
                         },
+                        /*********** loader for zip img  ***************/
                     ]
                 },
                 {
