@@ -43,7 +43,7 @@ module.exports = env => {
         output: {
             path: path.resolve(__dirname, '../dist'),
             filename: "js/[name].[contenthash:8].js",
-            publicPath: 'https://cloud-app.com.cn/app/',
+            // publicPath: 'https://cloud-app.com.cn/app/',
         },
         module: {
             rules: [
@@ -102,8 +102,8 @@ module.exports = env => {
                         {
                             loader: 'url-loader',
                             options: {
-                                publicPath: 'img/',
                                 outputPath: 'img/',
+                                publicPath: '../',
                                 // base64配置 小于 limit 字节的文件会被转为 base64，大于 limit 的使用 file-loader 进行处理，单独打包
                                 limit: 8000,
                                 name: '[name].[hash:4].[ext]'
@@ -122,7 +122,7 @@ module.exports = env => {
                                 },
                                 pngquant: {
                                     quality: [0.65, 0.90],
-                                    speed: 4
+                                    speed: 4, // 1-11 越小压缩效果越好
                                 },
                                 gifsicle: {
                                     interlaced: false,
@@ -139,7 +139,9 @@ module.exports = env => {
                     test: /\.(ttf|eot|woff2?)$/,
                     loader: 'file-loader',
                     options: {
-                        name: '/fonts/[name].[hash:4].[ext]',
+                        outputPath: 'fonts/',
+                        publicPath: '../fonts/',
+                        name: '[name].[hash:4].[ext]',
                     },
                 },
             ]
