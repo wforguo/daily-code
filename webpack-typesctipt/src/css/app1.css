@@ -1,0 +1,32 @@
+body #main {
+    width: 100%;
+    transform: translate3d(0, 0, 0);
+}
+
+.vue {
+    width: 318px;
+    height: 159px;
+    background: url("../sprites/vue.jpeg") no-repeat center;
+    background-size: 100% 100%;
+}
+
+.cloud {
+    width: 120px;
+    height: 120px;
+    background: url("../sprites/cloud.png") no-repeat center;
+    background-size: 100% 100%;
+}
+
+.react {
+    width: 120px;
+    height: 120px;
+    background: url("../sprites/react.png") no-repeat center;
+    background-size: 100% 100%;
+}
+
+.work {
+    width: 742px;
+    height: 314px;
+    background: url("../sprites/work1.jpg") no-repeat center;
+    background-size: 100% 100%;
+}

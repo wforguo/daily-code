@@ -15,7 +15,7 @@ module.exports = {
         require("precss")(),
         require('autoprefixer')(),
         /*********** loader for sprites ***************/
-        require('postcss-sprites')(spritesConfig)
+        // require('postcss-sprites')(spritesConfig)
         /*********************************************/
     ]
 };

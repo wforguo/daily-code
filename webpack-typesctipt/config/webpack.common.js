@@ -15,8 +15,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 // css打包提取为单独文件
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const SpritesmithPlugin = require('webpack-spritesmith');
+
 // 自动创建 HTML 模板供 Webpack 打包结果使用，包括文件名称 模板参数 meta 标签配置 压缩等等。SPA 与 MPA 都会使用到。
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+// script 属性修改
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 // 友好的进度条
 const WebpackBar = require('webpackbar');
@@ -105,7 +110,7 @@ module.exports = env => {
                                 outputPath: 'img/',
                                 publicPath: '../img/',
                                 // base64配置 小于 limit 字节的文件会被转为 base64，大于 limit 的使用 file-loader 进行处理，单独打包
-                                limit: 8000,
+                                limit: 1000,
                                 name: '[name].[hash:4].[ext]'
                             }
                         },
@@ -149,12 +154,43 @@ module.exports = env => {
             ]
         },
         plugins: [
+            // outputPath
+            new CleanWebpackPlugin(),
+            new WebpackBar({
+                name: name || 'WebPack',
+                color: '#61dafb', // react 蓝
+            }),
+            new MiniCssExtractPlugin({
+                filename: 'css/[name].[contenthash:7].css'
+            }),
+            // css雪碧图插件
+            new SpritesmithPlugin({
+                // 原图片路径
+                src: {
+                    cwd: path.resolve(__dirname, '../src/sprites'),
+                    glob: '*.png'
+                },
+                // 生成雪碧图及css路径
+                target: {
+                    image: path.resolve(__dirname, '../dist/sprites/sprite.[hash:6].png'),
+                    css: path.resolve(__dirname, '../dist/sprites/sprite.css')
+                },
+                // css引入雪碧图
+                apiOptions: {
+                    cssImageRef: '../sprites/sprite.[hash:6].png',
+                },
+                //配置spritesmith选项，非必选
+                spritesmithOptions: {
+                    algorithm: `top-down`,//設定圖示的排列方式
+                    padding: 4 //每張小圖的補白,避免雪碧圖中邊界部分的bug
+                }
+            }),
             new HtmlWebpackPlugin({
                 title: 'WebPack',
                 template: path.resolve(__dirname, "../public/index.html"),
                 filename: "index.html",
                 inject: true, // 是否自动引入资源
-                icon: path.join(__dirname, "../public/favicon.ico"),
+                icon: path.join(__dirname, "../public/cloud.png"),
                 minify: _DEV_ ? false : {
                     // collapseWhitespace: true,
                     // collapseBooleanAttributes: true,
@@ -169,14 +205,13 @@ module.exports = env => {
                     useShortDoctype: true,
                 }
             }),
-            new CleanWebpackPlugin(), // outputPath
-            new MiniCssExtractPlugin({
-                filename: 'css/[name].[contenthash:7].css'
-            }),
-            new WebpackBar({
-                name: name || 'WebPack',
-                color: '#61dafb', // react 蓝
-            }),
+            new ScriptExtHtmlWebpackPlugin({
+                custom: {
+                    test: /\.js$/,
+                    attribute: 'charset',
+                    value: 'utf-8',
+                },
+            })
         ]
     }
     return merge(commonConfig, {
