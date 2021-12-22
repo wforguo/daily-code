@@ -1,6 +1,5 @@
-body #main {
+body #app1 {
     width: 100%;
-    transform: translate3d(0, 0, 0);
 }
 
 .vue {

@@ -43,7 +43,8 @@ module.exports = env => {
         // 默认打包出来是main.js
         // entry: ['babel-polyfill', path.resolve(__dirname, '../src/app.js')],
         entry: {
-            app: ['babel-polyfill', path.resolve(__dirname, '../src/app.js')]
+            app: ['babel-polyfill', path.resolve(__dirname, '../src/app.js')],
+            app1: ['babel-polyfill', path.resolve(__dirname, '../src/app1.js')]
         },
         output: {
             path: path.resolve(__dirname, '../dist'),
@@ -154,16 +155,14 @@ module.exports = env => {
             ]
         },
         plugins: [
-            // outputPath
-            new CleanWebpackPlugin(),
             new WebpackBar({
                 name: name || 'WebPack',
                 color: '#61dafb', // react 蓝
             }),
             new MiniCssExtractPlugin({
-                filename: 'css/[name].[contenthash:7].css'
+                filename: 'css/[name].[contenthash:6].min.css'
             }),
-            // css雪碧图插件
+            // css雪碧图插件 // 【问题】toDo 没有将雪碧图打包进css，而且 会被CleanWebpackPlugin删除掉雪碧图文件夹
             new SpritesmithPlugin({
                 // 原图片路径
                 src: {
@@ -211,8 +210,21 @@ module.exports = env => {
                     attribute: 'charset',
                     value: 'utf-8',
                 },
-            })
-        ]
+            }),
+            // 清楚上次打包的代码
+            new CleanWebpackPlugin(),
+        ],
+        optimization: {
+            splitChunks: {
+                name: true, // 以入口name命名
+                chunks: 'all',
+                // 默认1000 --> 1kb，大于1000才去将公共的代码做一个分割，
+                // 限制大小是为了避免小文件也去做分割 避免多余的http请求
+                minSize: 1000,
+            },
+            // 运行时，webpack配置文件
+            runtimeChunk: true,
+        }
     }
     return merge(commonConfig, {
         development: devConfig,

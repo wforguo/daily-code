@@ -12,8 +12,11 @@
     "author": "wforguo",
     "license": "ISC",
     "dependencies": {
+        "axios": "^0.24.0",
         "chalk": "^5.0.0",
-        "ip": "^1.1.5"
+        "ip": "^1.1.5",
+        "vue": "^2.6.14",
+        "vuex": "^3.6.2"
     },
     "browserslist": [
         "Android 2.3",

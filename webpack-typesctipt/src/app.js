@@ -1,17 +1,12 @@
-import './css/app1.css';
-import './css/app.less';
-import './css/app.scss';
-import './app.ws';
-import './main.ts';
+import './css/common.scss';
+import './js/common.ts';
+import './js/app.ws';
 
-const fn = () => {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve('typescript');
-        }, 300)
-    })
-}
+import Vue from 'vue'
 
-fn().then(res => {
-    console.log(res);
+new Vue({
+    el: '#app',
+    created: () => {
+        console.log('app created');
+    }
 });
