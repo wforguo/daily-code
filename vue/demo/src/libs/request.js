@@ -25,7 +25,6 @@ class request {
             return Promise.reject(err);
         });
         instance.interceptors.response.use((res) => {
-            console.log(JSON.stringify(res));
             if (res.status === 200 && res.data.code === 200) {
                 return Promise.resolve(res.data);
             } else {
@@ -38,7 +37,6 @@ class request {
                 return Promise.reject(res.data);
             }
         }, (err) => {
-            console.log(JSON.stringify(err));
             Toast(err.data.message || err.statusText);
             return Promise.reject(err);
         })

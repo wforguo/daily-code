@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JSONP</title>
+</head>
+
+<body>
+
+<script>
+    /**
+     * @desc js原生实现jsonp
+     */
+    function jsonpRequest () {
+        // 创建一个script标签，并插入页面
+        let script = document.createElement('script');
+
+        // 获取到跨域资源后的回调
+        window.handleFn = function (res) {
+            // JSONP跨域成功返回的资源
+            console.log(res);
+            //代码执行后，删除插入的script标签
+            document.getElementsByTagName('head')[0].removeChild(script);
+        }
+        let url = `http://127.0.0.1:3003/api/jsonp?callback=handleFn`;
+        script.setAttribute('src', url);
+        // 将script标签插入到网页中
+        document.getElementsByTagName('head')[0].appendChild(script);
+    }
+
+    jsonpRequest();
+</script>
+
+</body>
+
+</html>

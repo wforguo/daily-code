@@ -162,28 +162,6 @@ module.exports = env => {
             new MiniCssExtractPlugin({
                 filename: 'css/[name].[contenthash:6].min.css'
             }),
-            // css雪碧图插件 // 【问题】toDo 没有将雪碧图打包进css，而且 会被CleanWebpackPlugin删除掉雪碧图文件夹
-            new SpritesmithPlugin({
-                // 原图片路径
-                src: {
-                    cwd: path.resolve(__dirname, '../src/sprites'),
-                    glob: '*.png'
-                },
-                // 生成雪碧图及css路径
-                target: {
-                    image: path.resolve(__dirname, '../dist/sprites/sprite.[hash:6].png'),
-                    css: path.resolve(__dirname, '../dist/sprites/sprite.css')
-                },
-                // css引入雪碧图
-                apiOptions: {
-                    cssImageRef: '../sprites/sprite.[hash:6].png',
-                },
-                //配置spritesmith选项，非必选
-                spritesmithOptions: {
-                    algorithm: `top-down`,//設定圖示的排列方式
-                    padding: 4 //每張小圖的補白,避免雪碧圖中邊界部分的bug
-                }
-            }),
             new HtmlWebpackPlugin({
                 title: 'WebPack',
                 template: path.resolve(__dirname, "../public/index.html"),
@@ -211,8 +189,30 @@ module.exports = env => {
                     value: 'utf-8',
                 },
             }),
-            // 清楚上次打包的代码
-            new CleanWebpackPlugin(),
+            // css雪碧图插件 // 【问题】toDo 没有将雪碧图打包进css，而且 会被CleanWebpackPlugin删除掉雪碧图文件夹
+            new SpritesmithPlugin({
+                // 原图片路径
+                src: {
+                    cwd: path.resolve(__dirname, '../src/sprites'),
+                    glob: '*.png'
+                },
+                // 生成雪碧图及css路径
+                target: {
+                    image: path.resolve(__dirname, '../dist/sprites/sprite.[hash:6].png'),
+                    css: path.resolve(__dirname, '../dist/sprites/sprite.css')
+                },
+                // css引入雪碧图
+                apiOptions: {
+                    cssImageRef: '../sprites/sprite.[hash:6].png',
+                },
+                //配置spritesmith选项，非必选
+                spritesmithOptions: {
+                    algorithm: `top-down`,//設定圖示的排列方式
+                    padding: 4 //每張小圖的補白,避免雪碧圖中邊界部分的bug
+                }
+            }),
+            // 清除上次打包的代码
+            // new CleanWebpackPlugin(),
         ],
         optimization: {
             splitChunks: {

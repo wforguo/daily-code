@@ -5,6 +5,8 @@ import store from '@/store'
 import 'normalize.css';
 import '@/assets/css/variable.scss';
 import '@/directives';
+import { VueJsonp } from 'vue-jsonp'
+Vue.use(VueJsonp)
 
 Vue.config.productionTip = false;
 
