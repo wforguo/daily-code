@@ -1,3 +1,3 @@
-# study
+# daily-code
 
-平时的学习代码及Demo
+The Power of Small Changes
