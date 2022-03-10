@@ -65,16 +65,16 @@ module.exports = {
     },
     devServer: {
         port: '10086',
-        proxy: {
-            '/api': {
-                target: 'https://forguo.cn',
-                ws: true,
-                changeOrigin: true,
-                pathRewrite: {
-                    '^/api': '/api'
-                }
-            }
-        }
+        // proxy: {
+        //     '/api': {
+        //         target: 'https://forguo.cn',
+        //         ws: true,
+        //         changeOrigin: true,
+        //         pathRewrite: {
+        //             '^/api': '/api'
+        //         }
+        //     }
+        // }
     },
     publicPath: process.env.NODE_ENV === 'production'
         ? 'https://cloud-app.com.cn/apps/cloud-app-vue'

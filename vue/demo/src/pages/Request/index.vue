@@ -13,7 +13,7 @@ export default {
     name: "request",
     title: '接口请求',
     mounted () {
-        this.jsonpRequest();
+        this.request();
     },
     methods: {
         /**
@@ -38,7 +38,7 @@ export default {
         request () {
             request.request({
                 method: 'get',
-                url: 'http://127.0.0.1:3003/common/wechat/sdk',
+                url: 'http://127.0.0.1:3003/api/cors',
                 data: qs.stringify({
                     url: window.location.href
                 })
