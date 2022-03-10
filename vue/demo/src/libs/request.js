@@ -20,6 +20,7 @@ class request {
         instance.interceptors.request.use((config) => {
             const token = localStorage.getItem('token');
             config.headers.common['Authorization'] = 'Bearer ' + token;
+            config.withCredentials = true;
             return config;
         }, err => {
             return Promise.reject(err);
