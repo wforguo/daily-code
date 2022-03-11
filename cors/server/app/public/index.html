@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookie 跨域</title>
+</head>
+<body>
+<h2>Cookie 跨域</h2>
+
+<button id="set">设置cookie</button>
+<button id="button">发送同源请求</button>
+<button id="cross-button">发送跨域请求</button>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    const set = document.querySelector("#set");
+    const button = document.querySelector("#button");
+    const crossButton = document.querySelector("#cross-button");
+
+    // 设置cookie
+    set.onclick = function () {
+        axios.get("http://127.0.0.1:3003/user/login", {
+            withCredentials: true, // ++ 携带cookie数据
+        }).then((res) => {
+            console.log(res);
+        });
+    }
+
+    // 发送同域请求
+    button.onclick = function () {
+        axios.get("http://127.0.0.1:3003/user/info", {}).then((res) => {
+            console.log(res);
+        });
+    };
+
+    // 发送跨域请求
+    crossButton.onclick = function () {
+        axios({
+            method: "get",
+            withCredentials: true, // ++ 携带cookie数据
+            url: "http://127.0.0.1:3009/user/info",
+        }).then((res) => {
+            console.log(res);
+        });
+    };
+</script>
+</body>
+</html>

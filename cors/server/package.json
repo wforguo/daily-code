@@ -5,6 +5,7 @@
     "scripts": {
         "start": "node app/bin/www",
         "dev": "./node_modules/.bin/nodemon app/bin/www",
+        "another": "./node_modules/.bin/nodemon app/bin/another",
         "prd": "pm2 start app/bin/www",
         "commit": "git cz",
         "release": "standard-version",
