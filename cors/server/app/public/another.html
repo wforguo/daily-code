@@ -36,10 +36,7 @@
         axios({
             method: 'post',
             url: 'http://localhost:3009/user/info',
-            withCredentials: true, // ++ 携带cookie数据【同源无效】
-            headers: {
-                'Authorization': 'www',
-            }
+            // withCredentials: true, // ++ 携带cookie数据【同源无效】
         }).then((res) => {
             console.log(res);
         });
@@ -47,10 +44,14 @@
 
     // 发送跨域请求
     crossButton.onclick = function () {
+        /**
+         * 对于HTTPS协议的API返回的cookie，
+         * 如果设置了属性：secure; samesite=none，则浏览器会存储cookie。XHR请求也会带上目标域的cookie。
+         */
         axios({
             method: "post",
             withCredentials: true, // ++ 携带cookie数据【同源无效】
-            url: "http://localhost:3003/user/info",
+            url: "http://127.0.0.1:3003/user/info",
         }).then((res) => {
             console.log(res);
         });

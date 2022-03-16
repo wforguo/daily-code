@@ -28,9 +28,6 @@
             method: 'post',
             url: 'http://127.0.0.1:3003/user/login',
             withCredentials: true, // ++ 携带cookie数据【同源无效】
-            data: {
-                name: 'forguo',
-            }
         }).then((res) => {
             console.log(res);
         });
@@ -42,9 +39,6 @@
             method: 'post',
             url: 'http://127.0.0.1:3003/user/info',
             withCredentials: true, // ++ 携带cookie数据【同源无效】
-            headers: {
-                'Authorization': 'www',
-            }
         }).then((res) => {
             console.log(res);
         });
