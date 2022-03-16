@@ -4,13 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>跨域</title>
+    <title>3009端口</title>
 </head>
 <body>
 
-<iframe src="http://localhost:3009/another.html" frameborder="0" width="100%"></iframe>
-
-<h2>跨域</h2>
+<h2>我是iframe</h2>
 
 <button id="set">设置cookie</button>
 <button id="button">同源请求</button>
@@ -26,11 +24,8 @@
     set.onclick = function () {
         axios({
             method: 'post',
-            url: 'http://127.0.0.1:3003/user/login',
+            url: 'http://localhost:3009/user/cookie',
             withCredentials: true, // ++ 携带cookie数据【同源无效】
-            data: {
-                name: 'forguo',
-            }
         }).then((res) => {
             console.log(res);
         });
@@ -40,7 +35,7 @@
     button.onclick = function () {
         axios({
             method: 'post',
-            url: 'http://127.0.0.1:3003/user/info',
+            url: 'http://localhost:3009/user/info',
             withCredentials: true, // ++ 携带cookie数据【同源无效】
             headers: {
                 'Authorization': 'www',
@@ -55,7 +50,7 @@
         axios({
             method: "post",
             withCredentials: true, // ++ 携带cookie数据【同源无效】
-            url: "http://127.0.0.1:3009/user/info",
+            url: "http://localhost:3003/user/info",
         }).then((res) => {
             console.log(res);
         });
