@@ -44,12 +44,6 @@ const my: {
 // 数组
 const list: number[] = [1, 2, 3];
 
-// 类类型
-class Person {
-}
-
-const person: Person = new Person();
-
 // 函数类型
 const fn: () => string = () => 'fn1';
 
@@ -383,8 +377,6 @@ console.log(Status[200]);
 /**
  * @title 函数泛型
  */
-
-
 
 /**
  * @title 命名空间 NameSpace

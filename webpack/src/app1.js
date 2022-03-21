@@ -1,5 +1,5 @@
 import './css/common.scss';
-import './js/common.ts';
+// import './js/common.ts';
 import './css/app1.css';
 import './css/app.less';
 

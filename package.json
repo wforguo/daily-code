@@ -33,5 +33,7 @@
             "path": "cz-conventional-changelog"
         }
     },
-    "dependencies": {}
+    "dependencies": {
+        "vue": "^3.2.31"
+    }
 }

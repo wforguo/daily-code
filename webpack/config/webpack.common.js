@@ -43,12 +43,12 @@ module.exports = env => {
         // 默认打包出来是main.js
         // entry: ['babel-polyfill', path.resolve(__dirname, '../src/app.js')],
         entry: {
-            app: ['babel-polyfill', path.resolve(__dirname, '../src/app.js')],
-            app1: ['babel-polyfill', path.resolve(__dirname, '../src/app1.js')]
+            app1: ['babel-polyfill', path.resolve(__dirname, '../src/app1.js')],
+            app2: ['babel-polyfill', path.resolve(__dirname, '../src/app2.js')]
         },
         output: {
             path: path.resolve(__dirname, '../dist'),
-            filename: "js/[name].[contenthash:8].js",
+            filename: "js/[name].[contenthash:8].min.js",
             // publicPath: 'https://cloud-app.com.cn/app/',
         },
         module: {
@@ -111,7 +111,7 @@ module.exports = env => {
                                 outputPath: 'img/',
                                 publicPath: '../img/',
                                 // base64配置 小于 limit 字节的文件会被转为 base64，大于 limit 的使用 file-loader 进行处理，单独打包
-                                limit: 1000,
+                                limit: 10000, // 单位b
                                 name: '[name].[hash:4].[ext]'
                             }
                         },
@@ -164,10 +164,10 @@ module.exports = env => {
             }),
             new HtmlWebpackPlugin({
                 title: 'WebPack',
-                template: path.resolve(__dirname, "../public/index.html"),
-                filename: "index.html",
+                template: path.resolve(__dirname, "../public/app1.html"),
+                filename: "app1.html",
                 inject: true, // 是否自动引入资源
-                icon: path.join(__dirname, "../public/cloud.png"),
+                // icon: path.join(__dirname, "../public/cloud.png"),
                 minify: _DEV_ ? false : {
                     // collapseWhitespace: true,
                     // collapseBooleanAttributes: true,
@@ -176,11 +176,16 @@ module.exports = env => {
                     removeRedundantAttributes: true,
                     removeScriptTypeAttributes: true,
                     removeStyleLinkTypeAttributes: true,
-                    minifyCSS: true,
-                    minifyJS: true,
+                    minifyCSS: true, // 压缩css
+                    minifyJS: true, // 压缩js
                     minifyURLs: true,
                     useShortDoctype: true,
                 }
+            }),
+            new HtmlWebpackPlugin({
+                title: 'WebPack',
+                template: path.resolve(__dirname, "../public/app2.html"),
+                filename: "app2.html",
             }),
             new ScriptExtHtmlWebpackPlugin({
                 custom: {
@@ -189,30 +194,32 @@ module.exports = env => {
                     value: 'utf-8',
                 },
             }),
-            // css雪碧图插件 // 【问题】toDo 没有将雪碧图打包进css，而且 会被CleanWebpackPlugin删除掉雪碧图文件夹
-            new SpritesmithPlugin({
-                // 原图片路径
-                src: {
-                    cwd: path.resolve(__dirname, '../src/sprites'),
-                    glob: '*.png'
-                },
-                // 生成雪碧图及css路径
-                target: {
-                    image: path.resolve(__dirname, '../dist/sprites/sprite.[hash:6].png'),
-                    css: path.resolve(__dirname, '../dist/sprites/sprite.css')
-                },
-                // css引入雪碧图
-                apiOptions: {
-                    cssImageRef: '../sprites/sprite.[hash:6].png',
-                },
-                //配置spritesmith选项，非必选
-                spritesmithOptions: {
-                    algorithm: `top-down`,//設定圖示的排列方式
-                    padding: 4 //每張小圖的補白,避免雪碧圖中邊界部分的bug
-                }
-            }),
+            // toDo
+            // css雪碧图插件
+            // 【问题】没有将雪碧图打包进css，而且 会被CleanWebpackPlugin删除掉雪碧图文件夹
+            // new SpritesmithPlugin({
+            //     // 原图片路径
+            //     src: {
+            //         cwd: path.resolve(__dirname, '../src/sprites'),
+            //         glob: '*.png'
+            //     },
+            //     // 生成雪碧图及css路径
+            //     target: {
+            //         image: path.resolve(__dirname, '../dist/sprites/sprite.[hash:6].png'),
+            //         css: path.resolve(__dirname, '../dist/sprites/sprite.[hash:6].css')
+            //     },
+            //     // css引入雪碧图
+            //     apiOptions: {
+            //         cssImageRef: '../sprites/sprite.[hash:6].png',
+            //     },
+            //     // 配置spritesmith选项，非必选
+            //     spritesmithOptions: {
+            //         algorithm: `top-down`,//設定圖示的排列方式
+            //         padding: 4 //每張小圖的補白,避免雪碧圖中邊界部分的bug
+            //     }
+            // }),
             // 清除上次打包的代码
-            // new CleanWebpackPlugin(),
+            new CleanWebpackPlugin(),
         ],
         optimization: {
             splitChunks: {
