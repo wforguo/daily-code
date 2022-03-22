@@ -26,6 +26,9 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 // 友好的进度条
 const WebpackBar = require('webpackbar');
 
+// 打包分析
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 const { name, version } = require("../package");
 
 
@@ -48,6 +51,7 @@ module.exports = env => {
         },
         output: {
             path: path.resolve(__dirname, '../dist'),
+            chunkFilename: 'js/[name].[contenthash:8].js',
             filename: "js/[name].[contenthash:8].min.js",
             // publicPath: 'https://cloud-app.com.cn/app/',
         },
@@ -56,7 +60,7 @@ module.exports = env => {
                 {
                     test: /\.ws$/, // 检测ws文件
                     use: {
-                        loader: "./ws-loader/index", // 使用babel-loader
+                        loader: "./ws-loader/index", // 使用自定义loader，ws-loader
                     }
                 },
                 {
@@ -155,6 +159,13 @@ module.exports = env => {
             ]
         },
         plugins: [
+            // 清除上次打包的代码
+            new CleanWebpackPlugin(),
+            new BundleAnalyzerPlugin({
+                openAnalyzer: false,
+                analyzerMode: 'static',
+                reportFilename: 'report.html'
+            }),
             new WebpackBar({
                 name: name || 'WebPack',
                 color: '#61dafb', // react 蓝
@@ -163,9 +174,10 @@ module.exports = env => {
                 filename: 'css/[name].[contenthash:6].min.css'
             }),
             new HtmlWebpackPlugin({
-                title: 'WebPack',
+                title: 'App1',
                 template: path.resolve(__dirname, "../public/app1.html"),
                 filename: "app1.html",
+                chunks:['app1', 'manifest', 'vendor', 'common'],
                 inject: true, // 是否自动引入资源
                 // icon: path.join(__dirname, "../public/cloud.png"),
                 minify: _DEV_ ? false : {
@@ -183,9 +195,10 @@ module.exports = env => {
                 }
             }),
             new HtmlWebpackPlugin({
-                title: 'WebPack',
+                title: 'App2',
                 template: path.resolve(__dirname, "../public/app2.html"),
                 filename: "app2.html",
+                chunks:['app2', 'manifest', 'vendor', 'common']
             }),
             new ScriptExtHtmlWebpackPlugin({
                 custom: {
@@ -218,8 +231,6 @@ module.exports = env => {
             //         padding: 4 //每張小圖的補白,避免雪碧圖中邊界部分的bug
             //     }
             // }),
-            // 清除上次打包的代码
-            new CleanWebpackPlugin(),
         ],
         optimization: {
             splitChunks: {
@@ -228,9 +239,29 @@ module.exports = env => {
                 // 默认1000 --> 1kb，大于1000才去将公共的代码做一个分割，
                 // 限制大小是为了避免小文件也去做分割 避免多余的http请求
                 minSize: 1000,
+                cacheGroups: {
+                    default: false,
+                    vendors: false,
+                    vendor: {
+                        test: /[\\/]node_modules[\\/]/,
+                        chunks: 'initial',
+                        enforce: true,
+                        priority: 10,
+                        name: 'vendor'
+                    },
+                    common: {
+                        chunks: "all",
+                        minChunks: 2,
+                        name: 'common',
+                        enforce: true,
+                        priority: 5
+                    }
+                },
             },
             // 运行时，webpack配置文件
-            runtimeChunk: true,
+            runtimeChunk: {
+                "name": "manifest"
+            },
         }
     }
     return merge(commonConfig, {

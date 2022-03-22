@@ -16,7 +16,8 @@
         "chalk": "^4.0.0",
         "ip": "^1.1.5",
         "vue": "^2.6.14",
-        "vuex": "^3.6.2"
+        "vuex": "^3.6.2",
+        "webpack-bundle-analyzer": "^4.5.0"
     },
     "browserslist": [
         "Android 2.3",

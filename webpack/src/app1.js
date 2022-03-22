@@ -6,7 +6,7 @@ import './css/app.less';
 import Vue from 'vue'
 
 new Vue({
-    el: '#app',
+    el: '#app1',
     created: () => {
         console.log('app1 created');
     }

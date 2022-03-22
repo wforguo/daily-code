@@ -15,6 +15,7 @@ const server_port = 10086;
 
 module.exports = {
     mode: 'development',
+    //use inline-source-map for development:
     devtool: "inline-source-map",
     output: {
         filename: "js/[name].[hash].js",
