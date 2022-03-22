@@ -1,4 +1,4 @@
-// import './css/common.scss';
+import './css/common.scss';
 import './js/common.ts';
 // import './js/app.ws';
 
