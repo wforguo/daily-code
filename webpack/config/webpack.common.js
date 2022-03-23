@@ -31,7 +31,6 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 const { name, version } = require("../package");
 
-
 // dev配置
 const devConfig = require('./webpack.dev');
 // prod配置
@@ -51,8 +50,8 @@ module.exports = env => {
         },
         output: {
             path: path.resolve(__dirname, '../dist'),
-            chunkFilename: 'js/[name].[contenthash:8].js',
-            filename: "js/[name].[contenthash:8].min.js",
+            chunkFilename: 'js/[name].[contenthash:6].js',
+            filename: "js/[name].[contenthash:6].min.js",
             // publicPath: 'https://cloud-app.com.cn/app/',
         },
         module: {
@@ -115,8 +114,8 @@ module.exports = env => {
                                 outputPath: 'img/',
                                 publicPath: '../img/',
                                 // base64配置 小于 limit 字节的文件会被转为 base64，大于 limit 的使用 file-loader 进行处理，单独打包
-                                limit: 10000, // 单位b
-                                name: '[name].[hash:4].[ext]'
+                                limit: 1 * 1024, // 单位b
+                                name: '[name].[hash:6].[ext]'
                             }
                         },
                         /*********** loader for zip img  ***************/
@@ -153,7 +152,7 @@ module.exports = env => {
                     options: {
                         outputPath: 'fonts/',
                         publicPath: '../fonts/',
-                        name: '[name].[hash:4].[ext]',
+                        name: '[name].[hash:6].[ext]',
                     },
                 },
             ]
@@ -210,31 +209,31 @@ module.exports = env => {
             // toDo
             // css雪碧图插件
             // 【问题】没有将雪碧图打包进css，而且 会被CleanWebpackPlugin删除掉雪碧图文件夹
-            // new SpritesmithPlugin({
-            //     // 原图片路径
-            //     src: {
-            //         cwd: path.resolve(__dirname, '../src/sprites'),
-            //         glob: '*.png'
-            //     },
-            //     // 生成雪碧图及css路径
-            //     target: {
-            //         image: path.resolve(__dirname, '../dist/sprites/sprite.[hash:6].png'),
-            //         css: path.resolve(__dirname, '../dist/sprites/sprite.[hash:6].css')
-            //     },
-            //     // css引入雪碧图
-            //     apiOptions: {
-            //         cssImageRef: '../sprites/sprite.[hash:6].png',
-            //     },
-            //     // 配置spritesmith选项，非必选
-            //     spritesmithOptions: {
-            //         algorithm: `top-down`,//設定圖示的排列方式
-            //         padding: 4 //每張小圖的補白,避免雪碧圖中邊界部分的bug
-            //     }
-            // }),
+            new SpritesmithPlugin({
+                // 原图片路径
+                src: {
+                    cwd: path.resolve(__dirname, '../src/sprites'),
+                    glob: '*.png'
+                },
+                // 生成雪碧图及css路径
+                target: {
+                    image: path.resolve(__dirname, '../dist/sprites/sprite.[hash:6].png'),
+                    css: path.resolve(__dirname, '../dist/sprites/sprite.[hash:6].css')
+                },
+                // css引入雪碧图
+                apiOptions: {
+                    cssImageRef: '../sprites/sprite.[hash:6].png',
+                },
+                // 配置spritesmith选项，非必选
+                spritesmithOptions: {
+                    algorithm: `top-down`,//設定圖示的排列方式
+                    padding: 4 //每張小圖的補白,避免雪碧圖中邊界部分的bug
+                }
+            }),
         ],
         optimization: {
             splitChunks: {
-                name: true, // 以入口name命名
+                // name: true, // 以入口name命名
                 chunks: 'all',
                 // 默认1000 --> 1kb，大于1000才去将公共的代码做一个分割，
                 // 限制大小是为了避免小文件也去做分割 避免多余的http请求

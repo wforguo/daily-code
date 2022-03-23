@@ -7,6 +7,6 @@ const path = require("path");
 
 module.exports = {
     mode: 'development',
-    //use source-map for production:
+    // use source-map for production:
     devtool: 'source-map',
 }
