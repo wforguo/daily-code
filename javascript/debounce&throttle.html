@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+        #scroll {
+            width: 100%;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .scroll-item {
+            width: 100%;
+            height: 333px;
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+
+<div id="scroll">
+    <div class="scroll-item"></div>
+    <br>
+    <div class="scroll-item"></div>
+    <br>
+    <div class="scroll-item"></div>
+    <br>
+    <div class="scroll-item"></div>
+    <br>
+    <div class="scroll-item"></div>
+    <br>
+</div>
+
+</body>
+
+<script type="text/javascript">
+
+    // 防抖
+    let debounce = function (fn, delay) {
+        let timeout = null;
+        return function () {
+            let self = this;
+            let argus = arguments;
+            if (timeout) clearTimeout(timeout);
+            timeout = setTimeout(function () {
+                fn.apply(self, argus);
+            }, delay);
+        }
+    }
+
+    // 节流
+    let throttle = function (fn, delay) {
+        let prev = 0;
+        return function () {
+            let self = this;
+            let argus = arguments;
+            let now = Date.now();
+            if (now - prev > delay) {
+                fn.apply(self, argus);
+                prev = now;
+            }
+        }
+    }
+
+    let handleScroll = function (e) {
+        console.log(e);
+    }
+
+    document.getElementById('scroll').addEventListener('scroll', throttle(handleScroll, 600));
+
+</script>
+
+</html>

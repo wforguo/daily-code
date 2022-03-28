@@ -51,7 +51,7 @@ module.exports = env => {
         output: {
             path: path.resolve(__dirname, '../dist'),
             chunkFilename: 'js/[name].[contenthash:6].js',
-            filename: "js/[name].[contenthash:6].min.js",
+            filename: "js/[name].[contenthash:6].js",
             // publicPath: 'https://cloud-app.com.cn/app/',
         },
         module: {
@@ -114,8 +114,8 @@ module.exports = env => {
                                 outputPath: 'img/',
                                 publicPath: '../img/',
                                 // base64配置 小于 limit 字节的文件会被转为 base64，大于 limit 的使用 file-loader 进行处理，单独打包
-                                limit: 1 * 1024, // 单位b
-                                name: '[name].[hash:6].[ext]'
+                                limit: 6 * 1024, // 单位b
+                                name: '[name].[contenthash:6].[ext]'
                             }
                         },
                         /*********** loader for zip img  ***************/
@@ -152,7 +152,7 @@ module.exports = env => {
                     options: {
                         outputPath: 'fonts/',
                         publicPath: '../fonts/',
-                        name: '[name].[hash:6].[ext]',
+                        name: '[name].[contenthash:6].[ext]',
                     },
                 },
             ]
@@ -170,7 +170,7 @@ module.exports = env => {
                 color: '#61dafb', // react 蓝
             }),
             new MiniCssExtractPlugin({
-                filename: 'css/[name].[contenthash:6].min.css'
+                filename: 'css/[name].[contenthash:6].css'
             }),
             new HtmlWebpackPlugin({
                 title: 'App1',
@@ -209,6 +209,7 @@ module.exports = env => {
             // toDo
             // css雪碧图插件
             // 【问题】没有将雪碧图打包进css，而且 会被CleanWebpackPlugin删除掉雪碧图文件夹
+            /**
             new SpritesmithPlugin({
                 // 原图片路径
                 src: {
@@ -230,6 +231,7 @@ module.exports = env => {
                     padding: 4 //每張小圖的補白,避免雪碧圖中邊界部分的bug
                 }
             }),
+             **/
         ],
         optimization: {
             splitChunks: {
