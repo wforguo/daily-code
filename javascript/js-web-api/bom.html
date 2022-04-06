@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bom</title>
+</head>
+<body>
+
+<h3>
+
+    Bom, Browser Object Model浏览器对象模型
+
+    包含，
+    navigator、screen、location、history
+</h3>
+
+<hr>
+
+<script type="text/javascript">
+
+    console.log(navigator);
+
+    /Mac OS/.test(navigator.userAgent);
+
+    console.log(screen);
+
+    console.log(location);
+    console.log(location.href);
+    console.log(location.protocol);
+    console.log(location.hostname);
+    console.log(location.port);
+    console.log(location.hash);
+    console.log(location.pathname);
+    console.log(location.search);
+
+    console.log(history);
+    console.log(history['__proto__']);
+    // console.log(history.back());
+    // console.log(history.go());
+    // console.log(history.forward());
+    // console.log(history.pushState());
+    // console.log(history.replaceState());
+
+    let getParams = function () {
+        // 将参数转换为键值对形式
+        let search = location.search;
+        let searchList = [];
+        let params = {};
+        if (search && search.length > 0) {
+            searchList = search.substring(1).split('&');
+            searchList.map(item => {
+                let query = item.split('=');
+                params[query[0]] = query[1];
+            });
+        }
+        console.log(params);
+        return params;
+    }
+    getParams();
+</script>
+
+</body>
+</html>

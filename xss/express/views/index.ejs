@@ -62,7 +62,7 @@
           xhr.onreadystatechange = function() {
               if (xhr.readyState === 4) {
                   if (xhr.status === 200) {
-                      console.log(xhr);
+                      console.log(JSON.parse(xhr.response));
                   } else {
                       console.log('error');
                   }
@@ -80,7 +80,7 @@
                   if (xhr.status === 200) {
                       // 解码和校验
                       // 解析服务端的响应内容（JSON字符串）
-                      console.log(xhr.response);
+                      console.log(JSON.parse(xhr.response));
                       let com = parse(JSON.parse(xhr.response).comment);
                       let txt = document.createElement('span');
                       txt.innerHTML = com;

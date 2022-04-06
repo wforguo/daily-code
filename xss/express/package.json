@@ -1,10 +1,10 @@
 {
     "name": "express",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "private": true,
     "scripts": {
         "dev": "./node_modules/.bin/nodemon ./bin/www",
-        "start": "node ./bin/www"
+        "start": "npm run dev"
     },
     "dependencies": {
         "cookie-parser": "~1.4.4",

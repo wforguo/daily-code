@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>window.onload && DOMContentLoaded</title>
+    <link rel="stylesheet" href="https://dtra.zcrubber.com/css/app.a5afbe2f.css">
+</head>
+<body>
+
+<img src="https://forguo.cn/imgs/logo.png" alt="" />
+<video src="https://www.runoob.com/try/demo_source/movie.mp4" controls></video>
+
+<h2>
+    window.onload && DOMContentLoaded
+</h2>
+
+<hr>
+
+</body>
+
+<script>
+    console.time(1);
+    console.time(2);
+    window.addEventListener('load', function  () {
+        console.timeEnd(1);
+        console.log('window.onload');
+        // 页面的全部资源都加载完成，包括图片、视频等媒体
+    });
+
+    document.addEventListener('DOMContentLoaded', function  () {
+        console.timeEnd(2);
+        console.log('DOMContentLoaded');
+        // Dom渲染完成即可执行，此时图片、视频等媒体资源可能还没加载完成
+    });
+</script>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dom</title>
+</head>
+<body>
+
+<h3>
+
+    Dom, Document Object Model文档对象模型，是一种树形结构
+
+</h3>
+
+<hr>
+
+<ul id="list" class="list"></ul>
+
+<script type="text/javascript">
+
+    /**
+     * 获取Dom
+     */
+
+    console.log('----getElementById----');
+    let byId = document.getElementById('list');
+    console.log(byId);
+
+    console.log('----getElementsByTagName----');
+    let byTag = document.getElementsByTagName('ul');
+    console.log(byTag[0]);
+
+    console.log('----getElementsByClassName----');
+    let byClass = document.getElementsByClassName('list');
+    console.log(byClass[0]);
+
+    console.log('----querySelectorAll----');
+    let bySelector = document.querySelectorAll('.list');
+    console.log(bySelector[0]);
+
+    /**
+     * 修改样式 两者都可能引起dom重新渲染
+     */
+
+    // property方式，修改对象的属性，不会体现到html结构中
+    byId.style.fontSize = '32px';
+
+    // attribute方式，修改html属性，会改变html结构
+    byId.setAttribute('style', 'color: #444');
+
+    /**
+     * 操作Dom
+     * @type {Element}
+     */
+    // 避免频繁操作Dom，
+    let $list = document.querySelectorAll('.list')[0];
+
+    // 创建一个文档片段，此时并没有插入到Dom结构当中
+    let virDom = document.createDocumentFragment();
+
+    for (let i = 0; i < 10; i++) {
+        let $li = document.createElement('li');
+        $li.innerHTML = `This is ${i} item`;
+        // 先插入到文档片段当中
+        virDom.appendChild($li);
+    }
+
+    // 一次完成
+    $list.appendChild(virDom);
+
+</script>
+
+</body>
+</html>

@@ -1,21 +1,25 @@
 /**
  * @Author: forguo
- * @Date: 2021/11/14 22:13
- * @Description: development
+ * @Date: 2022/3/23 15:45
+ * @Description: webpack.dev
  */
 
 const path = require("path");
 const webpack = require("webpack");
+
 // 友好的错误提示
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const ip = require("ip");
 
 const domain = require("./domainConfig");
 const env = domain.env;
-const server_port = 10086;
+const server_port = 10010;
 
 module.exports = {
     mode: 'development',
+    stats: {
+        all: false,
+    },
     //use inline-source-map for development:
     devtool: "inline-source-map",
     output: {
@@ -29,6 +33,7 @@ module.exports = {
         host: '0.0.0.0', // 服务地址
         noInfo: true, // 禁止显示诸如 Webpack 捆绑包信息之类的消息
         historyApiFallback: true, // 路径重定向
+        contentBase: path.resolve(__dirname, "../dist"),
         /**
          * 设置代理配置【跨域】
          */

@@ -1,5 +1,5 @@
 {
-    "name": "study",
+    "name": "daily-code",
     "version": "2.0.0",
     "description": "平时的学习代码及Demo",
     "main": "index.js",
@@ -17,9 +17,9 @@
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/wforguo/study/issues"
+        "url": "https://github.com/wforguo/daily-code/issues"
     },
-    "homepage": "https://github.com/wforguo/study#readme",
+    "homepage": "https://github.com/wforguo/daily-code#readme",
     "devDependencies": {
         "commitizen": "^4.2.2",
         "cz-conventional-changelog": "^3.3.0",
