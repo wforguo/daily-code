@@ -134,12 +134,13 @@ console.log(arrOrigin.some(element => element < 11));
  * @time: 2021/7/15 21:59
  * @description: 数组去重
  */
-_.unique = function (arr) {
+let unique = function (arr) {
     // 1.Es6的写法
     // return Array.from(new Set(arr)) 或者 [...new Set(arr))]
+    // Array.from类数组转换成数组，[...]可遍历的转换成数组
 
     // 2.常规做法
-    var res = [];
+    let res = [];
     arr.forEach(item => {
         if (res.indexOf(item) === -1) {
             res.push(item);

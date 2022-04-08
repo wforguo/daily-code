@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>跨域</title>
+</head>
+<body>
+
+
+<h2>跨域</h2>
+
+<button id="set">设置同源cookie</button>
+<button id="setCors">设置跨域cookie</button>
+<button id="button">同源请求</button>
+<button id="cross-button">跨域请求</button>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    // document.cookie = 'username = forguo; path=/; overwrite=false; secure=true; samesite=none;'
+    const set = document.querySelector("#set");
+    const setCors = document.querySelector("#setCors");
+    const button = document.querySelector("#button");
+    const crossButton = document.querySelector("#cross-button");
+
+    // 设置cookie
+    set.onclick = function () {
+        axios({
+            method: 'post',
+            url: 'https://www.forguo.cn/api/common/wechat/login',
+            withCredentials: true, // ++ 携带cookie数据【同源无效】
+            data: {
+                user: 'forguo_www_cookie',
+            }
+        }).then((res) => {
+            console.log(res);
+        });
+    }
+
+    // 设置cookie
+    setCors.onclick = function () {
+        axios({
+            method: 'post',
+            url: 'https://api.fenghua.rainyman.cn/common/login',
+            withCredentials: true, // ++ 携带cookie数据【同源无效】
+            data: {
+                user: 'forguo_www_cookie',
+            }
+        }).then((res) => {
+            console.log(res);
+        });
+    }
+
+    // 发送同域请求
+    button.onclick = function () {
+        axios({
+            method: 'post',
+            url: 'https://www.forguo.cn/api/common/wechat/info',
+            withCredentials: true, // ++ 携带cookie数据【同源无效】
+            data: {
+                user: 'forguo_www_cookie',
+            }
+        }).then((res) => {
+            console.log(res);
+        });
+    };
+
+    // 发送跨域请求
+    crossButton.onclick = function () {
+        axios({
+            method: "post",
+            withCredentials: true, // ++ 携带cookie数据【同源无效】
+            url: 'https://api.fenghua.rainyman.cn/common/info',
+            data: {
+                user: 'forguo_www_cookie',
+            }
+        }).then((res) => {
+            console.log(res);
+        });
+    };
+</script>
+</body>
+</html>

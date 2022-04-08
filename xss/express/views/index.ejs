@@ -9,7 +9,7 @@
     <p>Welcome to <%= title %></p>
 
     <textarea name="" id="commentTxt" cols="80" rows="10">
-        <p>sks <img src="null" alt="" onerror="alert(1)"></p></textarea>
+        <p>sks <img src="null" alt="" onerror="alert(document.cookie)"></p></textarea>
 
     <button type="button" name="button" id="commentBtn">评论</button>
     <button type="button" name="button" id="getComment">获取评论</button>
@@ -80,9 +80,10 @@
                   if (xhr.status === 200) {
                       // 解码和校验
                       // 解析服务端的响应内容（JSON字符串）
-                      console.log(JSON.parse(xhr.response));
-                      let com = parse(JSON.parse(xhr.response).comment);
+                      console.log(xhr.response);
+                      let com = (JSON.parse(xhr.response).comment);
                       let txt = document.createElement('span');
+                      console.log(com);
                       txt.innerHTML = com;
                       document.body.appendChild(txt);
                   } else {

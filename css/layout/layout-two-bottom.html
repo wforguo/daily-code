@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>两列居下布局</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+        .layout {
+            width: 100%;
+        }
+        .layout .main {
+            background: #eee;
+        }
+        .layout .right {
+            width: 100%;
+            height: 100px;
+            background: #00B7FF;
+        }
+        hr {
+            padding: 12px;
+            margin-bottom: 12px;
+            border-bottom: 3px solid #eee;
+        }
+    </style>
+</head>
+<body>
+
+<h2>常见布局</h2>
+<h3>左右固定，中间自适应</h3>
+
+<!-- flexbox布局 -->
+<h4>1.flexbox布局</h4>
+<div class="layout flex">
+    <style>
+        .layout.flex {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+        }
+        .flex .main {
+            flex: 1;
+        }
+    </style>
+    <div class="main">
+        <h2>flex解决方案</h2>
+        1.这是三栏布局的浮动解决方案；
+        2.这是三栏布局的浮动解决方案；
+        3.这是三栏布局的浮动解决方案；
+        4.这是三栏布局的浮动解决方案；
+        5.这是三栏布局的浮动解决方案；
+        6.这是三栏布局的浮动解决方案；
+    </div>
+    <div class="right">right</div>
+</div>
+<hr>
+
+<!-- 绝对定位 -->
+<!--<h4>2.1绝对定位</h4>-->
+<div class="layout position" style="display: none;">
+    <style>
+        .layout.position {
+            position: relative;
+        }
+        .position .right {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        .position .main.absolute {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 300px;
+        }
+    </style>
+    <div class="main absolute">
+        <h2>position解决方案</h2>
+        1.这是三栏布局的浮动解决方案；
+        2.这是三栏布局的浮动解决方案；
+        3.这是三栏布局的浮动解决方案；
+        4.这是三栏布局的浮动解决方案；
+        5.这是三栏布局的浮动解决方案；
+        6.这是三栏布局的浮动解决方案；
+    </div>
+    <div class="right">right</div>
+</div>
+<hr>
+
+<!-- 绝对定位 -->
+<h4>2.2绝对定位</h4>
+<div class="layout position">
+    <style>
+        .layout.position {
+            position: relative;
+        }
+        .position .right {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: initial;
+        }
+        .position .main.padding {
+            padding-bottom: 100px;
+        }
+    </style>
+    <div class="main padding">
+        <h2>position解决方案</h2>
+        1.这是三栏布局的浮动解决方案；
+        2.这是三栏布局的浮动解决方案；
+        3.这是三栏布局的浮动解决方案；
+        4.这是三栏布局的浮动解决方案；
+        5.这是三栏布局的浮动解决方案；
+        6.这是三栏布局的浮动解决方案；
+    </div>
+    <div class="right">right</div>
+</div>
+<hr>
+
+<!--浮动布局  -->
+<!--<h4>3.浮动布局</h4>-->
+<!--<div class="layout float">-->
+<!--    <style>-->
+<!--        .layout.float {-->
+<!--            overflow: hidden;-->
+<!--            clear: both;-->
+<!--        }-->
+<!--        .float .right {-->
+<!--            float: right;-->
+<!--        }-->
+<!--        .float .main {-->
+<!--        }-->
+<!--    </style>-->
+<!--    <div class="right">right</div>-->
+
+<!--    <div class="main">-->
+<!--        <h2>float解决方案</h2>-->
+<!--        1.这是三栏布局的浮动解决方案；-->
+<!--        2.这是三栏布局的浮动解决方案；-->
+<!--        3.这是三栏布局的浮动解决方案；-->
+<!--        4.这是三栏布局的浮动解决方案；-->
+<!--        5.这是三栏布局的浮动解决方案；-->
+<!--        6.这是三栏布局的浮动解决方案；-->
+<!--    </div>-->
+<!--</div>-->
+<!--<hr>-->
+
+<!-- 网格布局 -->
+<h4>4.网格布局</h4>
+<div class="layout grid">
+    <style>
+        .layout.grid {
+            display: grid;
+            grid-template-rows: auto 100px;
+        }
+        .grid .right {
+        }
+        .grid .main {
+        }
+    </style>
+    <div class="main">
+        <h2>grid解决方案</h2>
+        <code>grid-template-rows: 100px; // 1行，每行高度100px</code>
+        <br />
+        <code>grid-template-columns: 300px auto 100px; // 3列，每列宽度300px 自动 100px</code>
+        <br>
+        <code>auto</code> 关键字表示由浏览器自己决定长度。
+    </div>
+    <div class="right">right</div>
+</div>
+<hr>
+
+</body>
+</html>
