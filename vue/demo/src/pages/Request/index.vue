@@ -37,8 +37,8 @@ export default {
         },
         request () {
             request.request({
-                method: 'get',
-                url: 'http://127.0.0.1:3003/api/cors',
+                method: 'post',
+                url: 'https://www.forguo.cn/api/common/wechat/sdk',
                 data: qs.stringify({
                     url: window.location.href
                 })

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>三角形</title>
+    <style>
+        .box {
+            width: 0px;
+            height: 0px;
+            border: 50px solid;
+            border-color: #1b93fb #1bfb24 #efad48 #ef4848;
+        }
+        .triangle {
+            height: 0;
+            width: 0;
+            color: #fff;
+        }
+        .bottom {
+            border-top: 100px solid #000;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+        }
+        .left {
+            border-right: 100px #000 solid;
+            border-top: 50px transparent solid;
+            border-bottom: 50px transparent solid;
+        }
+        .right {
+            border-left: 100px solid #000;
+            border-top: 50px solid transparent;
+            border-bottom: 50px solid transparent;
+        }
+
+        .top {
+            border-bottom: 100px solid #000;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+        }
+    </style>
+</head>
+<body>
+
+
+<h3>原理</h3>
+
+<h5>
+    如图有四个三角形，将其他三个设为不可见即可实现三角形
+</h5>
+<div class="box">
+</div>
+<hr />
+
+<h3>下</h3>
+<div class="triangle bottom"></div>
+<hr />
+
+<h3>左</h3>
+<div class="triangle left"></div>
+<hr />
+
+<h3>右</h3>
+<div class="triangle right"></div>
+<hr />
+
+<h3>上</h3>
+<div class="triangle top"></div>
+<hr />
+
+</body>
+</html>

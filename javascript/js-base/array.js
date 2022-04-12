@@ -30,7 +30,6 @@ Stu.prototype = {
 }
 console.log(new Stu().say());
 
-
 let arrOrigin = [11, 3, 5, 6, 8, 13, 8];
 /**
  * @desc 冒泡排序算法

@@ -42,11 +42,12 @@ export default {
 }
 </script>
 
-<style  lang="scss">
+<style lang="less">
 .font {
     &__big {
         padding: 5px 0;
         margin: 10px 0;
+        font-size: 40px;
     }
 }
 .variable {

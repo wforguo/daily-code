@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>window.onload && DOMContentLoaded</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+<h2>
+    错误监控及上报
+</h2>
+
+<hr>
+<h3>运行错误</h3>
+
+<h4>
+    1.try {} catch () {}
+</h4>
+
+<h4>
+    2.window.onerror
+</h4>
+
+<h4>
+    3.window.addEventListener('error', function(){})
+</h4>
+
+<br>
+
+<button class="btn btn-default" onclick="console.log(bug)">Bug 制造机</button>
+
+<hr>
+<h3>加载错误</h3>
+
+<img src="err" onerror="console.warn('load error')">
+
+<h4>
+    1.object.onerror
+</h4>
+
+<h4>
+    2.performance.getEntries(); // 获取所有资源
+</h4>
+<h4>
+    3.Error事件捕获 // 捕获的方式来获取
+</h4>
+
+<hr>
+<h3>跨域捕获</h3>
+
+增加crossorigin属性
+
+<hr>
+<h3>错误上报</h3>
+
+通过Image对象上报
+
+<hr>
+
+</body>
+
+<script>
+    try {
+        console.log(a);
+    } catch (e) {
+        console.log(e);
+    }
+    window.onerror = function (e) {
+        console.log('onerror', e);
+    };
+    window.addEventListener('error', function (e) {
+        console.log('捕获', e);
+    }, true);
+</script>
+
+</html>
