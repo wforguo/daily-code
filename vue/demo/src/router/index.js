@@ -5,6 +5,7 @@
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import path from "path";
 
 /************************
  * @description: 实现路由的自动加载
@@ -22,10 +23,10 @@ let routes = [
  */
 /*
     require.context(
-    directory: String, 要搜索的文件夹目录
-    includeSubdirs: Boolean /* optional, default true, 搜索它的子目录
-    filter: RegExp /* optional, default /^\.\/.*$/, any file, 匹配文件的正则表达式
-    mode: String  /* optional, 'sync' | 'eager' | 'weak' | 'lazy' | 'lazy-once', default 'sync'
+        directory: String, 要搜索的文件夹目录
+        includeSubdirs: Boolean /* optional, default true, 搜索它的子目录
+        filter: RegExp /* optional, default /^\.\/.*$/, any file, 匹配文件的正则表达式
+        mode: String  /* optional, 'sync' | 'eager' | 'weak' | 'lazy' | 'lazy-once', default 'sync'
     )
  */
 
@@ -42,16 +43,21 @@ views.keys().forEach((key) => {
     let $route = views(key).default;
     let routerName = $route.name;
     let routerTitle = $route.title;
+    let componentPath = $route.__file.replace(/^src\//i, '');
     routes.push({
         path: routerName === 'Home' ? '/' : `/${routerName}`,
-        name: routerName,
         title: routerTitle || routerName,
-        component: $route,
+        component: () => import(
+            /* webpackChunkName: "[request]" */
+            `../${componentPath}`)
+        ,
+        name: routerName,
         meta: {
             title: routerTitle || routerName,
         }
     })
 });
+console.log('所有的路由', routes);
 
 /************************
  * @description: 实现路由的自动加载

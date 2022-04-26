@@ -1,23 +1,17 @@
 <template>
-
     <div class="home">
-        <h2 class="home-title">所有的路由</h2>
         <div v-for="(item, index) in routers" :key="index" class="router-item">
-            <Cell :title="item.title" is-link :to="item.path" />
+            <van-cell-group inset>
+                <van-cell :title="item.title" is-link :to="item.path" />
+            </van-cell-group>
         </div>
-
-        <MyButton type="primary" round :autoLoading="true" :loading-text="'提交中...'" @click="handleClick">提交</MyButton>
-
     </div>
-
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import { Cell } from 'vant';
-import MyButton from '@/components/MyButton';
-import JsCookie from 'js-cookie';
 export default {
+    title: "首页",
     name: "Home",
     data() {
         return {
@@ -30,22 +24,7 @@ export default {
         ])
     },
     components: {
-        Cell,
-        MyButton,
     },
-    mounted() {
-        const token = JsCookie.get('admin-dealers_token');
-        console.log(token);
-    },
-    methods: {
-        handleClick (done) {
-            setTimeout(() => {
-                JsCookie.set('userToken', Date.now());
-                // 执行该回调，去关闭loading
-                done();
-            }, 1500)
-        }
-    }
 }
 </script>
 <style scoped lang="less">

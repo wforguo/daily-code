@@ -27,32 +27,21 @@
 // }
 //
 // console.log(i); // 4
-//
-// setImmediate(() => {
-//     console.log('setImmediate');
-// })
-//
-// setTimeout(() => {
-//     console.log('setTimeout');
-// }, 0)
-//
-// process.nextTick(() => {
-//     console.log('next');
-// })
 
 
-console.log(0);
+console.log(1); // 4
 
-setTimeout(function () {
-    console.log(1);
-    new Promise(resolve => {
-        console.log(2);
-        resolve();
-    }).then(res => {
-        console.log(3);
-    })
+setImmediate(() => {
+    console.log('setImmediate');
+})
 
+setTimeout(() => {
+    console.log('setTimeout');
 }, 0)
+
+process.nextTick(() => {
+    console.log('next');
+})
 
 new Promise(resolve => {
     console.log(4);
@@ -61,25 +50,46 @@ new Promise(resolve => {
     console.log(5);
 })
 
-console.log(6);
-// 0 4 6  5  1 2 3
-
-async function async1() {
-    console.log('async1 start');
-    await async2();
-    console.log('async1 end');
-}
-async function async2() {
-    console.log('async2');
-}
-async1();
-new Promise(function(resolve) {
-    console.log('promise1');
-    resolve();
-}).then(function() {
-    console.log('promise2');
-});
-console.log('script end');
+//
+// console.log(0);
+//
+// setTimeout(function () {
+//     console.log(1);
+//     new Promise(resolve => {
+//         console.log(2);
+//         resolve();
+//     }).then(res => {
+//         console.log(3);
+//     })
+//
+// }, 0)
+//
+// new Promise(resolve => {
+//     console.log(4);
+//     resolve();
+// }).then(res => {
+//     console.log(5);
+// })
+//
+// console.log(6);
+// // 0 4 6  5  1 2 3
+//
+// async function async1() {
+//     console.log('async1 start');
+//     await async2();
+//     console.log('async1 end');
+// }
+// async function async2() {
+//     console.log('async2');
+// }
+// async1();
+// new Promise(function(resolve) {
+//     console.log('promise1');
+//     resolve();
+// }).then(function() {
+//     console.log('promise2');
+// });
+// console.log('script end');
 
 /**
  * async1 start

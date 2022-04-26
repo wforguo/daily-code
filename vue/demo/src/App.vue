@@ -1,8 +1,8 @@
 <template>
     <div id="app">
-        <div id="pageBg" style="display: none;">
+        <div id="pageBg">
         </div>
-        <NavBar
+        <van-nav-bar
             :title="routeName"
             :left-text="showBack ? '返回' : ''"
             :left-arrow="showBack"
@@ -12,7 +12,7 @@
             <router-view></router-view>
         </keep-alive>
         <div class="fixed-button" v-show="showBack">
-            <Icon name="wap-home-o" size="32" @click="handleNavHome" />
+            <van-icon name="wap-home-o" size="32" @click="handleNavHome" />
         </div>
     </div>
 </template>
@@ -20,15 +20,10 @@
 <script>
 
 import { mapActions } from "vuex";
-import { Icon, NavBar } from 'vant';
 import CanvasNest from 'canvas-nest.js';
 
 export default {
     name: 'App',
-    components: {
-        Icon,
-        NavBar
-    },
     methods: {
         ...mapActions('router', [
             'setRouters'
@@ -64,6 +59,10 @@ export default {
 </script>
 
 <style lang="less">
+html {
+    height: 100%;
+    background: #f7f8fa;
+}
 * {
     margin: 0;
     padding: 0;
@@ -71,12 +70,14 @@ export default {
 }
 
 #app {
+    height: 100%;
+    overflow-y: auto;
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    --primary-text-color: green;
+    background: #f7f8fa;
 }
 
 body {

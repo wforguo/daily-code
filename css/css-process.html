@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css-process</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+        html {
+            width: 100%;
+        }
+        body {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            background: linear-gradient(to top right, #ffcc00 50%, #eee 50%) no-repeat;
+            background-size: 100% calc(100% - 100vh + 5px);
+            position: relative;
+        }
+
+        body:after {
+            left: 0;
+            top: 5px;
+            bottom: 0;
+            right: 0;
+            position: fixed;
+            content: '';
+            overflow: hidden;
+            background: #fff;
+            z-index: -1;
+        }
+
+        .process {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+        }
+        .item {
+            width: 100%;
+            height: 200px;
+            text-align: center;
+            line-height: 200px;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .item:nth-child(odd) {
+            /*background: #ccc;*/
+        }
+        .item:nth-child(even) {
+            /*background: #eee;*/
+        }
+    </style>
+</head>
+<body>
+<div class="process">
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+</div>
+</body>
+</html>

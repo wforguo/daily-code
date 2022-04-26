@@ -21,16 +21,28 @@
 <p id="get">点击数据读取</p>
 
 </body>
-<script type="text/javascript" charset="utf-8" src="js/vue.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/min-vue.js"></script>
 <script type="text/javascript">
-    new Vue({
+    // event
+    Vue.prototype.initEvent = function () {
+        document.getElementById('set').addEventListener('click', () => {
+            this.$data.name = 'Hello Vue Data!';
+            this.$data.colors = 'Hello Vue Data!';
+        });
+        document.getElementById('get').addEventListener('click', () => {
+        });
+    };
+
+    let vm = new Vue({
         el: 'app',
         data: {
+            colors: [1, 2, 3],
             name: 'forguo',
             grade: {
                 sex: 'man'
             },
         }
     });
+
 </script>
 </html>

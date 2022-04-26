@@ -6,48 +6,39 @@
 -->
 <template>
     <div>
-        {{$attrs}}
-        <Button v-bind="$attrs" :loading="loadingStatus" @click="handleClick"><slot /></Button>
+        <p>
+            $attrs：{{$attrs}}
+        </p>
+        <p>
+            $props：{{$props}}
+        </p>
+        <van-button v-bind="$attrs" :loading="loading" @click="handleClick"><slot /></van-button>
     </div>
 </template>
 
 <script>
-import { Button } from 'vant';
 export default {
-    name: "MuButton",
-    /**
-     props: {
-        ...Button.props,
-        autoLoading: {
-            type: Boolean,
-            default: false
-        }
-    },
-     */
     props: {
         autoLoading: {
             type: Boolean,
             default: false
-        }
+        },
     },
     data () {
         return {
-            loadingStatus: false,
+            loading: false,
         }
-    },
-    components: {
-        Button
     },
     methods: {
         handleClick() {
             if (this.autoLoading) {
                 // 判断是否开启自动loading
-                this.loadingStatus = true;
+                this.loading = true;
             }
             // 点击的回调
             this.$emit('click', () => {
                 // 在异步完成之后，去除loading
-                this.loadingStatus = false;
+                this.loading = false;
             })
         }
     }

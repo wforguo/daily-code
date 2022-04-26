@@ -4,32 +4,6 @@
  * @description: 数组常用方法
  */
 
-/**
- * 箭头函数对于class构造出来的对象的this指向没有影响，但是对于构造函数创建出来的对象，他的this指向会发生改变
- * @param arr
- * @return {*}
- */
-
-class Person {
-    constructor() {
-        this.name = 'person';
-    }
-    say = () => {
-        console.log(this);  // 此时的this不变
-    }
-}
-console.log(new Person().say());
-
-function Stu () {
-    this.name = 'stu';
-}
-Stu.prototype = {
-    say: () => {
-        console.log(this); // 此时的this为window
-    }
-}
-console.log(new Stu().say());
-
 let arrOrigin = [11, 3, 5, 6, 8, 13, 8];
 /**
  * @desc 冒泡排序算法

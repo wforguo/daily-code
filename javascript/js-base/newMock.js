@@ -6,7 +6,7 @@
 
 // 模拟new的实现
 let newMock = function () {
-    let argus = Array.prototype.slice.apply(arguments);
+    let argus = Array.from(arguments);
     let Foo = argus.shift();
     let target = Object.create(Foo.prototype);
     let foo = Foo.apply(target, argus);

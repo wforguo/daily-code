@@ -51,9 +51,11 @@ export default {
         console.log('gradeFather', 'mounted');
     },
     beforeUpdate() {
+        console.log('gradeFather', 'beforeUpdate');
         console.log(this.visible);
     },
     updated() {
+        console.log('gradeFather', 'updated');
         console.log(this.visible);
     },
     methods: {
