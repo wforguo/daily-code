@@ -15,43 +15,44 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, reactive, toRefs } from 'vue';
 import { ElButton } from 'element-plus';
-export default defineComponent({
+interface DataProps {
+    companies: object[],
+    target: object,
+    send: (index: number) => void;
+}
+
+export default {
     name: 'HomeView',
     components: { ElButton },
     setup() {
-        /**
-         * data
-         */
-        const companies = ref([
-            {
-                id: '10001',
-                name: '阿里',
-            },
-            {
-                id: '10002',
-                name: '腾讯',
-            },
-            {
-                id: '10003',
-                name: '字节',
-            },
-        ]);
-        const target = ref('');
+        const data: DataProps = reactive({
+            companies: [
+                {
+                    id: '10001',
+                    name: '阿里',
+                },
+                {
+                    id: '10002',
+                    name: '腾讯',
+                },
+                {
+                    id: '10003',
+                    name: '字节',
+                },
+            ],
+            target: {},
+            send: (index: number) => {
+                data.target = data.companies[index];
+            }
+        });
 
-        /**
-         * methods
-         */
-        const send = (index: number) => {
-            console.log(index);
-            target.value = companies.value[index];
-        }
+        const ref = toRefs(data);
+
         return {
-            companies,
-            target,
-            send,
+            ...ref,
         }
     }
-});
+}
 </script>
