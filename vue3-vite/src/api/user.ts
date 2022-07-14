@@ -3,7 +3,6 @@
  * @Date: 2022/7/14 13:58
  * @Description: user
  */
-import axios from "axios";
 import request from "@/libs/request";
 
 export default {
@@ -13,7 +12,7 @@ export default {
      */
     login: (data: any) => request({
         method: 'post',
-        url: 'https://www.forguo.cn/api/common/wechat/sdk',
+        url: '/users/login',
         data
     })
 }

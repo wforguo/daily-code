@@ -8,6 +8,7 @@ import router from './router'
 
 const app = createApp(App)
 
+// 注册微应用
 registerMicroApps([
     {
         name: 'vueApp',
