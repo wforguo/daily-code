@@ -1,6 +1,8 @@
+import './public-path';
 import Vue from 'vue'
 import App from '@/App.vue'
-import router from '@/router'
+import VueRouter from 'vue-router';
+import routes from '@/routes'
 import store from '@/store'
 import Vant from 'vant';
 
@@ -11,14 +13,40 @@ import 'vant/lib/index.css';
 Vue.use(Vant);
 Vue.config.productionTip = false;
 
-new Vue({
-    render: h => h(App),
-    router,
-    store,
-    customOptions: {
-        sex: true
-    },
-    created() {
-        // console.log(this.$options) // => 'foo'
-    },
-}).$mount('#app');
+let router = null;
+let instance = null;
+function render(props = {}) {
+    const { container } = props;
+    router = new VueRouter({
+        base: window.__POWERED_BY_QIANKUN__ ? '/vue-app/' : '/',
+        mode: 'history',
+        routes,
+    });
+
+    console.log(container);
+
+    instance = new Vue({
+        router,
+        store,
+        render: (h) => h(App),
+    }).$mount(container ? container.querySelector('#vue') : '#vue');
+}
+
+// 独立运行时
+if (!window.__POWERED_BY_QIANKUN__) {
+    render();
+}
+
+export async function bootstrap() {
+    console.log('[vue] vue app bootstraped');
+}
+export async function mount(props) {
+    console.log('[vue] props from main framework', props);
+    render(props);
+}
+export async function unmount() {
+    instance.$destroy();
+    instance.$el.innerHTML = '';
+    instance = null;
+    router = null;
+}

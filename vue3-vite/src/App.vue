@@ -1,10 +1,19 @@
 <template>
     <nav>
-        <router-link to="/">Home</router-link>
+        <router-link to="/">home</router-link>
         |
-        <router-link to="/about">About</router-link>
+        <router-link to="/about">about</router-link>
+        |
+        <router-link to="/wei-tool">wei-tool</router-link>
+        |
+        <router-link to="/pinia">pinia</router-link>
     </nav>
-    <router-view/>
+    <hr />
+    <router-view />
+    <div id="vueApp">
+        <div>...</div>
+    </div>
+
 </template>
 
 <style lang="scss">
@@ -18,7 +27,6 @@
 
 nav {
     padding: 30px;
-
     a {
         font-weight: bold;
         color: #2c3e50;

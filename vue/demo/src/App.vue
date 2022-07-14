@@ -1,7 +1,7 @@
 <template>
-    <div id="app">
-        <div id="pageBg">
-        </div>
+    <div id="vue">
+<!--        <div id="pageBg">-->
+<!--        </div>-->
         <van-nav-bar
             :title="routeName"
             :left-text="showBack ? '返回' : ''"
@@ -20,10 +20,10 @@
 <script>
 
 import { mapActions } from "vuex";
-import CanvasNest from 'canvas-nest.js';
+// import CanvasNest from 'canvas-nest.js';
 
 export default {
-    name: 'App',
+    name: 'vueApp',
     methods: {
         ...mapActions('router', [
             'setRouters'
@@ -43,14 +43,14 @@ export default {
         }
     },
     mounted() {
-        const config = {
-            pointColor: '255,0,0',
-            count: 188,
-            pointR: 1,
-            opacity: 0.75
-        };
-        const element = document.getElementById('pageBg');
-        new CanvasNest(element, config);
+        // const config = {
+        //     pointColor: '255,0,0',
+        //     count: 188,
+        //     pointR: 1,
+        //     opacity: 0.75
+        // };
+        // const element = document.getElementById('pageBg');
+        // new CanvasNest(element, config);
         this.setRouters({
             routers: this.$router.options.routes
         });
@@ -69,7 +69,7 @@ html {
     box-sizing: border-box;
 }
 
-#app {
+#vue {
     height: 100%;
     overflow-y: auto;
     font-family: Avenir, Helvetica, Arial, sans-serif;

@@ -1,8 +1,6 @@
 // 引入React是因为使用了JSX语法，否则会报错
 import React from 'react';
 import ReactDOM from 'react-dom';
-// Sentry
-import * as Sentry from '@sentry/browser';
 
 // 引入applyMiddleware是为了可以使用中间件
 import { createStore, applyMiddleware, compose } from "redux";
@@ -21,8 +19,6 @@ const store = createStore(
     reducer,
     composeEnhancers(applyMiddleware(Thunk))
 );
-// Sentry 初始化
-Sentry.init({dsn: "https://ef71c4fd10d143218a0213aa4bf6e902@o393960.ingest.sentry.io/5243549"});
 
 // 每一次调用 dispatch 最终都会调用 reducer！
 ReactDOM.render(

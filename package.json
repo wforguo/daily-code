@@ -5,10 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "commit": "git cz",
-        "release": "standard-version",
-        "release:alpha": "standard-version --prerelease alpha",
-        "release:rc": "standard-version --prerelease rc"
+        "commit": "git cz"
     },
     "repository": {
         "type": "git",
@@ -20,14 +17,6 @@
         "url": "https://github.com/wforguo/daily-code/issues"
     },
     "homepage": "https://github.com/wforguo/daily-code#readme",
-    "devDependencies": {
-        "commitizen": "^4.2.2",
-        "cz-conventional-changelog": "^3.3.0",
-        "cz-customizable": "^6.3.0",
-        "html-webpack-plugin": "^5.3.1",
-        "standard-version": "^9.1.0",
-        "webpack-cdn-plugin": "^3.3.1"
-    },
     "config": {
         "commitizen": {
             "path": "cz-conventional-changelog"

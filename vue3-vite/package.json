@@ -1,7 +1,7 @@
 {
-    "name": "element-plus-vite-starter",
+    "name": "vite-vue3",
     "private": true,
-    "version": "0.1.0",
+    "version": "1.0.0",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
@@ -10,11 +10,14 @@
         "typecheck": "vue-tsc --noEmit"
     },
     "dependencies": {
+        "axios": "^0.27.2",
         "core-js": "^3.8.3",
         "element-plus": "^2.2.0",
+        "pinia": "^2.0.16",
+        "qiankun": "^2.7.0",
         "vue": "^3.2.33",
         "vue-router": "^4.0.3",
-        "vuex": "^4.0.0"
+        "wei-tool": "^1.0.2"
     },
     "devDependencies": {
         "@iconify-json/ep": "^1.1.3",

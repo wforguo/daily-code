@@ -46,6 +46,11 @@ const cdnLoader = (prod = false) => {
 
 module.exports = {
     configureWebpack: {
+        output: {
+            library: `${title}-[name]`,
+            libraryTarget: 'umd', // 把微应用打包成 umd 库格式
+            jsonpFunction: `webpackJsonp_${title}`,
+        },
         plugins: [
             new HtmlWebpackPlugin({
                 title,
@@ -64,7 +69,10 @@ module.exports = {
         config.plugins.delete('preload');
     },
     devServer: {
-        port: '10086',
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+        },
+        port: '10087',
         // proxy: {
         //     '/api': {
         //         target: 'https://forguo.cn',

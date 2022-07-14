@@ -5,15 +5,13 @@
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import path from "path";
 
 /************************
  * @description: 实现路由的自动加载
  ************************
  */
 
-let routes = [
-];
+let routes = [];
 
 /**
  * 通过require.context函数获取一个特定的上下文
@@ -61,12 +59,8 @@ console.log('所有的路由', routes);
 
 /************************
  * @description: 实现路由的自动加载
- ************************
- */
+ *************************/
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
-    mode: 'history',
-    routes // (缩写) 相当于 routes: routes
-});
+export default routes

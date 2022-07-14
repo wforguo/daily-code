@@ -1,44 +1,24 @@
-# element-plus-vite-starter
+# vite + ts + vue3
 
-> A starter kit for Element Plus with Vite
+[vite](https://cn.vitejs.dev/)
 
-<img width="800" alt="Element Plus" src="https://user-images.githubusercontent.com/10731096/97282764-0726eb80-187a-11eb-9658-6dc98ccb8f8d.png">
+## 
 
-- Preview: <https://vite-starter.element-plus.org>
 
-This is an example of on-demand element-plus with [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components).
+## vue3
 
-> If you want to import all, it may be so simple that no examples are needed. Just follow [quickstart | Docs](https://element-plus.org/zh-CN/guide/quickstart.html) and import them.
 
-If you just want an on-demand import example `manually`, you can check [unplugin-element-plus/examples/vite](https://github.com/element-plus/unplugin-element-plus/tree/main/examples/vite).
+### 生命周期
 
-## Project setup
-
-```bash
-npm install
-```
-
-### Compiles and hot-reloads for development
-
-```bash
-npm run dev
-```
-
-### Compiles and minifies for production
-
-```bash
-npm run build
-```
-
-## Usage
-
-```bash
-git clone https://github.com/element-plus/element-plus-vite-starter
-cd element-plus-vite-starter
-npm i
-npm run dev
-```
-
-### Custom theme
-
-See `src/styles/element/index.scss`.
+vue2--------------vue3
+beforeCreate  -> setup()
+created       -> setup()
+beforeMount   -> onBeforeMount
+mounted       -> onMounted
+beforeUpdate  -> onBeforeUpdate
+updated       -> onUpdated
+beforeDestroy -> onBeforeUnmount
+destroyed     -> onUnmounted
+activated     -> onActivated
+deactivated   -> onDeactivated
+errorCaptured -> onErrorCaptured

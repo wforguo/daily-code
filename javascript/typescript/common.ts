@@ -410,3 +410,12 @@ namespace Home {
     new Page();
 }
 
+// 类型断言，此时不知道返回类型是什么，需要指定一个类型来处理
+let res: number | string;
+
+res = 1;
+function get (data: number | string): number | string {
+    return data;
+}
+
+(get(res) as string).length;

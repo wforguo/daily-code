@@ -1,16 +1,26 @@
 import {createApp} from 'vue'
-
-import App from './App.vue'
-
+import { registerMicroApps, start } from 'qiankun';
+import { createPinia } from 'pinia' // 状态管理
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-
+import App from './App.vue'
 import router from './router'
-import store from './store'
+
 const app = createApp(App)
 
+registerMicroApps([
+    {
+        name: 'vueApp',
+        entry: '//localhost:10087',
+        container: '#vueApp',
+        activeRule: '/vue-app',
+    },
+]);
+
+start();
+
 app
-    .use(store)
+    .use(createPinia())
     .use(router)
     .use(ElementPlus)
     .mount('#app')

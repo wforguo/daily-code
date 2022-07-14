@@ -14,8 +14,8 @@
             "dom"
         ],
         "paths": {
-            "~/*": [
-                "src/*"
+            "@/*": [
+                "./src/*"
             ]
         },
         "skipLibCheck": true
