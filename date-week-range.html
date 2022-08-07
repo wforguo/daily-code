@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.15.1/lib/theme-chalk/index.css">
+    <!-- 或者额外引入 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.15.1/lib/theme-chalk/icon.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.15.1/lib/theme-chalk/date-picker.css">
+
+    <script src="https://unpkg.com/vue@2"></script>
+    <script src="https://unpkg.com/date-week-range@1.0.4/dist/date-week-range.min.js"></script>
+</head>
+<body>
+
+</body>
+
+<div id="app">
+    <template>
+        <date-week-range v-model="test" :picker-options="pickerOptions"></date-week-range>
+    </template>
+</div>
+<script>
+    new Vue({
+        data() {
+            return {
+                test: ['2022-07-09', new Date()],
+                pickerOptions: {
+                    onPick: ({ minDate }) => {
+                        this.minDate = minDate
+                        // if (maxDate) this.minDate = undefined
+                    },
+                    disabledDate: time => {
+                        const oneDay = 24 * 3600 * 1000
+                        if (this.minDate && this.compareType === 'custom') {
+                            let range = null
+                            if (this.timeType.indexOf('day') > -1) range = 366 * oneDay - 1
+                            if (this.timeType.indexOf('week') > -1) range = 53 * 7 * oneDay + 1
+                            if (this.timeType.indexOf('month') > -1) range = 12 * 30 * oneDay + 1
+                            if (this.timeType.indexOf('quarter') > -1) range = 10 * 4 * 30 * oneDay + 1
+                            // 最多十二个月
+                            if (this.timeType.indexOf('year') > -1) range = 5 * 366 * oneDay + 1
+                            if (range) {
+                                return (
+                                    time.getTime() > Date.now() ||
+                                    time.getTime() > this.minDate.getTime() + range ||
+                                    time.getTime() < this.minDate.getTime() - range
+                                )
+                            }
+                        }
+                        return time.getTime() > Date.now()
+                    },
+                    // 默认周一为周起始日
+                    firstDayOfWeek: 1,
+                },
+            }
+        }
+    }).$mount("#app");
+</script>
+</html>

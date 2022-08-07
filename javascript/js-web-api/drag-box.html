@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拖拽盒子</title>
+    <style>
+        body {
+            height: 100%;
+        }
+
+        div {
+            position: absolute;
+            left: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background-color: lightskyblue;
+        }
+    </style>
+</head>
+
+<body>
+<div></div>
+<script>
+    var div = document.querySelector('div');
+
+    div.addEventListener('mousedown', function (e) {
+        var x = e.pageX - div.offsetLeft;
+        var y = e.pageY - div.offsetTop;
+
+        document.addEventListener('mousemove', move);
+
+        function move(e1) {
+            div.style.left = (e1.pageX - x) + 'px';
+            div.style.top = (e1.pageY - y) + 'px';
+        }
+
+        document.addEventListener('mouseup', function () {
+            document.removeEventListener('mousemove', move);
+        });
+    });
+</script>
+</body>
+
+</html>
