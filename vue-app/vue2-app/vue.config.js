@@ -16,8 +16,10 @@ const { name: title } = require('./package.json');
 // 增加环境变量
 process.env.VUE_APP_VERSION = require('./package.json').version;
 
+const BASE_URL = process.env.NODE_ENV === 'production'
+    ? `https://cloud-app.com.cn/apps/${name}`
+    : '/'
 // 添加cdnLoader
-
 
 const cdnLoader = (prod = false) => {
     return {
@@ -55,7 +57,7 @@ module.exports = {
             new HtmlWebpackPlugin({
                 title,
                 template: 'public/index.html',
-                inject: true
+                inject: true,
             }),
             new WebpackCdnPlugin(cdnLoader(true))
         ]
@@ -84,7 +86,5 @@ module.exports = {
         //     }
         // }
     },
-    publicPath: process.env.NODE_ENV === 'production'
-        ? 'https://cloud-app.com.cn/apps/cloud-app-vue'
-        : '/'
+    publicPath: BASE_URL
 };

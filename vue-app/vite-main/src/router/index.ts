@@ -16,12 +16,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
     },
     {
-        path: '/wei-tool',
-        name: 'wei-tool',
+        path: '/wei_design',
+        name: 'wei_design',
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "weitool" */ '../views/WeiTool.vue')
+        component: () => import(/* webpackChunkName: "wei_design" */ '../views/WeiDesign.vue')
     },
     {
         path: '/pinia',

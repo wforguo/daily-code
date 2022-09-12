@@ -11,13 +11,13 @@
         "typecheck": "vue-tsc --noEmit"
     },
     "dependencies": {
+        "@wei_design/web-vue": "^1.0.0",
         "axios": "^0.27.2",
         "core-js": "^3.8.3",
         "element-plus": "^2.2.0",
         "pinia": "^2.0.16",
         "vue": "^3.2.33",
-        "vue-router": "^4.0.3",
-        "wei-tool": "^1.0.2"
+        "vue-router": "^4.0.3"
     },
     "devDependencies": {
         "@iconify-json/ep": "^1.1.3",
@@ -29,7 +29,7 @@
         "typescript": "^4.6.4",
         "unocss": "^0.33.2",
         "unplugin-vue-components": "^0.19.5",
-        "vite": "^2.9.8",
+        "vite": "^3.0.9",
         "vite-plugin-mock": "^2.9.6",
         "vite-ssg": "^0.20.0",
         "vue-tsc": "^0.34.11"

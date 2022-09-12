@@ -5,7 +5,9 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import App from './App.vue'
 import router from './router'
-
+// @ts-ignore
+import WeDesign from '@wei_design/web-vue'
+import '@wei_design/web-vue/lib/style.css'
 const app = createApp(App)
 
 // 注册微应用
@@ -24,4 +26,5 @@ app
     .use(createPinia())
     .use(router)
     .use(ElementPlus)
+    .use(WeDesign)
     .mount('#app')

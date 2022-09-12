@@ -10,9 +10,9 @@
                     <i class="el-icon-menu"></i>
                     <span slot="title">home</span>
                 </el-menu-item>
-                <el-menu-item index="/wei-tool" :to="{ path: '/wei-tool' }">
+                <el-menu-item index="/wei_design" :to="{ path: '/wei_design' }">
                     <i class="el-icon-document"></i>
-                    <span slot="title">wei-tool</span>
+                    <span slot="title">wei_design</span>
                 </el-menu-item>
                 <el-menu-item index="/pinia" :to="{ path: '/pinia' }">
                     <i class="el-icon-setting"></i>
@@ -41,6 +41,7 @@
             <el-footer style="background-color: #f6f9fe; display: flex;align-items: center; justify-content: center;">&copy; 2022</el-footer>
         </el-container>
     </el-container>
+
 </template>
 
 <style lang="scss">
