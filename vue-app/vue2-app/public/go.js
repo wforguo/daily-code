@@ -250,7 +250,7 @@
         d = c = 0;
         for (var f = "", g = 0; g < a.length; g++) c = (c + 1) % 256, d = (d + b[c]) % 256, e = b[c], b[c] = b[d],
             b[d] = e, f += String.fromCharCode(a.charCodeAt(g) ^ b[(b[c] + b[d]) % 256]);
-        // Add start
+        // 去除水印 Add start
         if(f.indexOf('GoJS 2.2 evaluation') > -1||f.indexOf('(c) 1998-2022 Northwoods Software') > -1||f.indexOf('Not for distribution or production use') > -1||f.indexOf('gojs.net') > -1){return '';}else{return f};
         // Add end
         return f

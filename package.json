@@ -23,5 +23,7 @@
         }
     },
     "dependencies": {
+        "@antv/x6": "^1.34.0",
+        "element-ui": "^2.15.9"
     }
 }

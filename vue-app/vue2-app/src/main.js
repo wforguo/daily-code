@@ -5,12 +5,16 @@ import VueRouter from 'vue-router';
 import routes from '@/routes'
 import store from '@/store'
 import Vant from 'vant';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 import 'normalize.css';
 import '@/directives';
 import 'vant/lib/index.css';
 
+Vue.use(ElementUI);
 Vue.use(Vant);
+
 Vue.config.productionTip = false;
 
 let router = null;

@@ -18,32 +18,45 @@
         ></div>
 
         <div class="tool">
-            <van-button text="配置" @click="show = true;res = null" />
-            <van-button text="保存" type="primary" @click="save" />
+            <el-button type="primary"  @click="show = true;res = null">配置</el-button>
+            <el-button type="success" @click="save">保存</el-button>
         </div>
 
         <van-overlay :show="show" z-index="999">
             <div @click.stop style="margin: 5% 50px;height: 85%;">
                 <res-img :res="res" v-show="res" />
                 <textarea id="mySavedModel" style="width: 100%; height: 95%;" v-show="!res">
-                    { "class": "GraphLinksModel",
-                  "nodeDataArray": [{"key":7,"pos":"340 -40","icon":"polymerization","color":"green","text":"Plastics","caption":"Lego Color Bricks"}],
-                  "linkDataArray": []}
+                 { "class": "GraphLinksModel",
+                  "nodeDataArray": [
+                {"key":5,"pos":"160 15","icon":"pyrolysis","color":"orange","text":"Pyrolysis (Cracking)","description":"Liquefied petroleum gases (LPGs) are transformed into Ethylene, propylene, benzene, and other by-products.","caption":"Pyrolysis plant","imgsrc":"https://upload.wikimedia.org/wikipedia/commons/6/6c/Guelph.jpg"},
+                {"key":6,"pos":"-220 21","icon":"polymerization","color":"red","text":"Basic Polymers","description":"Ethylene and propylene (monomers) are processed into end products using various methods (polymerization).","caption":"Plastics engineering-Polymer products","imgsrc":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Plastics_engineering-Polymer_products.jpg/256px-Plastics_engineering-Polymer_products.jpg"},
+                {"key":7,"pos":"-220 -94","icon":"polymerization","color":"green","text":"Plastics","description":"Polymerization produces PET, glycols, alcohols, expandable polystyrene, acrylates, BOPP-films and geosynthetics.","caption":"Lego Color Bricks","imgsrc":"https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Lego_Color_Bricks.jpg/256px-Lego_Color_Bricks.jpg"},
+                {"key":9,"pos":"-220 144","color":"orange","text":"Intermediates","description":"Produced Ethylene, Propylene, Butenes, Benzene, and other by-products.","caption":"Propylene Containers","imgsrc":"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/XVJ-12_Propylene_%288662385917%29.jpg/256px-XVJ-12_Propylene_%288662385917%29.jpg","icon":"oil"},
+                {"icon":"fractionation","text":"Gas Fractionation","key":-4,"pos":"310 21"},
+                {"icon":"oil","text":"OilCompanies","key":-2,"pos":"490 21","caption":"","imgsrc":""}
+                ],
+                  "linkDataArray": [
+                {"from":9,"to":5,"points":[-200,151,-190,151,-30,151,-30,34.5,130,34.5,140,34.5]},
+                {"from":7,"to":5,"points":[-200,-87,-190,-87,-30,-87,-30,21.5,130,21.5,140,21.5]},
+                {"from":6,"to":5,"points":[-200,28,-190,28,-30,28,-30,28,130,28,140,28]},
+                {"from":5,"to":-4,"points":[180,28,190,28,235,28,235,28,280,28,290,28]},
+                {"from":-4,"to":-2,"points":[330,28,340,28,400,28,400,28,460,28,470,28]}
+                ]}
                 </textarea>
-                <van-button type="danger" @click="show = false" size="small" style="margin-top: 32px;">关闭</van-button>
+                <el-button type="danger" @click="show = false" size="small" style="margin-top: 32px;">关闭</el-button>
             </div>
         </van-overlay>
     </div>
 </template>
 
 <script>
-import resImg from "@/pages/ProductionProcess/ResImg";
+import resImg from "./ResImg";
 let myDiagram = null
 export default {
-    name: "ProductionProcess",
+    name: "gojs",
     components: {resImg},
 
-    title: '流程图',
+    title: 'gojs',
     data(){
         return {
             show: false,
