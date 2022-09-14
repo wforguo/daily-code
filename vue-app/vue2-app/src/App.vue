@@ -8,9 +8,9 @@
             :left-arrow="showBack"
             @click-left="handleNavHome"
         />
-        <keep-alive>
-            <router-view></router-view>
-        </keep-alive>
+        <router-view></router-view>
+<!--        <keep-alive>-->
+<!--        </keep-alive>-->
         <div class="fixed-button" v-show="showBack">
             <van-icon name="wap-home-o" size="32" @click="handleNavHome" />
         </div>

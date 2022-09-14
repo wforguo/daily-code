@@ -3,10 +3,6 @@
     "version": "2.0.0",
     "description": "平时的学习代码及Demo",
     "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "commit": "git cz"
-    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/wforguo/study.git"
@@ -21,9 +17,5 @@
         "commitizen": {
             "path": "cz-conventional-changelog"
         }
-    },
-    "dependencies": {
-        "@antv/x6": "^1.34.0",
-        "element-ui": "^2.15.9"
     }
 }

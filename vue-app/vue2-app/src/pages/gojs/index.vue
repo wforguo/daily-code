@@ -8,7 +8,7 @@
     <div class="process">
         <div
             id="myPaletteDiv"
-            style="height: 100px"
+            style="width: 200px; height: 100%"
         ></div>
               <!-- The DIV for a Diagram needs an explicit size or else we will not see anything.
              In this case we also add a background color so we can see that area. -->
@@ -85,7 +85,6 @@ export default {
         },
         init (){
             // init start
-
             // Abstract colors
             let Colors = {
                 "red": "#be4b15",
@@ -182,18 +181,33 @@ export default {
                 return geo;
             }
 
-            // Since 2.2 you can also author concise templates with method chaining instead of GraphObject.make
-            // For details, see https://gojs.net/latest/intro/buildingObjects.html
             // 初始化
+            // 该方法用于创建图形和图形中的元素
             const $ = go.GraphObject.make;  // for conciseness in defining templates
-            myDiagram = $(go.Diagram, "myDiagramDiv",  // create a Diagram for the DIV HTML element
+
+            /**
+             * 挂载一个图表到 div 容器
+             * @return 画布实例对象
+             */
+            myDiagram = $(
+                // 固定写法
+                go.Diagram,
+                // 容器的id
+                "myDiagramDiv",
+                // 画布的配置对象
                 {
-                    initialAutoScale: go.Diagram.Uniform,  // scale to show all of the contents
-                    "ChangedSelection": onSelectionChanged, // 选中元素
+                    // 只读模式
+                    // isReadOnly
+                    // 自动缩放展示所有元素
+                    initialAutoScale: go.Diagram.Uniform,
+                    // 显示网格
+                    // "grid.visible": true,
+                    "ChangedSelection": onSelectionChanged, // 选中元素的回调
                     "draggingTool.gridSnapCellSize": new go.Size(10, 1),
                     "draggingTool.isGridSnapEnabled": true,
                     "undoManager.isEnabled": true, // 撤销管理器
-                    "ModelChanged": e => {     // just for demonstration purposes,
+                    "ModelChanged": e => {
+                        // 监听数据模型改变
                         if (e.isTransactionFinished) {  // show the model data in the page's TextArea
                             document.getElementById("mySavedModel").textContent = e.model.toJson();
                         }
@@ -201,7 +215,8 @@ export default {
                 });
 
             myDiagram.nodeTemplate =
-                $(go.Node, "Spot",
+                $(
+                    go.Node, "Spot",
                     {
                         locationObjectName: "PORT",
                         locationSpot: go.Spot.Top,  // location point is the middle top of the PORT
@@ -293,6 +308,7 @@ export default {
                 $(go.Palette, "myPaletteDiv",
                     {
                         layout: $(go.GridLayout, { cellSize: new go.Size(1, 1) }),
+                        // 画布初始位置
                         initialContentAlignment: go.Spot.TopLeft,
                         initialScale: 0.8,
                         nodeTemplate: myDiagram.nodeTemplate,  // shared with the main Diagram
@@ -325,11 +341,16 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .process {
     width: 100%;
     height: calc(100% - 46px);
     display: flex;
-    flex-direction: column;
+}
+.tool {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    right: 0;
 }
 </style>
