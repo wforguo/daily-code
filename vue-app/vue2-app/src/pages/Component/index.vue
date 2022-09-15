@@ -41,7 +41,7 @@
 <script>
 
 export default {
-    title: 'Vue组件的使用',
+    title: '组件',
     name: "components",
     components: {
         lazyLoad: () => import('@/pages/Component/LazyLoad'),

@@ -9,7 +9,7 @@
 <script>
 export default {
     name: "directive",
-    title: '自定义指令',
+    title: '指令',
     data () {
         return {
             value: ''
