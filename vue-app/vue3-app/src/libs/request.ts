@@ -4,20 +4,20 @@
  * @Description: request.ts.js
  */
 
-import axios from "axios";
+import axios from 'axios'
 
-const request = axios.create();
-request.interceptors.request.use((config) => {
-    console.log(config);
-    return config;
-});
+const request = axios.create()
+request.interceptors.request.use(config => {
+    console.log(config)
+    return config
+})
 
-request.interceptors.response.use((res) => {
-    console.log('res --->', res);
+request.interceptors.response.use(res => {
+    console.log('res --->', res)
     if (res.status === 200) {
-        return Promise.resolve(res.data);
+        return Promise.resolve(res.data)
     }
-    return Promise.reject(res);
-});
+    return Promise.reject(res)
+})
 
-export default request;
+export default request

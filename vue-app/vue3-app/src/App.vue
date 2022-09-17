@@ -1,31 +1,15 @@
 <template>
-    <el-container style="height: 100vh;">
-        <el-aside style="height: 100vh;" width="200px">
-            <el-menu
-                default-active="2"
-                router
-                style="height: 100%"
-            >
-                <el-menu-item :to="{ path: '/' }" index="/">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">home</span>
-                </el-menu-item>
-                <el-menu-item :to="{ path: '/wei_design' }" index="/wei_design">
-                    <i class="el-icon-document"></i>
-                    <span slot="title">wei_design</span>
-                </el-menu-item>
-                <el-menu-item :to="{ path: '/pinia' }" index="/pinia">
-                    <i class="el-icon-setting"></i>
-                    <span slot="title">pinia</span>
-                </el-menu-item>
-                <el-menu-item :to="{ path: '/vue-app' }" index="/vue-app">
-                    <i class="el-icon-setting"></i>
-                    <span slot="title">vue-app</span>
+    <el-container style="height: 100vh">
+        <el-aside style="height: 100vh" width="200px">
+            <el-menu default-active="2" router style="height: 100%">
+                <el-menu-item :to="{ path }" :index="path" v-for="{ path, title, icon } in menu.list" :key="path">
+                    <i :class="icon"></i>
+                    <span>{{ title }}</span>
                 </el-menu-item>
             </el-menu>
         </el-aside>
         <el-container>
-            <el-header style="background-color: #f6f9fe; display: flex;align-items: center;">
+            <el-header style="background-color: #f6f9fe; display: flex; align-items: center">
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item>活动管理</el-breadcrumb-item>
@@ -34,17 +18,30 @@
                 </el-breadcrumb>
             </el-header>
             <el-main>
-                <router-view/>
-                <div id="vueApp">
-                </div>
+                <router-view />
+                <div id="vueApp"></div>
             </el-main>
-            <el-footer style="background-color: #f6f9fe; display: flex;align-items: center; justify-content: center;">
+            <el-footer style="background-color: #f6f9fe; display: flex; align-items: center; justify-content: center">
                 &copy; 2022
             </el-footer>
         </el-container>
     </el-container>
-
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+import a, { useMenuStore } from '@/store'
+console.log(a)
+export default defineComponent({
+    components: {},
+    setup() {
+        const menu = useMenuStore()
+        return {
+            menu
+        }
+    }
+})
+</script>
 
 <style lang="scss">
 * {

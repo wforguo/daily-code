@@ -11,25 +11,23 @@
 </template>
 
 <script lang="ts">
-import {defineComponent,} from 'vue';
-import axios from 'axios';
+import { defineComponent } from 'vue'
+import axios from 'axios'
 
 export default defineComponent({
-    name: "AsyncShow",
+    name: 'AsyncShow',
     async setup() {
         const res = await axios({
             url: 'https://www.forguo.cn/api/common/wechat/sdk',
             params: {
-                url: window.location.href,
+                url: window.location.href
             }
-        });
+        })
         return {
-            res: res.data,
+            res: res.data
         }
     }
 })
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

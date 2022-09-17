@@ -45,6 +45,7 @@ export default (configEnv: any) => {
                         }
                         const reg = /(.*)\/src\/components\/(.*)/
                         if (reg.test(id)) {
+                            // @ts-ignore
                             const importersLen = getModuleInfo(id).importers.length
                             // 被多处引用
                             if (importersLen > 1) {

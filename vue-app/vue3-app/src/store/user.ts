@@ -1,12 +1,12 @@
-import {defineStore, acceptHMRUpdate} from 'pinia'
-import api from '@/api';
+import { defineStore, acceptHMRUpdate } from 'pinia'
+import api from '@/api'
 
-export const useUserStore = defineStore({
+const useUserStore = defineStore({
     id: 'user',
     state: () => ({
         name: '',
         isAdmin: false,
-        signature: '',
+        signature: ''
     }),
 
     actions: {
@@ -16,7 +16,7 @@ export const useUserStore = defineStore({
         logout() {
             this.$patch({
                 name: '',
-                isAdmin: false,
+                isAdmin: false
             })
         },
         /**
@@ -28,16 +28,18 @@ export const useUserStore = defineStore({
             const userData = await api.user.login({
                 user,
                 password
-            });
+            })
             const data = {
                 name: user,
-                ...userData.data,
+                ...userData.data
             }
-            console.log('login-success', data);
+            console.log('login-success', data)
             this.$patch(data)
-        },
-    },
+        }
+    }
 })
+
+export default useUserStore
 
 if (import.meta.hot) {
     import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot))

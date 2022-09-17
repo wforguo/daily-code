@@ -1,10 +1,11 @@
-import {createApp} from 'vue'
-import {registerMicroApps, start} from 'qiankun';
-import {createPinia} from 'pinia' // 状态管理
+import { createApp } from 'vue'
+import { registerMicroApps, start } from 'qiankun'
+import { createPinia } from 'pinia' // 状态管理
+import { useMenuStore } from '@/store'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import App from './App.vue'
-import router from './router'
+import router, { menus } from './router'
 // @ts-ignore
 import WeDesign from '@wei_design/web-vue'
 import '@wei_design/web-vue/lib/style.css'
@@ -17,15 +18,13 @@ registerMicroApps([
         name: 'vueApp',
         entry: '//localhost:10087',
         container: '#vueApp',
-        activeRule: '/vue-app',
-    },
-]);
+        activeRule: '/vue-app'
+    }
+])
 
-start();
+start()
 
-app
-    .use(createPinia())
-    .use(router)
-    .use(ElementPlus)
-    .use(WeDesign)
-    .mount('#app')
+app.use(createPinia()).use(router).use(ElementPlus).use(WeDesign).mount('#app')
+
+const menu = useMenuStore()
+menu.updateMenu(menus)
