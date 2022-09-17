@@ -21,3 +21,7 @@ yarn lint
 ```
 
 ## 
+
+pnpm以及yarn安装之后，运行项目报错
+
+vue-cli-service找不到，删除依赖，重新使用 npm install 安装即可
