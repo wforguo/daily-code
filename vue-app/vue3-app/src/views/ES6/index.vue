@@ -8,12 +8,10 @@
     <div>es6</div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
-    name: "ES6"
+    name: 'ES6'
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

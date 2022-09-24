@@ -8,9 +8,9 @@
     <div>typescript</div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
-    name: 'index',
+    name: 'TypeScript',
     title: 'ts'
 }
 </script>

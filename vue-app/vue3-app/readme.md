@@ -59,3 +59,6 @@ destroyed     -> onUnmounted
 activated     -> onActivated
 deactivated   -> onDeactivated
 errorCaptured -> onErrorCaptured
+
+### 路由自动加载
+

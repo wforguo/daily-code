@@ -30,8 +30,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import a, { useMenuStore } from '@/store'
-console.log(a)
+import { useMenuStore } from '@/store'
 export default defineComponent({
     components: {},
     setup() {

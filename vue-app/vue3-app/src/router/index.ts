@@ -39,4 +39,5 @@ export const menus = routes.map(item => {
         ...item
     }
 })
+
 export default router
