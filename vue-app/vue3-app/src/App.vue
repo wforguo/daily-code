@@ -2,8 +2,7 @@
     <el-container style="height: 100vh">
         <el-aside style="height: 100vh" width="200px">
             <el-menu default-active="2" router style="height: 100%">
-                <el-menu-item :to="{ path }" :index="path" v-for="{ path, title, icon } in menu.list" :key="path">
-                    <i :class="icon"></i>
+                <el-menu-item :to="{ path }" :index="path" v-for="{ path, title } in menu.list" :key="path">
                     <span>{{ title }}</span>
                 </el-menu-item>
             </el-menu>

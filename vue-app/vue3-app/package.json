@@ -15,7 +15,6 @@
         "lint": "eslint  --ext .vue,.js,.jsx,.ts,.tsx --fix src --ignore-path .eslintignore"
     },
     "dependencies": {
-        "@element-plus/icons-vue": "^2.0.9",
         "@wei_design/web-vue": "^1.0.0",
         "axios": "^0.27.2",
         "element-plus": "^2.2.0",
