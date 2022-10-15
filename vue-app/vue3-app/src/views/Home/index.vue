@@ -95,7 +95,7 @@ export default {
         // });
 
         // 监听多个使用数组
-        watch(ref.target, (newValue: object, oldValue: object) => {
+        watch(ref.target, (newValue: any, oldValue: object) => {
             console.log(`new--->${JSON.stringify(newValue)}`)
             console.log(`old--->${JSON.stringify(oldValue)}`)
             if (newValue && newValue.name) {

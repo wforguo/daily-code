@@ -1,26 +1,23 @@
 <!--
  * @Name: index.vue
  * @Author: forguo
- * @Date: 2022/9/17 22:14
+ * @Date: 2022/10/10 15:45
  * @Description: index
 -->
 <template>
-    <div>typescript</div>
+    <div>JS基础</div>
 </template>
 
 <script lang="ts" setup>
 import { onBeforeMount } from 'vue'
-import rawCode from './index'
-onBeforeMount(() => {
-    rawCode()
-})
+onBeforeMount(() => {})
 </script>
 
 <script lang="ts">
 // 使用了setup写法时，额外的name、title等信息，需要单独一个script标签，并且lang同setup的script标签
 export default {
-    name: 'TsView',
-    title: 'Ts',
+    name: 'JsBaseView',
+    title: 'JS基础',
     inheritAttrs: false,
     customOptions: {}
 }

@@ -22,12 +22,9 @@ import { defineComponent } from 'vue'
 import { useUserStore } from '@/store'
 import { ElMessage } from 'element-plus'
 
-interface DataProps {
-    handleAddCart: () => void
-}
-
 export default defineComponent({
     components: {},
+    title: '状态',
     setup() {
         const user = useUserStore()
         const handleAddCart = async () => {

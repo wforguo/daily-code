@@ -6,7 +6,6 @@
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 
 export default defineComponent({
-    name: 'Timer',
     props: {
         msg: String
     },

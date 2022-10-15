@@ -36,7 +36,6 @@
 // let res = twoSome([1,3,4,2], 6);
 // console.log(res);
 
-
 // 两数之和等于目标数值
 /**
  * @desc 双指针的方式来求解
@@ -45,24 +44,24 @@
  * @return {[*,*]}
  */
 let twoSome = function (arr, target) {
-    let sortArr = JSON.parse(JSON.stringify(arr)).sort((a, b) => a - b);
-    let length = sortArr.length;
-    let i = 0;
-    let j = length - 1;
-    let res = [];
+    let sortArr = JSON.parse(JSON.stringify(arr)).sort((a, b) => a - b)
+    let length = sortArr.length
+    let i = 0
+    let j = length - 1
+    let res = []
     while (i < j) {
         if (sortArr[i] + sortArr[j] === target && i !== j) {
-            res = [sortArr[i], sortArr[j]];
-            let a = arr.indexOf(res[0]);
-            let b = arr.lastIndexOf(res[1]);
-            return [a, b];
+            res = [sortArr[i], sortArr[j]]
+            let a = arr.indexOf(res[0])
+            let b = arr.lastIndexOf(res[1])
+            return [a, b]
         } else if (sortArr[i] + sortArr[j] < target) {
-            i = i + 1;
+            i = i + 1
         } else {
-            j = j - 1;
+            j = j - 1
         }
     }
-};
+}
 
-let res = twoSome([3, 6, 9, 4, 2, 0], 7);
-console.log(res);
+let res = twoSome([3, 6, 9, 4, 2, 0], 7)
+console.log(res)

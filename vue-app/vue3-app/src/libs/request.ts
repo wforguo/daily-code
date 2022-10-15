@@ -6,7 +6,10 @@
 
 import axios from 'axios'
 
-const request = axios.create()
+const request = axios.create({
+    baseURL: '/api'
+})
+
 request.interceptors.request.use(config => {
     console.log(config)
     return config

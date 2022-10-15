@@ -16,16 +16,17 @@
  * @return {number}
  */
 
-var removeDuplicates = function(nums) {
-    let left = 0;
+const removeDuplicates = function (nums) {
+    let left = 0
+
     for (let right = 1; right < nums.length; right++) {
         if (nums[left] !== nums[right]) {
-            left++;
-            nums[left] = nums[right];
+            left++
+            nums[left] = nums[right]
         }
     }
-    left++;
-    return left;
-};
+    left++
+    return left
+}
 
-console.log(removeDuplicates([1,1,2]));
+console.log(removeDuplicates([1, 1, 2]))
