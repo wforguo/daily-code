@@ -1,7 +1,7 @@
 <template>
-    <el-container style="height: 100vh">
+    <el-container style="height: 100vh; overflow: hidden">
         <el-aside style="height: 100vh" width="200px">
-            <el-menu default-active="2" router style="height: 100%">
+            <el-menu default-active="/" router style="height: 100%">
                 <el-menu-item :to="{ path }" :index="path" v-for="{ path, title } in menu.list" :key="path">
                     <span>{{ title }}</span>
                 </el-menu-item>
@@ -16,9 +16,15 @@
                     <el-breadcrumb-item>活动详情</el-breadcrumb-item>
                 </el-breadcrumb>
             </el-header>
-            <el-main>
-                <router-view />
-                <div id="vueApp"></div>
+            <el-main style="background: #f2f3f5">
+                <el-card style="width: 100%; height: 100%; box-sizing: border-box" shadow="never">
+                    <template #header>
+                        <div class="card-header">
+                            <span>Card name</span>
+                        </div>
+                    </template>
+                    <router-view />
+                </el-card>
             </el-main>
             <el-footer style="background-color: #f6f9fe; display: flex; align-items: center; justify-content: center">
                 &copy; 2022
@@ -28,12 +34,20 @@
 </template>
 
 <script lang="ts">
+import { onBeforeRouteUpdate, useRouter, onBeforeRouteLeave } from 'vue-router'
 import { defineComponent } from 'vue'
 import { useMenuStore } from '@/store'
 export default defineComponent({
     components: {},
     setup() {
         const menu = useMenuStore()
+        const router = useRouter()
+        onBeforeRouteUpdate(to => {
+            console.log({ ...router }, to)
+        })
+        onBeforeRouteLeave(to => {
+            console.log({ ...router }, to)
+        })
         return {
             menu
         }
@@ -45,6 +59,7 @@ export default defineComponent({
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
 #app {
@@ -53,5 +68,10 @@ export default defineComponent({
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+}
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 </style>

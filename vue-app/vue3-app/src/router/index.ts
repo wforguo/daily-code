@@ -8,7 +8,11 @@ const routes = [
         name: 'HomeView',
         title: '首页',
         icon: 'el-icon-s-home',
-        component: Home
+        component: Home,
+        meta: {
+            name: 'HomeView',
+            title: '首页'
+        }
     }
 ]
 
@@ -33,11 +37,14 @@ for (const componentPath in views) {
             name: routerName,
             title,
             icon,
-            component: $component
+            component: $component,
+            meta: {
+                name: routerName,
+                title
+            }
         })
     }
 }
-
 const router = createRouter({
     history: createWebHistory(),
     routes
