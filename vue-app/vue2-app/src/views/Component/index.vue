@@ -41,10 +41,11 @@
 <script>
 
 export default {
+    hidden: true,
     title: '组件',
     name: "components",
     components: {
-        lazyLoad: () => import('@/pages/Component/LazyLoad'),
+        lazyLoad: () => import('@/views/Component/LazyLoad'),
         CustomInput: () => import('./CustomInput'),
     },
     data () {

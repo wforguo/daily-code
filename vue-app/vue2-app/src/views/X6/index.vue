@@ -149,7 +149,7 @@ const data =
 
 export default {
     name: "X6",
-    title: 'antv-x6',
+    title: 'Antv/X6流程图',
     data() {
         return {
             rawSource: data,

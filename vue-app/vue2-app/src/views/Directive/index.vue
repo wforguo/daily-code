@@ -8,7 +8,8 @@
 
 <script>
 export default {
-    name: "directive",
+    hidden: true,
+    name: "Directive",
     title: '指令',
     data () {
         return {

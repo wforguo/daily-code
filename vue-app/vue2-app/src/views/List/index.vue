@@ -33,6 +33,7 @@ const instance = axios.create({
     withCredentials: false
 });
 export default {
+    hidden: true,
     title: '列表',
     name: "List",
     props: {

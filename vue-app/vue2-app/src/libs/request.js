@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Toast } from "vant";
+import { Message } from "element-ui";
 
 class request {
     constructor() {
@@ -31,7 +31,7 @@ class request {
             if (res.status === 200 && res.data.code === 200) {
                 return Promise.resolve(res.data);
             } else {
-                Toast(res.data.message || res.statusText);
+                Message.warning(res.data.message || res.statusText)
                 if (res.data.code === 401) {
                     console.log('token失效，重新授权！')
                     localStorage.clear();
@@ -40,7 +40,7 @@ class request {
                 return Promise.reject(res.data);
             }
         }, (err) => {
-            Toast(err.data.message || err.statusText);
+            Message.warning(err.data.message || err.statusText);
             return Promise.reject(err);
         })
     }

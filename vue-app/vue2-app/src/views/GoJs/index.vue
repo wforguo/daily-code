@@ -53,10 +53,9 @@
 import resImg from "./ResImg";
 let myDiagram = null
 export default {
-    name: "gojs",
+    name: "GoJs",
     components: {resImg},
-
-    title: 'gojs',
+    title: 'GoJs流程图',
     data(){
         return {
             show: false,

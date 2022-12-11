@@ -3,19 +3,13 @@ import { defineStore, acceptHMRUpdate } from 'pinia'
 const useMenuStore = defineStore({
     id: 'menu',
     state: () => ({
-        list: [
-            {
-                path: '/',
-                name: 'home',
-                title: '首页'
-            }
-        ]
+        list: []
     }),
-
     actions: {
         updateMenu(list: Array<any>) {
+            console.log(list)
             this.$patch({
-                list
+                list: [...this.list, ...list]
             })
         }
     }

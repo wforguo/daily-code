@@ -1,11 +1,12 @@
 {
     "name": "daily-code",
     "version": "2.0.0",
-    "description": "平时的学习代码及Demo",
+    "description": "daily-code",
     "main": "index.js",
+    "packageManager": "pnpm@7.6.0",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/wforguo/study.git"
+        "url": "git+https://github.com/wforguo/daily-code.git"
     },
     "author": "",
     "license": "ISC",
