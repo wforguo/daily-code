@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>vue2-app</title>
+    <script src="https://unpkg.com/gojs/release/go-debug.js"></script>
+<!--    <script src="go.js?t="></script>-->
+    <script>
+        window.login = function () {
+            // 跳转去授权
+            var loc = location.protocol + '//' + location.host + location.pathname;
+            var redirect = encodeURIComponent(loc);
+            window.location.replace('http://127.0.0.1:3003/wechat/auth?url=' + redirect);
+        }
+    </script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?2788f1f4f01e060d6d892f4bbd5b74d4";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <script type="text/javascript" charset="utf-8" src="https://webapi.amap.com/maps?v=1.4.13&key=086608fec3bb4baebfa9bb6fc5aafcae"></script>
+<link href="/vue2-app/css/chunk-vendors.36f75f4e.css" rel="stylesheet"><link href="/vue2-app/css/app.4be2a909.css" rel="stylesheet"></head>
+<body>
+    <div id="vue"></div>
+<script type="text/javascript" src="//cdn.staticfile.org/vue/2.7.14/vue.runtime.min.js"></script><script type="text/javascript" src="//cdn.staticfile.org/vue-router/3.6.5/vue-router.min.js"></script><script type="text/javascript" src="/vue2-app/js/chunk-vendors.aa516f48.js"></script><script type="text/javascript" src="/vue2-app/js/app.4a461b53.js"></script></body>
+</html>
