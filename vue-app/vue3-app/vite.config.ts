@@ -4,6 +4,7 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { viteMockServe } from 'vite-plugin-mock'
+const { name: title } = require('./package.json')
 
 // https://vitejs.dev/config/
 export default (configEnv: any) => {
@@ -20,6 +21,7 @@ export default (configEnv: any) => {
         )
     }
     return defineConfig({
+        base: process.env.NODE_ENV === 'production' ? `/${title}` : '/',
         server: {
             open: true,
             port: 30001,
@@ -35,7 +37,7 @@ export default (configEnv: any) => {
                 // 确保外部化处理那些你不想打包进库的依赖
                 external: ['vue', 'axios', 'vue-router', 'element-plus', 'pinia'],
                 output: {
-                    dir: 'dist',
+                    dir: `../../dist/${title}/`,
                     // format: 'cjs',
                     // entryFileNames: 'main-app.js',
                     manualChunks(id, { getModuleInfo }) {

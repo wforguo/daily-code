@@ -6,7 +6,8 @@ const useMenuStore = defineStore({
         list: [
             {
                 path: '/',
-                name: 'home'
+                name: 'home',
+                title: '首页'
             }
         ]
     }),

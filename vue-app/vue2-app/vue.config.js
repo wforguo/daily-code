@@ -17,7 +17,7 @@ const { name: title } = require('./package.json');
 process.env.VUE_APP_VERSION = require('./package.json').version;
 
 const BASE_URL = process.env.NODE_ENV === 'production'
-    ? `https://cloud-app.com.cn/apps/${name}`
+    ? `/${title}`
     : '/'
 // 添加cdnLoader
 
@@ -86,5 +86,6 @@ module.exports = {
         //     }
         // }
     },
-    publicPath: BASE_URL
+    publicPath: BASE_URL,
+    outputDir: `../../dist/${title}/`
 };
