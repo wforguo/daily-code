@@ -1,0 +1,2 @@
+(window["vue2-app"]=window["vue2-app"]||[]).push([["Home"],{"0789":function(t,e,n){"use strict";n("a12d")},"16c0":function(t,e,n){"use strict";n.r(e);var c=function(){var t=this,e=t._self._c;return e("div",{staticClass:"home"},[t._v(" 首页 ")])},u=[],o={title:"首页",name:"Home",computed:{},components:{}},a=o,i=(n("0789"),n("0abc")),s=Object(i["a"])(a,c,u,!1,null,"6995d6ec",null);e["default"]=s.exports},a12d:function(t,e,n){}}]);
+//# sourceMappingURL=Home.3032ce9a.js.map
