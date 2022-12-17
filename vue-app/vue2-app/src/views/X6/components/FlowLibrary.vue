@@ -73,12 +73,12 @@ export default {
                 groups: [
                     {
                         name: '矩形',
-                        image: require('../assets/icon-flow-rect.svg'),
+                        image: ('x6/icon-flow-rect.svg'),
                         shape: 'rect',
                     },
                     {
                         name: '圆',
-                        image: require('../assets/icon-flow-circle.svg'),
+                        image: ('x6/icon-flow-circle.svg'),
                         shape: 'circle',
                     },
                 ],
@@ -90,25 +90,25 @@ export default {
                     {
                         id: 'Client',
                         name: 'Client',
-                        image: require('../assets/icon-flow-client.svg'),
+                        image: ('x6/icon-flow-client.svg'),
                         shape: SETTING_SHAPE_NAME,
                     },
                     {
                         id: 'Http',
                         name: 'Http',
-                        image: require('../assets/icon-flow-http.svg'),
+                        image: ('x6/icon-flow-http.svg'),
                         shape: SETTING_SHAPE_NAME,
                     },
                     {
                         id: 'Cloud',
                         name: 'Cloud',
-                        image: require('../assets/icon-flow-cloud.svg'),
+                        image: ('x6/icon-flow-cloud.svg'),
                         shape: SETTING_SHAPE_NAME,
                     },
                     {
                         id: 'Sql',
                         name: 'Sql',
-                        image: require('../assets/icon-flow-sql.svg'),
+                        image: ('x6/icon-flow-sql.svg'),
                         shape: SETTING_SHAPE_NAME,
                     },
                 ],
