@@ -30,8 +30,8 @@ let instance = null;
 function render(props = {}) {
     const { container } = props;
     router = new VueRouter({
-        base: `${process.env.BASE_URL}${window.__POWERED_BY_QIANKUN__ ? '/vue2-app/' : '/'}`,
-        mode: 'history',
+        base: `${window.__POWERED_BY_QIANKUN__ ? '/vue2-app/' : '/'}`,
+        // mode: 'history',
         routes,
     });
 

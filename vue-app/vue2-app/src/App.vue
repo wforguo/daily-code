@@ -15,25 +15,25 @@
         <el-container>
             <el-header style="background-color: #f6f9fe; display: flex; align-items: center">
                 <el-breadcrumb separator-class="el-icon-arrow-right">
-                    <el-breadcrumb-item>{{ $route?.meta?.title }}</el-breadcrumb-item>
+                    <el-breadcrumb-item>daily-code</el-breadcrumb-item>
                 </el-breadcrumb>
             </el-header>
             <el-main style="background: #f2f3f5">
                 <el-card
-                    style="width: 100%; height: 100%; box-sizing: border-box"
+                    style="width: 100%; height: 100%; box-sizing: border-box;display: flex; flex-direction: column;}"
                     shadow="never"
-                    body-style="width: 100%; height: 100%;"
+                    body-style="flex: 1; width: 100%; height: 100%;"
                 >
                     <template #header>
                         <div class="card-header">
-                            <span>Card name</span>
+                            <span>{{ $route?.meta?.title }}</span>
                         </div>
                     </template>
                     <router-view />
                 </el-card>
             </el-main>
             <el-footer style="background-color: #f6f9fe; display: flex; align-items: center; justify-content: center">
-                &copy; 2022
+                <a href="https://github.com/wforguo" target="_blank">forguo &copy; {{new Date().getFullYear()}}</a>
             </el-footer>
         </el-container>
     </el-container>
