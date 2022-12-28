@@ -8,10 +8,31 @@ import VueRouter from 'vue-router'
 
 /************************
  * @description: 实现路由的自动加载
- ************************
+ ************************/
+
+/**
+ *  // 1、Vue异步组件技术：
+ *  {
+ *     path: '/home',
+ *     name: 'Home',
+ *     // 不能指定chunk-name
+ *     component: resolve => require(['path路径'], resolve)
+ *   }
+ **/
+// 2、es6提案的import()
+// 可以指定chunk-name
+// const Home = () => import( /* webpackChunkName: "home" */ '@/views/Home.vue')
+/*
+ *  // 3、webpack提供的require.ensure()
+ * 可以指定chunk-name
+ *  const Home = resolve => {
+ *     require.ensure([], () => {
+ *         resolve(require('@/views/Home.vue'));
+ *     }, 'chunk-name');
+ * };
  */
 
-let routes = [];
+// let routes = [];
 
 /**
  * 通过require.context函数获取一个特定的上下文
@@ -28,7 +49,7 @@ let routes = [];
     )
  */
 
-let views = require.context('../pages/', true, /index\.vue$/);
+// let views = require.context('@/views/', true, /index\.vue$/);
 
 // 导出的方法有 3 个属性： resolve, keys, id。
 // - resolve 是一个函数，它返回请求被解析后得到的模块 id。
@@ -37,25 +58,28 @@ let views = require.context('../pages/', true, /index\.vue$/);
 
 // 这里只用到 keys，返回搜索到的数组
 
-views.keys().forEach((key) => {
-    let $route = views(key).default;
-    let routerName = $route.name;
-    let routerTitle = $route.title;
-    let componentPath = $route.__file.replace(/^src\//i, '');
-    routes.push({
-        path: routerName === 'Home' ? '/' : `/${routerName}`,
-        title: routerTitle || routerName,
-        component: () => import(
-            /* webpackChunkName: "[request]" */
-            `../${componentPath}`)
-        ,
-        name: routerName,
-        meta: {
-            title: routerTitle || routerName,
-        }
-    })
-});
-console.log('所有的路由', routes);
+// views.keys().forEach((fileName) => {
+//     let $route = views(fileName).default
+//     let routerName = $route.name;
+//     let routerTitle = $route.title;
+//     let componentPath = fileName.replace(/^\.\//i, 'views/');
+//     routes.push({
+//         path: routerName === 'Home' ? '/' : `/${routerName}`,
+//         title: routerTitle || routerName,
+//         // 这里不能够使用懒加载...
+//         // component: $route,
+//         component: () => import(
+//             /* webpackChunkName: "[request]" */
+//             `@/${componentPath}`)
+//         ,
+//         name: routerName,
+//         meta: {
+//             title: routerTitle || routerName,
+//         }
+//     })
+// });
+
+// process.env.NODE_ENV === 'development' && console.log('所有的路由', routes);
 
 /************************
  * @description: 实现路由的自动加载
@@ -63,4 +87,47 @@ console.log('所有的路由', routes);
 
 Vue.use(VueRouter);
 
-export default routes
+const routes = [
+    {
+        path: '/', title: '首页', name: 'Home',
+        meta: { title: '首页' },
+        component: () => import( /* webpackChunkName: "Home" */ '@/views/Home')
+    },
+    {
+        path: '/Directive', title: '指令', name: 'Directive', meta: { title: '指令' },
+        hidden: true,
+        component: () => import( /* webpackChunkName: "Directive" */ '@/views/Directive'),
+    },
+    {
+        path: '/Component', title: '组件', name: 'Component', meta: { title: '组件' },
+        hidden: true,
+        component: () => import( /* webpackChunkName: "Component" */ '@/views/Component')
+    },
+    {
+        path: '/List', title: '列表', name: 'List', meta: { title: '列表' },
+        hidden: true,
+        component: () => import( /* webpackChunkName: "List" */ '@/views/List')
+    },
+    {
+        path: '/X6', title: 'Antv/X6流程图', name: 'X6', meta: { title: 'Antv/X6流程图' },
+        component: () => import( /* webpackChunkName: "X6" */ '@/views/X6')
+    },
+    {
+        path: '/GoJs', title: 'gojs流程图', name: 'GoJs', meta: { title: 'GoJs流程图' },
+        component: () => import( /* webpackChunkName: "GoJs" */ '@/views/GoJs')
+    },
+    {
+        path: '/AmapDrop', title: '高德地图下钻', name: 'AmapDrop', meta: { title: 'GoJs流程图' },
+        component: () => import( /* webpackChunkName: "AmapDrop" */ '@/views/AmapDrop')
+    },
+    {
+        path: '*',
+        name: '404',
+        meta: {
+            title: '404'
+        },
+        component: () => import('@/views/Error/404')
+    }
+]
+
+export default routes.filter(item => !item.hidden)

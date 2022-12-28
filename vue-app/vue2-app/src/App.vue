@@ -1,64 +1,66 @@
 <template>
-    <div id="vue">
-<!--        <div id="pageBg">-->
-<!--        </div>-->
-        <van-nav-bar
-            :title="routeName"
-            :left-text="showBack ? '返回' : ''"
-            :left-arrow="showBack"
-            @click-left="handleNavHome"
-        />
-        <router-view></router-view>
-<!--        <keep-alive>-->
-<!--        </keep-alive>-->
-        <div class="fixed-button" v-show="showBack">
-            <van-icon name="wap-home-o" size="32" @click="handleNavHome" />
-        </div>
-    </div>
+    <el-container style="height: 100vh; overflow: hidden">
+        <el-aside style="height: 100vh" width="200px">
+            <el-menu :default-active="$route?.path || '/'" router style="height: 100%">
+                <el-menu-item
+                    :index="path"
+                    v-for="{ path, title, name } in list"
+                    :key="path"
+                    @select="handleNav(name)"
+                >
+                    <span>{{ title }}</span>
+                </el-menu-item>
+            </el-menu>
+        </el-aside>
+        <el-container>
+            <el-header style="background-color: #f6f9fe; display: flex; align-items: center">
+                <el-breadcrumb separator-class="el-icon-arrow-right">
+                    <el-breadcrumb-item>daily-code</el-breadcrumb-item>
+                </el-breadcrumb>
+            </el-header>
+            <el-main style="background: #f2f3f5">
+                <el-card
+                    style="width: 100%; height: 100%; box-sizing: border-box;display: flex; flex-direction: column;}"
+                    shadow="never"
+                    body-style="flex: 1; width: 100%; height: 100%;"
+                >
+                    <template #header>
+                        <div class="card-header">
+                            <span>{{ $route?.meta?.title }}</span>
+                        </div>
+                    </template>
+                    <router-view />
+                </el-card>
+            </el-main>
+            <el-footer style="background-color: #f6f9fe; display: flex; align-items: center; justify-content: center">
+                <a href="https://github.com/wforguo" target="_blank">forguo &copy; {{new Date().getFullYear()}}</a>
+            </el-footer>
+        </el-container>
+    </el-container>
 </template>
-
 <script>
 
-import { mapActions } from "vuex";
-// import CanvasNest from 'canvas-nest.js';
+import {mapState} from "vuex";
 
 export default {
     name: 'vueApp',
-    methods: {
-        ...mapActions('router', [
-            'setRouters'
-        ]),
-        handleNavHome () {
-            this.$router.replace({
-                path: '/',
-            });
-        }
-    },
     computed: {
-        routeName () {
-            return this.$route.meta.title
-        },
-        showBack () {
-            return this.$route.path !== '/'
+        ...mapState('menu', [
+            'list'
+        ])
+    },
+    methods: {
+        handleNav(name) {
+            console.log(name)
+            this.$router.push({
+                name
+            })
         }
     },
-    mounted() {
-        // const config = {
-        //     pointColor: '255,0,0',
-        //     count: 188,
-        //     pointR: 1,
-        //     opacity: 0.75
-        // };
-        // const element = document.getElementById('pageBg');
-        // new CanvasNest(element, config);
-        this.setRouters({
-            routers: this.$router.options.routes
-        });
-    }
 }
 </script>
 
-<style lang="less">
+<style lang="scss">
 html {
     height: 100%;
     background: #f7f8fa;
@@ -69,7 +71,7 @@ html {
     box-sizing: border-box;
 }
 
-#vue {
+#app {
     height: 100%;
     overflow-y: auto;
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -100,23 +102,4 @@ body {
         z-index: -1;
     }
 }
-
-.fixed-button {
-    position: fixed;
-    bottom: 50px;
-    right: 50px;
-}
-
-#pageBg {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 999;
-    pointer-events: none;
-}
-
 </style>

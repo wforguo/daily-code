@@ -1,14 +1,18 @@
 import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { viteMockServe } from 'vite-plugin-mock'
+import { dayjs } from 'element-plus'
+const { name: title, version: APP_VERSION } = require('./package.json')
 
 // https://vitejs.dev/config/
 export default (configEnv: any) => {
-    const { command, mode } = configEnv
+    const { mode } = configEnv
     const env = loadEnv(mode, process.cwd())
+    // 增加环境变量
+    env.APP_VERSION = APP_VERSION
+    env.APP_BUILD_TIME = dayjs().format('YYYY-MM-DD HH:mm:ss')
     const isMock = mode === 'mock'
     const plugins = [vue(), vueJsx()]
     if (isMock) {
@@ -20,8 +24,12 @@ export default (configEnv: any) => {
         )
     }
     return defineConfig({
+        base: process.env.NODE_ENV === 'production' ? `/daily-code/${title}` : '/',
         server: {
-            open: true,
+            headers: {
+                'Access-Control-Allow-Origin': '*'
+            },
+            open: false,
             port: 30001,
             host: '0.0.0.0'
         },
@@ -31,11 +39,11 @@ export default (configEnv: any) => {
             }
         },
         build: {
+            sourcemap: true,
             rollupOptions: {
                 // 确保外部化处理那些你不想打包进库的依赖
-                external: ['vue', 'axios', 'vue-router', 'element-plus', 'pinia'],
                 output: {
-                    dir: 'dist',
+                    dir: `../../dist/${title}/`,
                     // format: 'cjs',
                     // entryFileNames: 'main-app.js',
                     manualChunks(id, { getModuleInfo }) {

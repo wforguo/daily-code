@@ -183,11 +183,11 @@ module.exports = env => {
             ]
         },
         plugins: [
-            new BundleAnalyzerPlugin({
-                openAnalyzer: false,
-                analyzerMode: 'static',
-                reportFilename: 'report.html'
-            }),
+            // new BundleAnalyzerPlugin({
+            //     openAnalyzer: false,
+            //     analyzerMode: 'static',
+            //     reportFilename: 'report.html'
+            // }),
             new WebpackBar({
                 name: name || 'WebPack',
                 color: '#61dafb', // react 蓝
@@ -195,14 +195,14 @@ module.exports = env => {
             new MiniCssExtractPlugin({
                 filename: 'css/[name].[contenthash:6].css'
             }),
-            new CopyWebpackPlugin({
-                patterns: [
-                    {
-                        from: path.resolve(__dirname, "../public"),
-                        to: path.resolve(__dirname, "../dist")
-                    },
-                ],
-            }),
+            // new CopyWebpackPlugin({
+            //     patterns: [
+            //         {
+            //             from: path.resolve(__dirname, "../public"),
+            //             to: path.resolve(__dirname, "../dist")
+            //         },
+            //     ],
+            // }),
             new HtmlWebpackPlugin({
                 title: 'App1',
                 template: path.resolve(__dirname, "../public/app1.html"),

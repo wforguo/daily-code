@@ -34,7 +34,6 @@ interface DataProps {
 }
 
 export default {
-    icon: 'el-icon-s-home',
     name: 'HomeView',
     title: '首页',
     components: {
