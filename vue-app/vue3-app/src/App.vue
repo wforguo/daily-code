@@ -10,17 +10,14 @@
         <el-container>
             <el-header style="background-color: #f6f9fe; display: flex; align-items: center">
                 <el-breadcrumb separator-class="el-icon-arrow-right">
-                    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-                    <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-                    <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+                    <el-breadcrumb-item>Vue3</el-breadcrumb-item>
                 </el-breadcrumb>
             </el-header>
             <el-main style="background: #f2f3f5">
                 <el-card style="width: 100%; height: 100%; box-sizing: border-box" shadow="never">
                     <template #header>
                         <div class="card-header">
-                            <span>Card name</span>
+                            <span>{{ $route?.meta?.title }}</span>
                         </div>
                     </template>
                     <router-view />
@@ -54,24 +51,3 @@ export default defineComponent({
     }
 })
 </script>
-
-<style lang="scss">
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-}
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-</style>

@@ -5,6 +5,7 @@ import { useMenuStore } from '@/store'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import App from './App.vue'
+import './assets/main.scss'
 import router, { menus } from './router'
 // @ts-ignore
 import WeDesign from '@wei_design/web-vue'
