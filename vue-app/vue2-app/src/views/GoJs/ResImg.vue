@@ -5,32 +5,30 @@
  * @Description: ResImg
 -->
 <template>
-    <div ref="resImg" style="background: rgba(255,255,255,1); border-radius: 16px;" />
+    <div ref="resImg" style="background: rgba(255, 255, 255, 1); border-radius: 16px" />
 </template>
 
 <script>
 export default {
-    name: "ResImg",
+    name: 'ResImg',
     props: {
-        res: {
-        },
+        res: {}
     },
     watch: {
         res: {
             handler(val) {
                 if (val) {
                     console.log(this.$refs['resImg'].firstElementChild)
-                    this.$refs['resImg'].firstElementChild && this.$refs['resImg'].removeChild(this.$refs['resImg'].firstElementChild)
+                    this.$refs['resImg'].firstElementChild &&
+                        this.$refs['resImg'].removeChild(this.$refs['resImg'].firstElementChild)
                     this.$refs['resImg'].appendChild(val)
                 }
             },
             deep: true,
-            immediate: true,
+            immediate: true
         }
     }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

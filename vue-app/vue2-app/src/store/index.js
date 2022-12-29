@@ -4,14 +4,14 @@
  * @description: index
  */
 
-import Vuex from 'vuex';
-import Vue from 'vue';
-import menu from './menu';
+import Vuex from 'vuex'
+import Vue from 'vue'
+import menu from './menu'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules: {
-        menu,
+        menu
     }
 })

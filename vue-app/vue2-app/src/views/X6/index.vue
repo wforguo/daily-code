@@ -7,38 +7,32 @@
 <template>
     <div class="ant-flow">
         <flow-library @onAddNode="onAddNode" />
-        <div id="container" style="flex: 1; width: 100%; height: 100%;"></div>
+        <div id="container" style="flex: 1; width: 100%; height: 100%"></div>
         <flow-content-menu :visible.sync="menuVisible" :position="menuPosition" @onMenuClick="onMenuClick" />
         <el-button @click="handleSave" type="primary" class="ant-flow-save">保存</el-button>
     </div>
 </template>
 
 <script>
-import {
-    Graph,
-    Addon,
-    DataUri,
-} from "@antv/x6";
+import { Graph, Addon, DataUri } from '@antv/x6'
 
-import FlowLibrary from "@/views/X6/components/FlowLibrary";
-import FlowContentMenu from "@/views/X6/components/FlowContentMenu";
-import rawSource from "@/views/X6/config/data";
-import {graphOptions, ports, SETTING_SHAPE_NAME, SettingNodeOptions, colors} from "@/views/X6/config";
+import FlowLibrary from '@/views/X6/components/FlowLibrary'
+import FlowContentMenu from '@/views/X6/components/FlowContentMenu'
+import rawSource from '@/views/X6/config/data'
+import { graphOptions, ports, SETTING_SHAPE_NAME, SettingNodeOptions, colors } from '@/views/X6/config'
 let graph = null
 let dnd = null
 let selector = null
 
 export default {
-    name: "X6",
-    components: {FlowContentMenu, FlowLibrary},
+    name: 'X6',
+    components: { FlowContentMenu, FlowLibrary },
     title: 'Antv/X6流程图',
     data() {
         return {
             rawSource: rawSource,
             menuVisible: false,
-            menuPosition: {
-
-            }
+            menuPosition: {}
         }
     },
     mounted() {
@@ -74,7 +68,7 @@ export default {
             const options = {
                 target: graph,
                 scaled: false,
-                animation: true,
+                animation: true
             }
             dnd = new Addon.Dnd(options)
         },
@@ -85,7 +79,7 @@ export default {
             Graph.registerNode(
                 SETTING_SHAPE_NAME,
                 {
-                    ...SettingNodeOptions,
+                    ...SettingNodeOptions
                 },
                 true
             )
@@ -93,9 +87,9 @@ export default {
         /**
          * 快捷键与事件
          */
-        initEvent(){
+        initEvent() {
             // 点击...
-            graph.on('cell:click', (e) => {
+            graph.on('cell:click', e => {
                 this.menuVisible = false
                 const { node } = e
                 const data = node.getData()
@@ -107,7 +101,10 @@ export default {
                 const { e: event, node } = e
                 const shape = e.node.shape
                 // 当前选中元素
-                const $select = shape === SETTING_SHAPE_NAME ? document.querySelector('.x6-node-selected > rect') : document.querySelector(`.x6-node-selected > ${shape}`)
+                const $select =
+                    shape === SETTING_SHAPE_NAME
+                        ? document.querySelector('.x6-node-selected > rect')
+                        : document.querySelector(`.x6-node-selected > ${shape}`)
                 if (!$select) {
                     return
                 }
@@ -127,9 +124,9 @@ export default {
                     args: {
                         // 计算链接桩位置
                         x: Math.round(x),
-                        y: Math.round(y),
+                        y: Math.round(y)
                     },
-                    silent: false,
+                    silent: false
                 })
             })
 
@@ -146,9 +143,9 @@ export default {
                             name: 'button-remove',
                             args: {
                                 x: '30%',
-                                y: '50%',
-                            },
-                        },
+                                y: '50%'
+                            }
+                        }
                     ])
                 }
             })
@@ -176,7 +173,7 @@ export default {
                 this.menuVisible = false
                 this.menuPosition = {
                     left: event.pageX + 'px',
-                    top: event.pageY + 'px',
+                    top: event.pageY + 'px'
                 }
                 this.menuVisible = true
             })
@@ -244,7 +241,7 @@ export default {
                 const cells = graph.getSelectedCells()
                 // console.log(cells.isEdge())
                 if (cells.length) {
-                  graph.removeCells(cells)
+                    graph.removeCells(cells)
                 }
             })
 
@@ -284,34 +281,37 @@ export default {
                 const name = target.getAttribute('data-name')
                 const shape = target.getAttribute('data-shape')
                 console.log(shape)
-                const nodeOptions = shape === SETTING_SHAPE_NAME ?{
-                    shape,
-                    label: name,
-                    attrs: {
-                        settingImage: {
-                            'xlink:href': image,
-                        },
-                        settingName: {
-                            'text': name,
-                        },
-                    },
-                    // 业务数据
-                    data: {
-                        shape,
-                        id
-                    }
-                } : {
-                    shape,
-                    width: 64,
-                    height: 64,
-                    label: name,
-                    ports: { ...ports },
-                    // 业务数据
-                    data: {
-                        shape,
-                        id
-                    }
-                }
+                const nodeOptions =
+                    shape === SETTING_SHAPE_NAME
+                        ? {
+                              shape,
+                              label: name,
+                              attrs: {
+                                  settingImage: {
+                                      'xlink:href': image
+                                  },
+                                  settingName: {
+                                      text: name
+                                  }
+                              },
+                              // 业务数据
+                              data: {
+                                  shape,
+                                  id
+                              }
+                          }
+                        : {
+                              shape,
+                              width: 64,
+                              height: 64,
+                              label: name,
+                              ports: { ...ports },
+                              // 业务数据
+                              data: {
+                                  shape,
+                                  id
+                              }
+                          }
                 const newNode = graph.createNode({
                     ...nodeOptions
                 })
@@ -323,7 +323,7 @@ export default {
             const [option] = select
             switch (option) {
                 case 'name': {
-                    const color =  colors[Math.floor(Math.random() * 100 % 6)]
+                    const color = colors[Math.floor((Math.random() * 100) % 6)]
                     selector.attr('settingName/text', color)
                     selector.attr('settingName/fill', color)
                     selector.attr('text/text', color)
@@ -331,8 +331,8 @@ export default {
                     break
                 }
                 case 'color': {
-                    selector.attr('body/fill', colors[Math.floor(Math.random() * 100 % 6)])
-                    selector.attr('body/stroke', colors[Math.floor(Math.random() * 100 % 6)])
+                    selector.attr('body/fill', colors[Math.floor((Math.random() * 100) % 6)])
+                    selector.attr('body/stroke', colors[Math.floor((Math.random() * 100) % 6)])
                     break
                 }
                 case 'remove': {
@@ -348,23 +348,26 @@ export default {
             const res = graph.toJSON()
             this.rawSource = res
             console.log(JSON.stringify(res))
-            graph.toPNG((dataUri) => {
-                // 下载
-                DataUri.downloadDataUri(dataUri, `${new Date().toLocaleString()}.chart.png`)
-            }, {
-                // 导出的图片参数
-                width: 1920,
-                height: 1080,
-                padding: {
-                    top: 25,
-                    right: 25,
-                    bottom: 25,
-                    left: 25,
+            graph.toPNG(
+                dataUri => {
+                    // 下载
+                    DataUri.downloadDataUri(dataUri, `${new Date().toLocaleString()}.chart.png`)
                 },
-            })
+                {
+                    // 导出的图片参数
+                    width: 1920,
+                    height: 1080,
+                    padding: {
+                        top: 25,
+                        right: 25,
+                        bottom: 25,
+                        left: 25
+                    }
+                }
+            )
             this.$message.success('保存成功')
-        },
-    },
+        }
+    }
 }
 </script>
 

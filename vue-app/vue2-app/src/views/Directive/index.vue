@@ -1,17 +1,15 @@
 <template>
-
     <div v-if="value !== 'fuck'">
         <input v-model="value" type="text" v-focus.lefr.top="value" />
     </div>
-
 </template>
 
 <script>
 export default {
     hidden: true,
-    name: "Directive",
+    name: 'Directive',
     title: '指令',
-    data () {
+    data() {
         return {
             value: ''
         }
@@ -19,6 +17,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

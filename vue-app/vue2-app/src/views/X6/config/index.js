@@ -15,11 +15,11 @@ export const graphOptions = (check = false) => {
         // 定制节点和边的交互行为 ==> boolean 节点或边是否可交互
         interacting: check
             ? {
-                nodeMovable: false,
-                edgeMovable: false,
-                magnetConnectable: false,
-                vertexDeletable: false,
-            }
+                  nodeMovable: false,
+                  edgeMovable: false,
+                  magnetConnectable: false,
+                  vertexDeletable: false
+              }
             : true,
         // 对齐线
         snapline: true,
@@ -29,7 +29,7 @@ export const graphOptions = (check = false) => {
         selecting: {
             enabled: true,
             multiple: !check, // 多选【开启】
-            rubberband: false, // 启用框选【关闭】
+            rubberband: false // 启用框选【关闭】
         },
         // 显示网格 // 'dot' | 'fixedDot' | 'mesh'
         grid: {
@@ -38,15 +38,15 @@ export const graphOptions = (check = false) => {
             type: 'mesh',
             args: {
                 color: '#e9e9e9',
-                thickness: 2, // 网格线宽度/网格点大小
-            },
+                thickness: 2 // 网格线宽度/网格点大小
+            }
         },
         // 滚动
         scroller: {
             enabled: true,
             pageVisible: false, // 是否分页
             pageBreak: false,
-            pannable: true, // 是否平移
+            pannable: true // 是否平移
         },
         // 滚轮缩放 MouseWheel
         mousewheel: {
@@ -54,7 +54,7 @@ export const graphOptions = (check = false) => {
             zoomAtMousePosition: true,
             modifiers: ['ctrl', 'meta'],
             maxScale: 3,
-            minScale: 0.3,
+            minScale: 0.3
         },
         // 连线规则
         connecting: {
@@ -64,15 +64,15 @@ export const graphOptions = (check = false) => {
                 // 曼哈顿路由 'manhattan' 路由是正交路由 'orth' 的智能版本，该路由由水平或垂直的正交线段组成，并自动避开路径上的其他节点（障碍）。
                 name: 'manhattan',
                 args: {
-                    padding: 1,
-                },
+                    padding: 1
+                }
             },
             // 圆角连接器，将起点、路由点、终点通过直线按顺序连接，并在线段连接处通过圆弧连接（倒圆角）。
             connector: {
                 name: 'rounded',
                 args: {
-                    radius: 8,
-                },
+                    radius: 8
+                }
             },
             anchor: 'center',
             connectionPoint: 'anchor',
@@ -80,7 +80,7 @@ export const graphOptions = (check = false) => {
             allowBlank: false,
             // 距离节点或者连接桩 20px 时会触发自动吸附
             snap: {
-                radius: 20,
+                radius: 20
             },
             // 拽出新的边
             createEdge() {
@@ -88,8 +88,8 @@ export const graphOptions = (check = false) => {
                     markup: [
                         {
                             tagName: 'path',
-                            selector: 'stroke',
-                        },
+                            selector: 'stroke'
+                        }
                     ],
                     connector: { name: 'rounded' },
                     attrs: {
@@ -98,15 +98,15 @@ export const graphOptions = (check = false) => {
                             connection: true,
                             strokeWidth: 4,
                             strokeLinecap: 'round',
-                            stroke: '#666',
-                        },
+                            stroke: '#666'
+                        }
                     },
-                    zIndex: 0,
+                    zIndex: 0
                 })
             },
             validateConnection({ targetMagnet }) {
                 return !!targetMagnet
-            },
+            }
         },
         // 连线高亮
         highlighting: {
@@ -120,24 +120,24 @@ export const graphOptions = (check = false) => {
                         magnet: true,
                         stroke: '#008CFF',
                         strokeWidth: 2,
-                        fill: '#0F67FF',
-                    },
-                },
-            },
+                        fill: '#0F67FF'
+                    }
+                }
+            }
         },
         // 修改大小
         resizing: check
             ? false
             : {
-                enabled: true,
-                minWidth: 64, // 最小宽
-                maxWidth: 64 * 2, // 最大宽
-                minHeight: 105 / 2, // 最小高
-                maxHeight: 105 * 2, // 最大高
-                orthogonal: true, // 是否显示中间调整点，默认为 true
-                restricted: false, // 调整大小边界是否可以超出画布边缘
-                preserveAspectRatio: true, // 调整大小过程中是否保持节点的宽高比例
-            },
+                  enabled: true,
+                  minWidth: 64, // 最小宽
+                  maxWidth: 64 * 2, // 最大宽
+                  minHeight: 105 / 2, // 最小高
+                  maxHeight: 105 * 2, // 最大高
+                  orthogonal: true, // 是否显示中间调整点，默认为 true
+                  restricted: false, // 调整大小边界是否可以超出画布边缘
+                  preserveAspectRatio: true // 调整大小过程中是否保持节点的宽高比例
+              },
         rotating: false, // 不能旋转
         keyboard: !check, // 按键操作
         clipboard: !check, // 剪切板
@@ -147,7 +147,7 @@ export const graphOptions = (check = false) => {
             if (options && options.index % 2 === 1) {
                 tool.setAttrs({ fill: 'red' })
             }
-        },
+        }
     }
 }
 
@@ -160,7 +160,7 @@ export const portStyle = {
     stroke: '#008CFF',
     strokeWidth: 2,
     fill: '#fff',
-    zIndex: 1,
+    zIndex: 1
 }
 
 // 链接桩配置
@@ -173,33 +173,33 @@ export const ports = {
             // 定义连接柱的样式
             attrs: {
                 circle: {
-                    ...portStyle,
-                },
-            },
+                    ...portStyle
+                }
+            }
         },
         right: {
             position: 'right',
             attrs: {
                 circle: {
-                    ...portStyle,
-                },
-            },
+                    ...portStyle
+                }
+            }
         },
         bottom: {
             position: 'bottom',
             attrs: {
                 circle: {
-                    ...portStyle,
-                },
-            },
+                    ...portStyle
+                }
+            }
         },
         left: {
             position: 'left',
             attrs: {
                 circle: {
-                    ...portStyle,
-                },
-            },
+                    ...portStyle
+                }
+            }
         },
         absolute: {
             position: 'absolute',
@@ -209,26 +209,26 @@ export const ports = {
                     magnet: true,
                     stroke: '#008CFF',
                     strokeWidth: 2,
-                    fill: '#fff',
-                },
-            },
-        },
+                    fill: '#fff'
+                }
+            }
+        }
     },
     // 链接桩
     items: [
         {
-            group: 'top',
+            group: 'top'
         },
         {
-            group: 'right',
+            group: 'right'
         },
         {
-            group: 'bottom',
+            group: 'bottom'
         },
         {
-            group: 'left',
-        },
-    ],
+            group: 'left'
+        }
+    ]
 }
 
 // 自定义节点的名称
@@ -251,16 +251,16 @@ export const SettingNodeOptions = {
     markup: [
         {
             tagName: 'rect',
-            selector: 'body',
+            selector: 'body'
         },
         {
             tagName: 'image',
-            selector: 'settingImage',
+            selector: 'settingImage'
         },
         {
             tagName: 'text',
-            selector: 'settingName',
-        },
+            selector: 'settingName'
+        }
     ],
     attrs: {
         body: {
@@ -268,7 +268,7 @@ export const SettingNodeOptions = {
             stroke: '#5F95FF',
             fill: '#5F95FF',
             strokeWidth: 2,
-            fillOpacity: 0.75,
+            fillOpacity: 0.75
         },
         settingImage: {
             refWidth: transformToPercent(32, 64),
@@ -278,7 +278,7 @@ export const SettingNodeOptions = {
             textAnchor: 'middle',
             textVerticalAnchor: 'bottom',
             anchor: 'middle',
-            verticalAnchor: 'bottom',
+            verticalAnchor: 'bottom'
         },
         settingName: {
             refWidth: '100%',
@@ -287,22 +287,15 @@ export const SettingNodeOptions = {
             textAnchor: 'middle',
             textVerticalAnchor: 'bottom',
             fontSize: 12,
-            fill: '#262626',
+            fill: '#262626'
             // 超出换行
             // textWrap: {
             //     width: 64,
             //     breakWord: false, // 是否截断单词
             // },
-        },
+        }
     },
-    ports: { ...ports },
+    ports: { ...ports }
 }
 
-export const colors = [
-    '#2AC94F',
-    '#0AAEFF',
-    '#DB5A6B',
-    '#057748',
-    '#2E4E7E',
-    '#845A33',
-]
+export const colors = ['#2AC94F', '#0AAEFF', '#DB5A6B', '#057748', '#2E4E7E', '#845A33']

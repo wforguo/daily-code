@@ -1,11 +1,13 @@
 <template>
     <div class="list">
         <h3><code>$set使用</code></h3>
-        <hr>
+        <hr />
 
         <div v-for="(item, index) in list" :key="index" class="list-item">
-            <h3><span v-if="item.price">$:{{ item.price }} </span>
-                {{ item.name }} <i>{{ item.count }}</i>
+            <h3>
+                <span v-if="item.price">$:{{ item.price }}</span>
+                {{ item.name }}
+                <i>{{ item.count }}</i>
                 <a class="add-btn" v-on:click.prevent="check(index)">添加</a>
                 <a class="add-btn" v-on:click.prevent="checkDetail">详情</a>
             </h3>
@@ -19,23 +21,23 @@
             </ul>
         </div>
 
-        <hr>
+        <hr />
 
         <div>
-            <input id="file" placeholder="点击上传" type="file" @change="handleUploadFile">
+            <input id="file" placeholder="点击上传" type="file" @change="handleUploadFile" />
         </div>
     </div>
 </template>
 <script>
-import axios from 'axios';
+import axios from 'axios'
 
 const instance = axios.create({
     withCredentials: false
-});
+})
 export default {
     hidden: true,
     title: '列表',
-    name: "List",
+    name: 'List',
     props: {
         msg: String
     },
@@ -62,13 +64,13 @@ export default {
         }
     },
     activated() {
-        console.log('activated');
+        console.log('activated')
     },
     created() {
-        console.log('created');
+        console.log('created')
     },
     mounted() {
-        console.log('mount');
+        console.log('mount')
         // axios({
         //     url: 'http://192.168.40.234:3300/api/msg/list',
         //     method: 'get'
@@ -90,34 +92,37 @@ export default {
             // }).then(res => {
             //     console.log(res);
             // });
-            const file = e.target.files[0];
-            console.log(file);
+            const file = e.target.files[0]
+            console.log(file)
             if (file) {
-                const data = new FormData();
-                data.append('file', file);
-                instance.post('http://localhost:3000/common/upload', data).then(res => {
-                    console.log(res);
-                }).catch(err => {
-                    console.log(err);
-                });
+                const data = new FormData()
+                data.append('file', file)
+                instance
+                    .post('http://localhost:3000/common/upload', data)
+                    .then(res => {
+                        console.log(res)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
             }
         },
         handleClick(index) {
-            console.log(index);
+            console.log(index)
             /**
              * 如下：直接修改，视图是不会更新的
              */
-            this.items[index] = index + Math.random();
+            this.items[index] = index + Math.random()
 
             // 使用Vue.set，
             // this.$set(vm.items, indexOfItem, newValue)
             // this.$set(this.items, index, Math.random());
         },
         checkDetail() {
-            console.log('detail');
+            console.log('detail')
             this.$router.push({
                 path: 'detail'
-            });
+            })
         },
         check(index) {
             /**
@@ -154,7 +159,7 @@ export default {
              * 所以 property 必须在 data 对象上存在才能让 Vue 将它转换为响应式的。
              */
             // this.$set(object, key, value);
-            this.$set(this.list[index], 'price', index + Math.random());
+            this.$set(this.list[index], 'price', index + Math.random())
             // console.log(this.$route);
             // console.log(this.$router);
             // this.$router.push({

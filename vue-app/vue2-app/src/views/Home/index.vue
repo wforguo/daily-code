@@ -1,16 +1,27 @@
 <template>
     <div class="home">
-        首页
+        <db-click-input v-model="name" />
+        <div style="white-space: pre-line; word-break: break-word">
+            {{ name }}
+        </div>
     </div>
 </template>
 
 <script>
+import DbClickInput from '@/components/DbClickInput'
+
 export default {
-    title: "首页",
-    name: "Home",
+    title: '首页',
+    name: 'Home',
     computed: {},
-    components: {
+    data() {
+        return {
+            name: 'www'
+        }
     },
+    components: {
+        DbClickInput
+    }
 }
 </script>
 <style scoped lang="scss">

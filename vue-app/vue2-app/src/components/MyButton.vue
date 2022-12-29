@@ -6,12 +6,8 @@
 -->
 <template>
     <div>
-        <p>
-            $attrs：{{$attrs}}
-        </p>
-        <p>
-            $props：{{$props}}
-        </p>
+        <p>$attrs：{{ $attrs }}</p>
+        <p>$props：{{ $props }}</p>
         <van-button v-bind="$attrs" :loading="loading" @click="handleClick"><slot /></van-button>
     </div>
 </template>
@@ -22,29 +18,27 @@ export default {
         autoLoading: {
             type: Boolean,
             default: false
-        },
+        }
     },
-    data () {
+    data() {
         return {
-            loading: false,
+            loading: false
         }
     },
     methods: {
         handleClick() {
             if (this.autoLoading) {
                 // 判断是否开启自动loading
-                this.loading = true;
+                this.loading = true
             }
             // 点击的回调
             this.$emit('click', () => {
                 // 在异步完成之后，去除loading
-                this.loading = false;
+                this.loading = false
             })
         }
     }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

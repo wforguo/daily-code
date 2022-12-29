@@ -9,18 +9,10 @@
         <div class="flow-library-title">组件库</div>
         <div class="flow-library-list" v-loading="loading">
             <el-collapse v-model="activeNames">
-                <el-collapse-item
-                    v-for="item in list"
-                    :name="item.code"
-                    :key="item.code"
-                >
+                <el-collapse-item v-for="item in list" :name="item.code" :key="item.code">
                     <template slot="title">{{ item.title }}</template>
                     <div class="flow-library-group">
-                        <div
-                            class="flow-library-item"
-                            v-for="group in item.groups"
-                            :key="group.id"
-                        >
+                        <div class="flow-library-item" v-for="group in item.groups" :key="group.id">
                             <div
                                 class="flow-library-item__img"
                                 :class="'flow-library-item__img--' + group.shape"
@@ -29,7 +21,7 @@
                                 :data-image="group.image"
                                 :data-shape="group.shape"
                                 :style="{
-                                    backgroundImage: `url(${group.image})`,
+                                    backgroundImage: `url(${group.image})`
                                 }"
                                 @mousedown.stop="handleonAddNode"
                             >
@@ -52,8 +44,7 @@
     </div>
 </template>
 <script>
-
-import {SETTING_SHAPE_NAME} from "@/views/X6/config";
+import { SETTING_SHAPE_NAME } from '@/views/X6/config'
 
 export default {
     name: 'FlowLibrary',
@@ -62,7 +53,7 @@ export default {
             activeNames: [],
             // 过滤数据
             list: [],
-            loading: true,
+            loading: true
         }
     },
     created() {
@@ -73,15 +64,15 @@ export default {
                 groups: [
                     {
                         name: '矩形',
-                        image: ('x6/icon-flow-rect.svg'),
-                        shape: 'rect',
+                        image: 'x6/icon-flow-rect.svg',
+                        shape: 'rect'
                     },
                     {
                         name: '圆',
-                        image: ('x6/icon-flow-circle.svg'),
-                        shape: 'circle',
-                    },
-                ],
+                        image: 'x6/icon-flow-circle.svg',
+                        shape: 'circle'
+                    }
+                ]
             },
             {
                 title: '自定义组件',
@@ -90,35 +81,32 @@ export default {
                     {
                         id: 'Client',
                         name: 'Client',
-                        image: ('x6/icon-flow-client.svg'),
-                        shape: SETTING_SHAPE_NAME,
+                        image: 'x6/icon-flow-client.svg',
+                        shape: SETTING_SHAPE_NAME
                     },
                     {
                         id: 'Http',
                         name: 'Http',
-                        image: ('x6/icon-flow-http.svg'),
-                        shape: SETTING_SHAPE_NAME,
+                        image: 'x6/icon-flow-http.svg',
+                        shape: SETTING_SHAPE_NAME
                     },
                     {
                         id: 'Cloud',
                         name: 'Cloud',
-                        image: ('x6/icon-flow-cloud.svg'),
-                        shape: SETTING_SHAPE_NAME,
+                        image: 'x6/icon-flow-cloud.svg',
+                        shape: SETTING_SHAPE_NAME
                     },
                     {
                         id: 'Sql',
                         name: 'Sql',
-                        image: ('x6/icon-flow-sql.svg'),
-                        shape: SETTING_SHAPE_NAME,
-                    },
-                ],
+                        image: 'x6/icon-flow-sql.svg',
+                        shape: SETTING_SHAPE_NAME
+                    }
+                ]
             }
         ]
         this.list = list
-        this.activeNames = [
-            ...list.map(item => item.code),
-            ...['intro']
-        ]
+        this.activeNames = [...list.map(item => item.code), ...['intro']]
         setTimeout(() => {
             this.loading = false
         }, 1000)
@@ -127,8 +115,8 @@ export default {
     methods: {
         handleonAddNode(e) {
             this.$emit('onAddNode', e)
-        },
-    },
+        }
+    }
 }
 </script>
 
@@ -170,7 +158,7 @@ export default {
             position: relative;
             &--setting-shape {
                 background-size: 32px;
-                background-color: #5F95FF;
+                background-color: #5f95ff;
                 background-position: 50% 15%;
                 .flow-library-item__name {
                     position: absolute;

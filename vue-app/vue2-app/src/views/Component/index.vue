@@ -6,20 +6,16 @@
 -->
 <template>
     <div class="page lazy--load">
-        <van-cell-group inset style="overflow: hidden;">
+        <van-cell-group inset style="overflow: hidden">
             <!-- 异步组件 -->
             <van-divider dashed content-position="left">异步组件</van-divider>
-            <h5>
-                componentName: () => import('componentName');
-            </h5>
+            <h5>componentName: () => import('componentName');</h5>
             <van-button round type="info" @click="loaded = !loaded">加载异步组件</van-button>
             <lazyLoad v-if="loaded"></lazyLoad>
 
             <!-- 动态组件 -->
             <van-divider dashed content-position="left">动态组件</van-divider>
-            <h5>
-                &lt;component :is="componentName" /&gt;
-            </h5>
+            <h5>&lt;component :is="componentName" /&gt;</h5>
             <van-tabs v-model="componentName">
                 <van-tab title="Icon" name="van-icon">Icon</van-tab>
                 <van-tab title="switch" name="van-switch">Switch</van-tab>
@@ -27,42 +23,47 @@
             </van-tabs>
             <!-- 失活的组件将会被缓存！-->
             <keep-alive>
-                <component v-model="checked" width="30" height="30" name="chat-o" src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg" round type="primary" loading-text="加载中..." :is="componentName"></component>
+                <component
+                    v-model="checked"
+                    width="30"
+                    height="30"
+                    name="chat-o"
+                    src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+                    round
+                    type="primary"
+                    loading-text="加载中..."
+                    :is="componentName"
+                ></component>
             </keep-alive>
 
             <!-- 自定义v-model-->
             <van-divider dashed content-position="left">自定义v-model</van-divider>
-                {{value}}
+            {{ value }}
             <custom-input :value.sync="value" v-model="value"></custom-input>
         </van-cell-group>
     </div>
 </template>
 
 <script>
-
 export default {
     hidden: true,
     title: '组件',
-    name: "components",
+    name: 'components',
     components: {
         lazyLoad: () => import('@/views/Component/LazyLoad'),
-        CustomInput: () => import('./CustomInput'),
+        CustomInput: () => import('./CustomInput')
     },
-    data () {
+    data() {
         return {
             loaded: false,
             componentName: 'van-icon',
             checked: false,
-            value: '10000',
+            value: '10000'
         }
     },
-    mounted() {
-    },
-    methods: {
-    },
+    mounted() {},
+    methods: {}
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

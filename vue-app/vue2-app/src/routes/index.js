@@ -85,40 +85,60 @@ import VueRouter from 'vue-router'
  * @description: 实现路由的自动加载
  *************************/
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
     {
-        path: '/', title: '首页', name: 'Home',
+        path: '/',
+        title: '首页',
+        name: 'Home',
         meta: { title: '首页' },
-        component: () => import( /* webpackChunkName: "Home" */ '@/views/Home')
+        component: () => import(/* webpackChunkName: "Home" */ '@/views/Home')
     },
     {
-        path: '/Directive', title: '指令', name: 'Directive', meta: { title: '指令' },
+        path: '/Directive',
+        title: '指令',
+        name: 'Directive',
+        meta: { title: '指令' },
         hidden: true,
-        component: () => import( /* webpackChunkName: "Directive" */ '@/views/Directive'),
+        component: () => import(/* webpackChunkName: "Directive" */ '@/views/Directive')
     },
     {
-        path: '/Component', title: '组件', name: 'Component', meta: { title: '组件' },
+        path: '/Component',
+        title: '组件',
+        name: 'Component',
+        meta: { title: '组件' },
         hidden: true,
-        component: () => import( /* webpackChunkName: "Component" */ '@/views/Component')
+        component: () => import(/* webpackChunkName: "Component" */ '@/views/Component')
     },
     {
-        path: '/List', title: '列表', name: 'List', meta: { title: '列表' },
+        path: '/List',
+        title: '列表',
+        name: 'List',
+        meta: { title: '列表' },
         hidden: true,
-        component: () => import( /* webpackChunkName: "List" */ '@/views/List')
+        component: () => import(/* webpackChunkName: "List" */ '@/views/List')
     },
     {
-        path: '/X6', title: 'Antv/X6流程图', name: 'X6', meta: { title: 'Antv/X6流程图' },
-        component: () => import( /* webpackChunkName: "X6" */ '@/views/X6')
+        path: '/X6',
+        title: 'Antv/X6流程图',
+        name: 'X6',
+        meta: { title: 'Antv/X6流程图' },
+        component: () => import(/* webpackChunkName: "X6" */ '@/views/X6')
     },
     {
-        path: '/GoJs', title: 'gojs流程图', name: 'GoJs', meta: { title: 'GoJs流程图' },
-        component: () => import( /* webpackChunkName: "GoJs" */ '@/views/GoJs')
+        path: '/GoJs',
+        title: 'gojs流程图',
+        name: 'GoJs',
+        meta: { title: 'GoJs流程图' },
+        component: () => import(/* webpackChunkName: "GoJs" */ '@/views/GoJs')
     },
     {
-        path: '/AmapDrop', title: '高德地图下钻', name: 'AmapDrop', meta: { title: 'GoJs流程图' },
-        component: () => import( /* webpackChunkName: "AmapDrop" */ '@/views/AmapDrop')
+        path: '/AmapDrop',
+        title: '高德地图下钻',
+        name: 'AmapDrop',
+        meta: { title: 'GoJs流程图' },
+        component: () => import(/* webpackChunkName: "AmapDrop" */ '@/views/AmapDrop')
     },
     {
         path: '*',

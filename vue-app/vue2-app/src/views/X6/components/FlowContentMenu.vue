@@ -32,27 +32,27 @@ export default {
         // 隐藏/显示
         visible: {
             type: Boolean,
-            default: false,
+            default: false
         },
         // 位置
         position: {
             type: Object,
-            default: () => ({}),
-        },
+            default: () => ({})
+        }
     },
     computed: {
         menuStyle() {
             return {
-                ...this.position,
+                ...this.position
             }
-        },
+        }
     },
     watch: {
         visible: {
             handler() {
                 this.select = []
-            },
-        },
+            }
+        }
     },
     data() {
         return {
@@ -60,25 +60,25 @@ export default {
             options: [
                 {
                     value: 'name',
-                    label: '随机name',
+                    label: '随机name'
                 },
                 {
                     value: 'color',
-                    label: '随机color',
+                    label: '随机color'
                 },
                 {
                     value: 'remove',
-                    label: '删除',
-                },
-            ],
+                    label: '删除'
+                }
+            ]
         }
     },
     methods: {
         handleMenuClick(action) {
             this.$emit('onMenuClick', action)
             this.$emit('update:visible', false)
-        },
-    },
+        }
+    }
 }
 </script>
 

@@ -6,30 +6,24 @@
 -->
 <template>
     <div class="custom-input">
-        <button @click="$emit('update:value', value + 1)">{{value}}</button>
-        <input
-            :value="value"
-            @input="$emit('change', $event.target.value)"
-        >
+        <button @click="$emit('update:value', value + 1)">{{ value }}</button>
+        <input :value="value" @input="$emit('change', $event.target.value)" />
     </div>
 </template>
 
 <script>
-
 export default {
     model: {
         event: 'change',
-        prop: 'value',
+        prop: 'value'
     },
     props: {
         value: {
             type: String,
-            default: '',
+            default: ''
         }
-    },
+    }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -2,12 +2,7 @@
     <el-container style="height: 100vh; overflow: hidden">
         <el-aside style="height: 100vh" width="200px">
             <el-menu :default-active="$route?.path || '/'" router style="height: 100%">
-                <el-menu-item
-                    :index="path"
-                    v-for="{ path, title, name } in list"
-                    :key="path"
-                    @select="handleNav(name)"
-                >
+                <el-menu-item :index="path" v-for="{ path, title, name } in list" :key="path" @select="handleNav(name)">
                     <span>{{ title }}</span>
                 </el-menu-item>
             </el-menu>
@@ -33,21 +28,18 @@
                 </el-card>
             </el-main>
             <el-footer style="background-color: #f6f9fe; display: flex; align-items: center; justify-content: center">
-                <a href="https://github.com/wforguo" target="_blank">forguo &copy; {{new Date().getFullYear()}}</a>
+                <a href="https://github.com/wforguo" target="_blank">forguo &copy; {{ new Date().getFullYear() }}</a>
             </el-footer>
         </el-container>
     </el-container>
 </template>
 <script>
-
-import {mapState} from "vuex";
+import { mapState } from 'vuex'
 
 export default {
     name: 'vueApp',
     computed: {
-        ...mapState('menu', [
-            'list'
-        ])
+        ...mapState('menu', ['list'])
     },
     methods: {
         handleNav(name) {
@@ -56,7 +48,7 @@ export default {
                 name
             })
         }
-    },
+    }
 }
 </script>
 
