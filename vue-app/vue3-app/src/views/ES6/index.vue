@@ -5,7 +5,7 @@
  * @Description: index
 -->
 <template>
-    <div>es6</div>
+    <div class="page">es6</div>
 </template>
 
 <script lang="ts" setup>

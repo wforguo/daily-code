@@ -29,7 +29,7 @@
                 >
                     <template #header>
                         <div class="card-header">
-                            <span>Card name</span>
+                            <span>{{ $route?.meta?.title }}</span>
                         </div>
                     </template>
                     <router-view />
@@ -72,24 +72,3 @@ export default defineComponent({
     }
 })
 </script>
-
-<style lang="scss">
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-}
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-</style>
