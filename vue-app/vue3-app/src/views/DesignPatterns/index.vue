@@ -35,7 +35,10 @@ export default {
 import { nextTick } from 'vue'
 
 class jQuery {
-    constructor(selector) {
+    [key: string]: any
+    selector: string
+    length: number
+    constructor(selector: string) {
         const slice = Array.prototype.slice
         const $el = slice.call(document.querySelectorAll(selector))
         const len = $el.length
@@ -48,7 +51,7 @@ class jQuery {
     addClass() {}
 }
 
-window.$ = function (selector) {
+const $ = function (selector: string) {
     return new jQuery(selector)
 }
 
