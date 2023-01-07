@@ -44,6 +44,10 @@ export default () => {
 
     // 数组
     const list: number[] = [1, 2, 3]
+    const list1: Array<number> = [1, 2, 3]
+    const list2: {
+        [index: number]: number
+    } = [1, 2, 3]
 
     // 函数类型
     const fn: () => string = () => 'fn1'
@@ -378,6 +382,7 @@ export default () => {
     let res: number | string
 
     res = 1
+    res = '2'
 
     function get(data: number | string): number | string {
         return data

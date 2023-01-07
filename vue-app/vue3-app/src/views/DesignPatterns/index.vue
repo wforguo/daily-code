@@ -33,6 +33,7 @@ export default {
 
 <script lang="ts" setup>
 import { nextTick } from 'vue'
+import Park from './Park'
 
 class jQuery {
     [key: string]: any
@@ -61,4 +62,5 @@ nextTick(() => {
     const $p = $('section')
     console.log($p)
 })
+Park()
 </script>
