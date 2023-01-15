@@ -7,7 +7,6 @@ const useMenuStore = defineStore({
     }),
     actions: {
         updateMenu(list: Array<any>) {
-            console.log(list)
             this.$patch({
                 list: [...this.list, ...list]
             })

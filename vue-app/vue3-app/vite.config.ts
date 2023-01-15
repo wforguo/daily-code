@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { viteMockServe } from 'vite-plugin-mock'
 import { dayjs } from 'element-plus'
+
 const { name: title, version: APP_VERSION } = require('./package.json')
 
 // https://vitejs.dev/config/
@@ -13,8 +14,11 @@ export default (configEnv: any) => {
     // 增加环境变量
     env.APP_VERSION = APP_VERSION
     env.APP_BUILD_TIME = dayjs().format('YYYY-MM-DD HH:mm:ss')
-    const isMock = mode === 'mock'
+
+    // 插件
     const plugins = [vue(), vueJsx()]
+    const isMock = mode === 'mock'
+
     if (isMock) {
         plugins.push(
             viteMockServe({
@@ -23,6 +27,7 @@ export default (configEnv: any) => {
             })
         )
     }
+
     return defineConfig({
         base: process.env.NODE_ENV === 'production' ? `/daily-code/${title}` : '/',
         server: {

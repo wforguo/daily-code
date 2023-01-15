@@ -1,6 +1,6 @@
 <template>
     <el-container style="height: 100vh; overflow: hidden">
-        <el-aside style="height: 100vh" width="200px">
+        <el-aside style="max-width: 200px; height: 100vh; width: 0">
             <el-menu :default-active="$route?.path || '/'" router style="height: 100%">
                 <el-menu-item
                     :index="path"
@@ -23,9 +23,9 @@
             </el-header>
             <el-main style="background: #f2f3f5">
                 <el-card
-                    style="width: 100%; height: 100%; box-sizing: border-box"
+                    style="width: 100%; height: 100%; box-sizing: border-box; display: flex; flex-direction: column"
                     shadow="never"
-                    body-style="width: 100%; height: 100%;"
+                    body-style="flex: 1;width: 100%; height: 100%;"
                 >
                     <template #header>
                         <div class="card-header">
