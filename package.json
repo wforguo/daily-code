@@ -18,5 +18,8 @@
         "commitizen": {
             "path": "cz-conventional-changelog"
         }
+    },
+    "dependencies": {
+        "@turf/turf": "^6.5.0"
     }
 }

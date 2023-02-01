@@ -7,6 +7,8 @@
 <template>
     <div class="page cesium">
         <div id="cesiumContainer"></div>
+        <cesium-roam />
+        <tool-bar @onClick="handleClick" />
     </div>
 </template>
 
@@ -15,10 +17,23 @@ import * as Cesium from 'cesium'
 import 'cesium/Source/Widgets/widgets.css'
 import { onMounted, reactive } from 'vue'
 import { log } from '@/utils'
-import Roaming from './Roaming'
+import CesiumRoam from './components/CesiumRoam.vue'
+import ToolBar from './components/ToolBar.vue'
+import GlobeView from '@/views/Cesium/util/GlobeView'
+
+let mapViewer: any = null
 
 // 内置素材位置
 window.CESIUM_BASE_URL = import.meta.env.BASE_URL
+
+const realPosition: any[] = reactive([
+    [118.19440855, 36.78027499, 100],
+    [118.1959458, 36.77988333, 100],
+    [118.19524581, 36.77988334, 100],
+    [118.19594582, 36.77988335, 100],
+    [118.19654583, 36.77988336, 100],
+    [118.19654584, 36.78988337, 100]
+])
 
 // 地图默认参数
 const mapOptions = reactive({
@@ -61,7 +76,7 @@ const loadBaseLayer = (mapViewer: any) => {
     const labelCollection = mapViewer.scene.primitives.add(new Cesium.LabelCollection())
     // 定位至中国范围
     mapViewer.scene.camera.setView({
-        destination: Cesium.Cartesian3.fromDegrees(97.867, 32.643, 16302888.003),
+        destination: Cesium.Cartesian3.fromDegrees(97.867, 32.643, 359),
         orientation: {
             heading: Cesium.Math.toRadians(0),
             pitch: Cesium.Math.toRadians(-90),
@@ -70,6 +85,7 @@ const loadBaseLayer = (mapViewer: any) => {
     })
 }
 
+// 移动至配置经纬度
 const initConfig = (mapViewer: any) => {
     /**
      * 初始位置配置
@@ -78,17 +94,14 @@ const initConfig = (mapViewer: any) => {
         menuCode: 'oneMapSystem',
         mapService:
             '{\r\n"bmap":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkYzEyM2VkYi0zMTIwLTQ5NmYtYmE5Yi03YjE0MjFjNDhmYjkiLCJpZCI6NDA1NTEsImlhdCI6MTYwODg2MDU1MX0.86tbbaTBcG_6LCq8AGN73r0mzBzJna75nbH_rlfXrk",\r\n  "tiles":[\r\n          {\r\n            "name": "倾斜摄影",\r\n            "type": "OsgbModelLayer",\r\n            "url": "http://60.12.8.237:10082/shx3dtile/tileset.json",\r\n            "terrain":{\r\n"url":"http://60.12.8.237:10082/sd/"\r\n},\r\n            "height": -15     \r\n           }\r\n    ]\r\n}',
-        initLongitude: 120.20426405625159,
-        initLatitude: 30.207311914242,
+        initLongitude: realPosition[0][0],
+        initLatitude: realPosition[0][1],
         initCameraHeight: 2690,
-        yawAngle: 0,
+        yawAngle: 10,
         pitchingAngle: -28,
         rollingAngle: 0,
         maxCameraHeight: 500000,
         minCameraHeight: 100,
-        twoInitLongitude: 120.20426405625159,
-        twoInitLatitude: 30.207311914242,
-        twoInitCameraHeight: 8000,
         id: 4
     }
 
@@ -122,50 +135,45 @@ const initConfig = (mapViewer: any) => {
  * @param modelName
  */
 const createModel = (viewer: any, url: string, myPositions: any, orientation: any, modelName: string) => {
-    viewer.entities.removeAll()
+    // 移除所有图形
+    // mapViewer.entities.removeAll()
+    // mapViewer.dataSources.removeAll()
 
     function trackView() {
-        //Set bounds of our simulation time
-        var start = Cesium.JulianDate.fromDate(new Date())
-        var stop = Cesium.JulianDate.addSeconds(start, myPositions.length - 1, new Cesium.JulianDate())
+        // 开始时间
+        const start = Cesium.JulianDate.fromDate(new Date())
+        // 结束时间
+        const stop = Cesium.JulianDate.addSeconds(start, myPositions.length - 1, new Cesium.JulianDate())
 
         //Make sure viewer is at the desired time.
         viewer.clock.startTime = start.clone()
         viewer.clock.stopTime = stop.clone()
         viewer.clock.currentTime = start.clone()
-        viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP //Loop at the end
+        // 动画模式【LOOP_STOP:自动循环播放|CLAMPED:到达终止时间后停止】
+        viewer.clock.clockRange = Cesium.ClockRange.CLAMPED
+        // 模仿速度
         viewer.clock.multiplier = 0.3
 
-        // Set timeline to simulation bounds
-        // viewer.timeline.zoomTo(start, stop)
-
-        //Generate a random circular pattern with varying heights.
+        // 根据坐标数组，计算插值点数据
         function computeCirclularFlight() {
-            var property = new Cesium.SampledPositionProperty()
-            //设置插入选项
+            const property = new Cesium.SampledPositionProperty()
+            // 设置插入选项
             property.setInterpolationOptions({
-                // interpolationDegree: 1,
-                // interpolationAlgorithm: Cesium.LinearApproximation,
-
-                // interpolationDegree: 5,
-                // interpolationAlgorithm:
-                //   Cesium.LagrangePolynomialApproximation,
-
                 interpolationDegree: 2,
                 interpolationAlgorithm: Cesium.HermitePolynomialApproximation
             })
-            for (var i = 0; i < myPositions.length; i++) {
-                var time = Cesium.JulianDate.addSeconds(start, i, new Cesium.JulianDate())
-                var position = Cesium.Cartesian3.fromDegrees(myPositions[i][0], myPositions[i][1], 5)
+            for (let i = 0; i < myPositions.length; i++) {
+                const time = Cesium.JulianDate.addSeconds(start, i, new Cesium.JulianDate())
+                const position = Cesium.Cartesian3.fromDegrees(myPositions[i][0], myPositions[i][1], myPositions[i][2])
                 property.addSample(time, position)
             }
             return property
         }
 
-        var position = computeCirclularFlight()
+        const position = computeCirclularFlight()
 
-        //Actually create the entity
-        var entity = viewer.entities.add({
+        // 创建运动的物体，并将物体设置为镜头追踪的对象
+        const vehicleEntity = viewer.entities.add({
             //Set the entity availability to the same interval as the simulation time.
             availability: new Cesium.TimeIntervalCollection([
                 new Cesium.TimeInterval({
@@ -173,7 +181,7 @@ const createModel = (viewer: any, url: string, myPositions: any, orientation: an
                     stop: stop
                 })
             ]),
-            //Use our computed positions
+            // Use our computed positions
             position: position,
             //Automatically compute orientation based on position movement.
             orientation: new Cesium.VelocityOrientationProperty(position),
@@ -181,7 +189,7 @@ const createModel = (viewer: any, url: string, myPositions: any, orientation: an
                 uri: url,
                 minimumPixelSize: 64
             },
-            //Show the path as a pink line sampled in 1 second increments.
+            // Show the path as a pink line sampled in 1 second increments.
             path: {
                 resolution: 1,
                 material: new Cesium.PolylineGlowMaterialProperty({
@@ -191,16 +199,24 @@ const createModel = (viewer: any, url: string, myPositions: any, orientation: an
                 width: 16
             }
         })
-        viewer.trackedEntity = entity
+        // 追踪物体
+        // Follow the vehicle with the camera.
+        viewer.trackedEntity = vehicleEntity
 
-        //视角变换
-        var matrix3Scratch = new Cesium.Matrix3()
-        function getModelMatrix(entity, time, result) {
-            var position = Cesium.Property.getValueOrUndefined(entity.position, time, new Cesium.Cartesian3())
+        // 视角变换
+        const matrix3Scratch = new Cesium.Matrix3()
+
+        // 每一帧根据物体的坐标和走向，设置相机的角度
+        function getModelMatrix(
+            entity: { position: any; orientation: any },
+            time: any,
+            result: Cesium.Matrix4 | undefined
+        ) {
+            const position = Cesium.Property.getValueOrUndefined(entity.position, time, new Cesium.Cartesian3())
             if (!Cesium.defined(position)) {
                 return undefined
             }
-            var orientation = Cesium.Property.getValueOrUndefined(entity.orientation, time, new Cesium.Quaternion())
+            const orientation = Cesium.Property.getValueOrUndefined(entity.orientation, time, new Cesium.Quaternion())
             if (!Cesium.defined(orientation)) {
                 result = Cesium.Transforms.eastNorthUpToFixedFrame(position, undefined, result)
             } else {
@@ -212,19 +228,22 @@ const createModel = (viewer: any, url: string, myPositions: any, orientation: an
             }
             return result
         }
-        var scratch = new Cesium.Matrix4()
-        var renderListener = function () {
-            //viewer.camera.positionCartographic.height = 2000 + $this.limitCamera(f_property);
+        const scratch = new Cesium.Matrix4()
+        const renderListener = function () {
             if (viewer.trackedEntity) {
                 getModelMatrix(viewer.trackedEntity, viewer.clock.currentTime, scratch)
-
-                var transformX = 90 //距离运动点的距离（后方）
-                var transformZ = 55 //距离运动点的高度（上方）
-                var transformY = 0 //距离运动点的高度（侧方）
+                const transformX = 90 // 距离运动点的距离（后方）
+                const transformZ = 55 // 距离运动点的高度（上方）
+                const transformY = 0 // 距离运动点的高度（侧方）
                 viewer.scene.camera.lookAtTransform(scratch, new Cesium.Cartesian3(-transformX, transformY, transformZ))
             }
         }
-        viewer.scene.preRender.addEventListener(renderListener)
+        // viewer.scene.preRender.addEventListener(renderListener)
+
+        viewer.clock.onTick.addEventListener(function (clock) {
+            // This example uses time offsets from the start to identify which parts need loading.
+            Cesium.JulianDate.secondsDifference(clock.currentTime, clock.startTime)
+        })
     }
 
     viewer.clock.shouldAnimate = true
@@ -233,62 +252,14 @@ const createModel = (viewer: any, url: string, myPositions: any, orientation: an
 
 /**
  * 加载模型数据
- * @param mapViewer
  */
-const loadModelData = (mapViewer: any) => {
-    const realPosition: any[] = [
-        [120.20426405625159, 30.207311914242],
-        [120.21189283368301, 30.21141227255876],
-        [120.22212655950352, 30.217080133595417],
-        [120.224638474024, 30.218286019348653],
-        [120.22654566838213, 30.218848760974993],
-        [120.22719690547945, 30.21880856525125],
-        [120.22752252402813, 30.21860758638624],
-        [120.22784814257676, 30.218406607111163],
-        [120.228452862739, 30.21788405907337],
-        [120.22896454903014, 30.21736150825984],
-        [120.22933668451509, 30.216678168392804],
-        [120.22956926919244, 30.21619580798162],
-        [120.22998792161235, 30.21531147441867],
-        [120.23012747241859, 30.214467330420632],
-        [120.23026702322608, 30.213944761458833],
-        [120.23036005709724, 30.213301595849344],
-        [120.23026702322608, 30.197341702946375],
-        [120.22994140467739, 30.19718088481204],
-        [120.22947623532127, 30.19718088481204],
-        [120.228452862739, 30.19718088481204],
-        [120.22738297322189, 30.197261293911765],
-        [120.22598746515484, 30.197341702946375],
-        [120.22515016031514, 30.197381907439052],
-        [120.22454544015278, 30.197502520818574],
-        [120.22389420305558, 30.197502520818574],
-        [120.22347555063567, 30.197462316375194],
-        [120.21514901917072, 30.197221089369805],
-        [120.2140791296535, 30.197140680237226],
-        [120.21338137562003, 30.19710047564608],
-        [120.21277665545773, 30.196899452443887],
-        [120.21184631674669, 30.196658224060016],
-        [120.21119507964949, 30.196457199954878],
-        [120.21040429174468, 30.196135560533435],
-        [120.20919485142008, 30.195813920061298],
-        [120.20826451270909, 30.195452073273657],
-        [120.20761327561178, 30.195251046706446],
-        [120.20677597077207, 30.19505001972827],
-        [120.20635731835222, 30.194929403344915],
-        [120.20603169980222, 30.194848992340198],
-        [120.20607821673855, 30.195251046706446],
-        [120.20556653044741, 30.204296835896486],
-        [120.20538046270497, 30.20473905316716],
-        [120.20463619173648, 30.206467701615765],
-        [120.20421753931663, 30.207352114662683]
-    ]
-
-    const longitude = 120.20426405625159
-    const latitude = 30.207311914242
+const loadModelData = () => {
+    const longitude = realPosition[0][0]
+    const latitude = realPosition[0][1]
     // 小车模型
     const modelCarUrl = `${import.meta.env.BASE_URL}model/car.gltf`
     const position = Cesium.Cartesian3.fromDegrees(longitude, latitude)
-    const heading = Cesium.Math.toRadians(135)
+    const heading = Cesium.Math.toRadians(10)
     const pitch = 0
     const roll = 0
     const hpr = new Cesium.HeadingPitchRoll(heading, pitch, roll)
@@ -298,6 +269,125 @@ const loadModelData = (mapViewer: any) => {
     log.success('模型加载成功')
 }
 
+/**
+ * 绘制图形
+ */
+const drawShape = () => {
+    // 移除所有图形
+    mapViewer.entities.removeAll()
+    mapViewer.dataSources.removeAll()
+
+    // entities加载
+    mapViewer.entities.add({
+        name: 'Red box with black outline',
+        position: Cesium.Cartesian3.fromDegrees(119.030216, 33.59167, 50.9),
+        box: {
+            // 一个 Cartesian3 属性，用于指定框的长度，宽度和高度。
+            dimensions: new Cesium.Cartesian3(4000.0, 3000.0, 5000.0),
+            // 一个属性，指定用于填充框的材料。
+            material: Cesium.Color.RED.withAlpha(0.5),
+            // 一个布尔型属性，指定是否对框进行概述。
+            outline: true,
+            // 一个属性，指定轮廓的 颜色。
+            outlineColor: Cesium.Color.BLACK
+        }
+    })
+
+    // czml加载/JSON字符串
+    const czml = [
+        {
+            id: 'document',
+            name: 'box',
+            version: '1.0'
+        },
+        {
+            id: 'shape2',
+            name: 'Red box with black outline',
+            position: {
+                cartographicDegrees: [119.040216, 33.58167, 50.9]
+            },
+            box: {
+                dimensions: {
+                    cartesian: [4000.0, 3000.0, 5000.0]
+                },
+                material: {
+                    solidColor: {
+                        color: {
+                            rgba: [255, 0, 0, 128]
+                        }
+                    }
+                },
+                outline: true,
+                outlineColor: {
+                    rgba: [0, 0, 0, 255]
+                }
+            }
+        }
+    ]
+    const dataSourcePromise = Cesium.CzmlDataSource.load(czml)
+    mapViewer.dataSources.add(dataSourcePromise)
+    // mapViewer.zoomTo(dataSourcePromise)
+
+    const greenWall = mapViewer.entities.add({
+        name: 'Green wall from surface with outline',
+        wall: {
+            positions: Cesium.Cartesian3.fromDegreesArrayHeights([
+                -107.0, 43.0, 100000.0, -97.0, 43.0, 100000.0, -97.0, 40.0, 100000.0, -107.0, 40.0, 100000.0, -107.0,
+                43.0, 100000.0
+            ]),
+            material: Cesium.Color.GREEN,
+            outline: true
+        }
+    })
+
+    // 适配居中
+    mapViewer.zoomTo(greenWall)
+}
+
+// drawTileset
+const drawTileset = () => {
+    const tileset = new Cesium.Cesium3DTileset({
+        url: 'http://60.12.8.237:10082/shx3dtile/tileset.json',
+        maximumScreenSpaceError: 16,
+        skipLevelOfDetail: false,
+        preferLeaves: false,
+        dynamicScreenSpaceError: true,
+        dynamicScreenSpaceErrorDensity: 0.00278,
+        dynamicScreenSpaceErrorFactor: 4.0,
+        dynamicScreenSpaceErrorHeightFalloff: 0.25
+        // specularEnvironmentMaps: undefined,
+        // sphericalHarmonicCoefficients: undefined,
+        // lightColor: null, //着色模型时的浅色。当undefined现场的灯光颜色来代替。
+    })
+
+    tileset.readyPromise
+        .then(function (res) {
+            console.log(res)
+            mapViewer.scene.primitives.add(res)
+            mapViewer.zoomTo(res)
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+}
+
+// 点击工具栏
+const handleClick = (type: string | number) => {
+    switch (type) {
+        case 'roaming': {
+            loadModelData()
+            break
+        }
+        case 'shape': {
+            drawShape()
+            break
+        }
+        case 'tileset': {
+            drawTileset()
+            break
+        }
+    }
+}
 // 页面加载
 onMounted(() => {
     // cesium accessToken
@@ -306,10 +396,10 @@ onMounted(() => {
     // eslint-disable-next-line no-undef
     // Initialize the viewer with Cesium World Terrain.
     Cesium.Ion.defaultAccessToken = accessToken
-    const mapViewer = new Cesium.Viewer('cesiumContainer', {
+    mapViewer = new Cesium.Viewer('cesiumContainer', {
         ...mapOptions
     })
-
+    GlobeView.Map3DViewer = mapViewer
     mapViewer._cesiumWidget._creditContainer.style.display = 'none' // 去除cesium标识
     mapViewer.scene.globe.depthTestAgainstTerrain = true // 开启地形检测
     mapViewer.resolutionScale = window.devicePixelRatio // 开启抗锯齿-1
@@ -318,30 +408,7 @@ onMounted(() => {
 
     loadBaseLayer(mapViewer)
     initConfig(mapViewer)
-    loadModelData(mapViewer)
-    //
-    // const modelCarUrl = `${import.meta.env.BASE_URL}model/car.gltf`
-    // const options = {
-    //     data: [
-    //         [119.030216, 33.59167, 50.9],
-    //         [119.032637, 33.590768, 50.8],
-    //         [119.033624, 33.592647, 53.4],
-    //         [119.033814, 33.59293, 53.3],
-    //         [119.033013, 33.593351, 53.1],
-    //         [119.032066, 33.593706, 52.9],
-    //         [119.031406, 33.593802, 53]
-    //     ],
-    //     view: { pitch: '', range: '' }, // 默认不传
-    //     model: {
-    //         url: modelCarUrl // 和cesium中model的配置一致
-    //     },
-    //     isPathShow: true, // 漫游路径是否显示
-    //     speed: '', // 默认可不传
-    //     time: 500 // 此次漫游所需要的总时间，单位：秒
-    // }
-    // new Roaming(mapViewer, {
-    //     ...options
-    // }).init({ ...options })
+
     // /**
     //  * 图层 S
     //  */

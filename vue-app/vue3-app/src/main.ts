@@ -1,4 +1,4 @@
-import { createApp, onMounted } from 'vue'
+import { createApp } from 'vue'
 import { registerMicroApps, start } from 'qiankun'
 import { createPinia } from 'pinia' // 状态管理
 import { useMenuStore } from '@/store'
