@@ -21,7 +21,8 @@
         "element-plus": "^2.2.0",
         "pinia": "^2.0.21",
         "vue": "^3.2.38",
-        "vue-router": "^4.1.5"
+        "vue-router": "^4.1.5",
+        "heatmap.js": "^2.0.5"
     },
     "devDependencies": {
         "@rushstack/eslint-patch": "^1.1.4",

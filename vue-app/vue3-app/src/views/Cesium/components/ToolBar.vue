@@ -7,8 +7,9 @@
 <template>
     <div class="tool-bar">
         <el-button @click="handleClick('shape')">矩形</el-button>
-        <el-button @click="handleClick('tileset')">3DTileset</el-button>
         <el-button @click="handleClick('roaming')">漫游</el-button>
+        <el-button @click="handleClick('czml')">CZML动态路径</el-button>
+        <el-button @click="handleClick('heatmap')">热力图</el-button>
     </div>
 </template>
 

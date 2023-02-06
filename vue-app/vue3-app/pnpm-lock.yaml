@@ -18,6 +18,7 @@ specifiers:
   eslint: ^8.22.0
   eslint-plugin-cypress: ^2.12.1
   eslint-plugin-vue: ^9.3.0
+  heatmap.js: ^2.0.5
   jsdom: ^20.0.0
   mockjs: ^1.1.0
   npm-run-all: ^4.1.5
@@ -41,6 +42,7 @@ dependencies:
   axios: registry.npmmirror.com/axios/0.27.2
   cesium: registry.npmmirror.com/cesium/1.101.0
   element-plus: registry.npmmirror.com/element-plus/2.2.28_vue@3.2.45
+  heatmap.js: registry.npmmirror.com/heatmap.js/2.0.5
   pinia: registry.npmmirror.com/pinia/2.0.28_prq2uz4lho2pwp6irk4cfkrxwu
   vue: registry.npmmirror.com/vue/3.2.45
   vue-router: registry.npmmirror.com/vue-router/4.1.6_vue@3.2.45
@@ -3616,6 +3618,12 @@ packages:
     dependencies:
       function-bind: registry.npmmirror.com/function-bind/1.1.1
     dev: true
+
+  registry.npmmirror.com/heatmap.js/2.0.5:
+    resolution: {integrity: sha512-CG2gYFP5Cv9IQCXEg3ZRxnJDyAilhWnQlAuHYGuWVzv6mFtQelS1bR9iN80IyDmFECbFPbg6I0LR5uAFHgCthw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/heatmap.js/-/heatmap.js-2.0.5.tgz}
+    name: heatmap.js
+    version: 2.0.5
+    dev: false
 
   registry.npmmirror.com/hosted-git-info/2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz}
