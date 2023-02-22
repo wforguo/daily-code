@@ -10,24 +10,15 @@ import router, { menus } from './router'
 // @ts-ignore
 import WeDesign from '@wei_design/web-vue'
 import '@wei_design/web-vue/lib/style.css'
+import { log } from '@/libs/utils'
 console.log(import.meta.env)
+// @ts-ignore
 console.log(process.env)
-
-console.log(
-    `%c Environment %c ${import.meta.env.MODE}`,
-    'padding: 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060',
-    'padding: 1px 5px 1px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #42c02e'
-)
-console.log(
-    `%c Version %c ${process.env.APP_VERSION}`,
-    'padding: 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060',
-    'padding: 1px 5px 1px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #1475b2'
-)
-console.log(
-    `%c BuildTime %c ${process.env.APP_BUILD_TIME}`,
-    'padding: 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060',
-    'padding: 1px 5px 1px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #1475b2'
-)
+log.capsule('Environment', `${import.meta.env.MODE}`, 'primary')
+// @ts-ignore
+log.capsule('Version', `${process.env.APP_VERSION}`, 'primary')
+// @ts-ignore
+log.capsule('BuildTime', `${process.env.APP_BUILD_TIME}`, 'primary')
 
 const app = createApp(App)
 

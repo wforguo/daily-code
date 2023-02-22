@@ -13,33 +13,43 @@
             id="heatMap"
             style="width: 100%; height: 100%; opacity: 0; visibility: hidden; position: absolute; z-index: -1"
         ></div>
+        <canvas
+            id="canvas-a"
+            class="canvas"
+            width="700"
+            height="100"
+            style="position: absolute; left: 0; top: 0"
+        ></canvas>
+        <canvas
+            id="canvas-b"
+            class="canvas"
+            width="700"
+            height="100"
+            style="position: absolute; left: 0; top: 0"
+        ></canvas>
         <tool-bar @onClick="handleClick" />
     </div>
 </template>
 
 <script lang="ts" setup>
 import * as Cesium from 'cesium'
-import * as h337 from 'heatmap.js'
+import Heatmap from 'heatmap.js'
 import 'cesium/Source/Widgets/widgets.css'
 import { onMounted, reactive } from 'vue'
-import { log } from '@/utils'
+import { ElMessage as message } from 'element-plus'
+import { log } from '@/libs/utils'
 import CesiumRoam from './components/CesiumRoam.vue'
 import ToolBar from './components/ToolBar.vue'
 import GlobeView from '@/views/Cesium/util/GlobeView'
+import { position } from '@/views/Cesium/data'
 
 let mapViewer: any = null
+let czmlInterval: any = null
 
 // 内置素材位置
 window.CESIUM_BASE_URL = import.meta.env.BASE_URL
 
-const realPosition: any[] = reactive([
-    [118.19440855, 36.78027499, 100],
-    [118.1959458, 36.77988333, 100],
-    [118.19524581, 36.77988334, 100],
-    [118.19594582, 36.77988335, 100],
-    [118.19654583, 36.77988336, 100],
-    [118.19654584, 36.78988337, 100]
-])
+const realPosition: any[] = reactive(position)
 
 // 地图默认参数
 const mapOptions = reactive({
@@ -71,6 +81,36 @@ const mapOptions = reactive({
     // showRenderLoopErrors: false, // 如果为true, 则在发送渲染循环错误时，此小部件将自动向包含错误的用户显示HTML面板
     sceneMode: Cesium.SceneMode.SCENE3D // 初始场景模式
     // terrainShadows: Cesium.createWorldTerrain() // 确定地形是投射还是接收来自光源的阴影
+})
+
+// 页面加载
+onMounted(() => {
+    // cesium accessToken
+    const accessToken =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMTAyZTY1Ni01ZGY4LTRhOTQtYTNkMS1hMmU1NjBhOGExN2QiLCJpZCI6MTE0MzYxLCJpYXQiOjE2NzM0ODkyOTF9.2Bt_4sefdPqtuYMJTgx5HWlglWkDQXaoyKawX6rvYv8'
+    // eslint-disable-next-line no-undef
+    // Initialize the viewer with Cesium World Terrain.
+    Cesium.Ion.defaultAccessToken = accessToken
+    mapViewer = new Cesium.Viewer('cesiumContainer', {
+        ...mapOptions
+    })
+    GlobeView.Map3DViewer = mapViewer
+    mapViewer._cesiumWidget._creditContainer.style.display = 'none' // 去除cesium标识
+    mapViewer.scene.globe.depthTestAgainstTerrain = true // 开启地形检测
+    mapViewer.scene.fxaa = true // 开启抗锯齿-2
+    mapViewer.scene.postProcessStages.fxaa.enabled = true // 开启抗锯齿-3
+
+    // 实体集变化监听
+    function onChanged(collection: any, added: string | any[], removed: any, changed: any) {
+        let msg = 'Added ids'
+        for (let i = 0; i < added.length; i++) {
+            msg += '\n' + added[i].id
+        }
+        console.log(msg)
+    }
+    mapViewer.entities.collectionChanged.addEventListener(onChanged)
+    loadBaseLayer(mapViewer)
+    initConfig(mapViewer)
 })
 
 // 图层初始化
@@ -135,6 +175,46 @@ const initConfig = (mapViewer: any) => {
     log.success(`地图初始化成功，当前经纬度：${mapConfig.initLongitude},${mapConfig.initLatitude}`)
 }
 
+// 点击工具栏
+const handleClick = (type: string | number) => {
+    // 清空数据
+    mapViewer.entities.removeAll()
+    mapViewer.scene.primitives.removeAll()
+    czmlInterval && clearInterval(czmlInterval)
+    czmlInterval = null
+
+    switch (type) {
+        case 'roaming': {
+            drawRoaming()
+            break
+        }
+        case 'shape': {
+            drawShape()
+            break
+        }
+        case 'dynamicImage': {
+            dynamicImage()
+            break
+        }
+        case 'tileset': {
+            drawTileset()
+            break
+        }
+        case 'czml': {
+            drawCzml()
+            break
+        }
+        case 'heatmap': {
+            drawHeatMap()
+            break
+        }
+        case 'drawPrimitiveAndEntity': {
+            drawPrimitiveAndEntity()
+            break
+        }
+    }
+}
+
 /**
  * 创建模型/添加实体方式添加模型
  * @param viewer
@@ -150,7 +230,8 @@ const createModel = (viewer: any, url: string, myPositions: any, orientation: an
 
     function trackView() {
         // 开始时间
-        const start = Cesium.JulianDate.fromDate(new Date())
+        // 创建一个代表当前系统时间的新实例。这等效于调用 JulianDate.fromDate（new Date（））; 。
+        const start = Cesium.JulianDate.now()
         // 结束时间
         const stop = Cesium.JulianDate.addSeconds(start, myPositions.length - 1, new Cesium.JulianDate())
 
@@ -161,7 +242,7 @@ const createModel = (viewer: any, url: string, myPositions: any, orientation: an
         // 动画模式【LOOP_STOP:自动循环播放|CLAMPED:到达终止时间后停止】
         viewer.clock.clockRange = Cesium.ClockRange.CLAMPED
         // 模仿速度
-        viewer.clock.multiplier = 0.3
+        viewer.clock.multiplier = 0.85
 
         // 根据坐标数组，计算插值点数据
         function computeCirclularFlight() {
@@ -266,7 +347,7 @@ const drawRoaming = () => {
     const longitude = realPosition[0][0]
     const latitude = realPosition[0][1]
     // 小车模型
-    const modelCarUrl = `${import.meta.env.BASE_URL}model/car.gltf`
+    const modelCarUrl = `${import.meta.env.BASE_URL}model/fpiCar.gltf`
     const position = Cesium.Cartesian3.fromDegrees(longitude, latitude)
     const heading = Cesium.Math.toRadians(10)
     const pitch = 0
@@ -286,7 +367,7 @@ const drawShape = () => {
     mapViewer.entities.removeAll()
     mapViewer.dataSources.removeAll()
 
-    // entities加载
+    // 1、entities加载
     mapViewer.entities.add({
         name: 'Red box with black outline',
         position: Cesium.Cartesian3.fromDegrees(119.030216, 33.59167, 50.9),
@@ -302,7 +383,7 @@ const drawShape = () => {
         }
     })
 
-    // czml加载/JSON字符串
+    // 2、czml加载/JSON字符串
     const czml = [
         {
             id: 'document',
@@ -349,7 +430,7 @@ const drawShape = () => {
         }
     })
 
-    // 修改颜色材质
+    // 3、修改颜色材质
     greenWall.wall.material = Cesium.Color.BLUE.withAlpha(0.5)
     greenWall.wall.material = new Cesium.CheckerboardMaterialProperty({
         evenColor: Cesium.Color.WHITE,
@@ -361,7 +442,7 @@ const drawShape = () => {
     mapViewer.zoomTo(greenWall)
 }
 
-// drawTileset
+// 绘制瓦片图
 const drawTileset = () => {
     const tileset = new Cesium.Cesium3DTileset({
         url: 'http://60.12.8.237:10082/shx3dtile/tileset.json',
@@ -446,7 +527,7 @@ const drawCzml = () => {
     var dataSourcePromise
     var i = 30.957024
     var a = 410
-    setInterval(function () {
+    czmlInterval = setInterval(function () {
         i += Math.random() * 0.01 * 10
         a += 10
         console.log(i)
@@ -470,23 +551,24 @@ const drawCzml = () => {
 }
 
 // 绘制热力图
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const drawHeatMap = () => {
-    var points = []
-    var width = 600
-    var height = 400
-    var max = 100
+    let points = []
+    let width = 600
+    let height = 400
+    let max = 100
 
     // 热力图经纬度范围
-    var latMin = 28.364807
-    var latMax = 40.251095
-    var lonMin = 94.389228
-    var lonMax = 108.666357
+    let latMin = 28.364807
+    let latMax = 40.251095
+    let lonMin = 94.389228
+    let lonMax = 108.666357
     // 根据热力图图片范围，生成随机热力点和强度值
-    for (var i = 0; i < 300; i++) {
-        var lon = lonMin + Math.random() * (lonMax - lonMin)
-        var lat = latMin + Math.random() * (latMax - latMin)
-        var value = Math.floor(Math.random() * max)
-        var point = {
+    for (let i = 0; i < 300; i++) {
+        let lon = lonMin + Math.random() * (lonMax - lonMin)
+        let lat = latMin + Math.random() * (latMax - latMin)
+        let value = Math.floor(Math.random() * max)
+        let point = {
             x: Math.floor(((lat - latMin) / (latMax - latMin)) * width),
             y: Math.floor(((lon - lonMin) / (lonMax - lonMin)) * height),
             value: value
@@ -494,7 +576,7 @@ const drawHeatMap = () => {
         points.push(point)
     }
     // 创建热力图
-    const heatmap = h337.create({
+    const heatmap = Heatmap.create({
         container: document.getElementById('heatMap'),
         // backgroundColor: 'red',
         radius: 20,
@@ -526,63 +608,114 @@ const drawHeatMap = () => {
     mapViewer.zoomTo(mapViewer.entities)
 }
 
-// 点击工具栏
-const handleClick = (type: string | number) => {
-    // 清空数据
-    mapViewer.entities.removeAll()
-    switch (type) {
-        case 'roaming': {
-            drawRoaming()
-            break
+// Primitive和Entity
+const drawPrimitiveAndEntity = () => {
+    function computeCircle(radius: number) {
+        var positions = []
+        for (var i = 0; i < 360; i++) {
+            var radians = Cesium.Math.toRadians(i)
+            positions.push(new Cesium.Cartesian2(radius * Math.cos(radians), radius * Math.sin(radians)))
         }
-        case 'shape': {
-            drawShape()
-            break
-        }
-        case 'tileset': {
-            drawTileset()
-            break
-        }
-        case 'czml': {
-            drawCzml()
-            break
-        }
-        case 'heatmap': {
-            drawHeatMap()
-            break
-        }
+        return positions
     }
+    //使用entity
+    function createEntity(line: number[]) {
+        console.log(line)
+        mapViewer.entities.add({
+            polylineVolume: {
+                positions: Cesium.Cartesian3.fromDegreesArrayHeights(line),
+                shape: [
+                    new Cesium.Cartesian2(-50000, -50000),
+                    new Cesium.Cartesian2(50000, -50000),
+                    new Cesium.Cartesian2(50000, 50000),
+                    new Cesium.Cartesian2(-50000, 50000)
+                ],
+                cornerType: Cesium.CornerType.BEVELED,
+                material: Cesium.Color.GREEN.withAlpha(0.5),
+                outline: true,
+                outlineColor: Cesium.Color.BLACK
+            }
+        })
+    }
+
+    //使用Primitive
+    function createGeometry(line: number[]) {
+        return new Cesium.GeometryInstance({
+            geometry: new Cesium.PolylineVolumeGeometry({
+                polylinePositions: Cesium.Cartesian3.fromDegreesArrayHeights(line),
+                shapePositions: computeCircle(40000.0)
+            }),
+            attributes: {
+                color: Cesium.ColorGeometryInstanceAttribute.fromColor(Cesium.Color.RED.withAlpha(0.5))
+            }
+        })
+    }
+    function createPrimitive(linesInstances: any) {
+        var primitive = mapViewer.scene.primitives.add(
+            new Cesium.Primitive({
+                geometryInstances: linesInstances,
+                appearance: new Cesium.PerInstanceColorAppearance({
+                    // flat : true,
+                    translucent: false,
+                    closed: true
+                })
+            })
+        )
+    }
+    const lines = [[-90.0, 32.0, 0.0, -90.0, 36.0, 100000.0, -94.0, 36.0, 0.0]]
+    // 使用entity
+    for (let i = 0; i < lines.length; i++) {
+        createEntity(lines[i])
+    }
+
+    //使用Primitive,只需要构建一个 geometry的数组，再创建Primitive
+    const linesInstances = []
+    for (let i = 0; i < lines.length; i++) {
+        linesInstances.push(createGeometry(lines[i]))
+    }
+    createPrimitive(linesInstances)
+    mapViewer.zoomTo(mapViewer.entities)
 }
 
-// 页面加载
-onMounted(() => {
-    // cesium accessToken
-    const accessToken =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwMTAyZTY1Ni01ZGY4LTRhOTQtYTNkMS1hMmU1NjBhOGExN2QiLCJpZCI6MTE0MzYxLCJpYXQiOjE2NzM0ODkyOTF9.2Bt_4sefdPqtuYMJTgx5HWlglWkDQXaoyKawX6rvYv8'
-    // eslint-disable-next-line no-undef
-    // Initialize the viewer with Cesium World Terrain.
-    Cesium.Ion.defaultAccessToken = accessToken
-    mapViewer = new Cesium.Viewer('cesiumContainer', {
-        ...mapOptions
-    })
-    GlobeView.Map3DViewer = mapViewer
-    mapViewer._cesiumWidget._creditContainer.style.display = 'none' // 去除cesium标识
-    mapViewer.scene.globe.depthTestAgainstTerrain = true // 开启地形检测
-    mapViewer.scene.fxaa = true // 开启抗锯齿-2
-    mapViewer.scene.postProcessStages.fxaa.enabled = true // 开启抗锯齿-3
+let rotation = Cesium.Math.toRadians(30)
 
-    // 实体集变化监听
-    function onChanged(collection, added, removed, changed) {
-        var msg = 'Added ids'
-        for (var i = 0; i < added.length; i++) {
-            msg += '\n' + added[i].id
-        }
-        console.log(msg)
+const getRotation = () => {
+    return (rotation += 0.005)
+}
+
+let i = 0
+
+function drawCanvasImage(time, result) {
+    let canvas: any = document.getElementById('canvas-a')
+    let cwidth = 700
+    let cheight = 100
+    let ctx: any = canvas.getContext('2d')
+    let img = new Image()
+    img.src = 'arrow.png'
+    img.onload = function () {
+        if (i <= cwidth) {
+            ctx.clearRect(0, 0, cwidth, cheight)
+            ctx.drawImage(img, i, 0)
+        } else i = 0
+        i += 3
     }
-    mapViewer.entities.collectionChanged.addEventListener(onChanged)
-    loadBaseLayer(mapViewer)
-    initConfig(mapViewer)
-})
+    return canvas?.toDataURL()
+}
+
+// 图片动态旋转
+const dynamicImage = () => {
+    mapViewer.entities.add({
+        name: 'dynamicImage',
+        rectangle: {
+            coordinates: Cesium.Rectangle.fromDegrees(-90.0, 30.0, -70.0, 35.0),
+            material: new Cesium.ImageMaterialProperty({
+                image: new Cesium.CallbackProperty(drawCanvasImage, false),
+                transparent: true
+            })
+        }
+    })
+    mapViewer.zoomTo(mapViewer.entities)
+}
 </script>
 
 <script lang="ts">
@@ -602,6 +735,10 @@ export default {
     #cesiumContainer {
         width: 100%;
         height: 100%;
+    }
+    .canvas {
+        position: absolute;
+        display: none;
     }
 }
 </style>

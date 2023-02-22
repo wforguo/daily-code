@@ -4,15 +4,19 @@
 - Cesium 使用WebGL 来进行硬件加速图形，使用时不需要任何插件支持，但是浏览器必须支持WebGL。
 - Cesium是基于Apache2.0 许可的开源程序。它可以免费的用于商业和非商业用途。
 
+![img_4.png](img_4.png)
+
 ## 目录结构
 
-- Source/: Cesium应用程序代码及数据
-- ThirdParty/：外部依赖库，不同于Cesium的第三方库
+- Source: Cesium应用程序代码及数据
+- ThirdParty：外部依赖库，不同于Cesium的第三方库
 - LICENSE.md：Cesium 的 License 介绍
 - index.html：Web首页，需要按照Cesium要求定义页面，同时添加Cesium依赖库
 - server.js：基于node.js的web服务应用
 
-## 界面介绍
+### 界面介绍
+
+
 
 ### 界面控件
 
@@ -79,6 +83,76 @@ viewer.scene.debugShowFramesPerSecond = true;
 }
 ```
 
+## 主要类介绍
+
+### `Viewer` 查看器
+
+
+### `Scene` 场景类
+所有3D对象的容器，隐式创建，可对基础地理环境进行设置
+
+### `Primitive` 底层空间数据绘制方法
+
+图形集合
+
+```js
+mapViewer.scene.primitives.add({})
+```
+
+`GroundPrimitive` 贴地
+
+### `Entity` 实体类，由`Primitive`封装而来
+
+Entity可以动态纹理
+```js
+const entity = viewer.entities.add({
+    position: new Cesium.Cartesian3.fromDegress(116, 39),
+    box: {
+        dimensions: new Cesium.Cartesian3(4000.0, 3000.0, 5000.0),
+        material: Cesium.Color.RED.withAlpha(0.5),
+        outline: true,
+        outlineColor: Cesium.Color.BLACK
+    }
+})
+```
+
+Primitive将形状和渲染解耦开来
+```js
+var primitive = CesiumViewerInstance.scene.primitives.add(new Cesium.Primitive({
+    geometryInstances: linesInstances,
+    appearance: new Cesium.PerInstanceColorAppearance({
+        // flat : true,
+        translucent : false,
+        closed: true
+    })
+}))
+```
+
+### `DataSourceCollection` 数据源集合类
+
+加载矢量数据的主要方式之一
+
+CzmlDataSource(czml)，KmlDataSource(kml)，GeoJsonDataSource(geojson)
+
+[topjson和geojson](https://www.jianshu.com/p/465702337744)
+
+先加载`load`，再添加`add`
+
+```js
+viewer.dataSource.add(Cesium.GeoJsonDataSource.load('../data/data.topojson', {
+    stroke: Cesium.Color.HOTPINK,
+    fill: Cesium.Color.PINK.withAlpha(0.5),
+    strokeWidth: 3,
+}))
+```
+
+## 初始化
+
+```js
+const view = new Cesium.Viewer('containerId', {
+})
+```
+
 ## 绘制形状
 
 ### 通过Entity/实体添加形状
@@ -143,9 +217,10 @@ mapViewer.zoomTo(dataSourcePromise)
 ```
 
 效果
+
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/1088766/1675233617665-7b34dfbc-91c3-4913-8236-242f7b2b4056.png?x-oss-process=image/format,png#averageHue=%23606544&clientId=u133b5a00-e773-4&from=paste&height=319&id=ub2a87e6b&name=image.png&originHeight=319&originWidth=352&originalType=binary&ratio=1&rotation=0&showTitle=false&size=449394&status=done&style=none&taskId=uc2ad8ca9-b9bf-4b0b-bdf1-392d288e2ea&title=&width=352)
 
-## 形状类型
+### 形状类型
 
 实体实例将多种形式的可视化聚集到单个高级对象中。可以手动创建它们并将其添加到 [Viewer＃entities](http://cesium.xin/cesium/cn/Documentation1.62/Viewer.html#entities)或由数据源，例如 [CzmlDataSource](http://cesium.xin/cesium/cn/Documentation1.62/CzmlDataSource.html)和 [GeoJsonDataSource](http://cesium.xin/cesium/cn/Documentation1.62/GeoJsonDataSource.html)。
 
@@ -200,9 +275,7 @@ viewer.zoomTo(tileset);
 
 ```
 
-## 设置材质
-
-### Material
+## 材质 Material
 
 ### MaterialProperty
 
@@ -257,6 +330,7 @@ ellipse.material = '../images/cats.jpg';
 #### CheckerboardMaterialProperty - 棋盘纹理
 
 共有三个属性
+
 – evenColor 默认白色，棋盘的第一个颜色
 – oddColor 默认黑色，第二个颜色
 – repeat 重复次数
@@ -383,8 +457,9 @@ polyline.material = new Cesium.PolylineOutlineMaterialProperty({
 ##### 标签 label
 
 文字标注,可以设置样式，文字内容，字体，偏移等等
-```javascript
-label: {
+
+```js
+{
     text: 'Citizens Bank Park',
     font: '14pt monospace',
     style: Cesium.LabelStyle.FILL_AND_OUTLINE,
@@ -396,9 +471,10 @@ label: {
 
 ##### 模型 model
 
-常见的模型有`glTF`和g`lb`
+常见的模型有`glTF`和`glb`
+
 ```javascript
-model : {
+model: {
     uri : '../../SampleData/models/CesiumGround/Cesium_Ground.gltf'
 }
 ```
@@ -512,6 +588,82 @@ Cesium官方提供了一些地形数据集的例子，以及如何配置这些�
 - HeadingPitchRoll : 在东北向上的框架中关于局部轴的旋转（弧度）。航向是围绕负Z轴的旋转。俯仰是围绕负Y轴的旋转。滚动是关于正X轴的旋转。
 - Quaternion :以4D坐标表示的3D旋转。 
 
+## camera控制
+setView，flyto，lookAt
+共同参数：roll【x轴】，pitch【y轴】，heading【z轴】
+
+### setView
+
+- Cartesian3方式
+
+```js
+
+view.camera.setView({
+    destination: Cesium.Cartesian3.fromDegrees(116.435314, 39.960521, 15000.0), // 设置位置
+    orientation: {
+        heading: Cesium.Math.toRadians(20.0), // 方向
+        pitch: Cesium.Math.toRadians(-90.0),// 倾斜角度
+        roll: 0
+    }
+});
+```
+
+- Rectangle方式
+
+```js
+view.camera.setView({
+    destination: Cesium.Rectangle.fromDegrees(0.0, 20.0, 10.0, 30.0),//west, south, east, north
+    orientation: {
+        heading : Cesium.Math.toRadians(20.0), // 方向
+        pitch : Cesium.Math.toRadians(-90.0),// 倾斜角度
+        roll : 0
+    } 
+});
+```
+
+### flyto
+
+```js
+view.camera.flyTo({
+    destination: Cesium.Cartesian3.fromDegrees(116.435314, 39.960521, 15000.0), // 设置位置
+    orientation: {
+        heading: Cesium.Math.toRadians(20.0), // 方向
+        pitch: Cesium.Math.toRadians(-90.0),// 倾斜角度
+        roll: 0
+    },
+    duration: 5, // 设置飞行持续时间，默认会根据距离来计算
+    complete: function () {
+        // 到达位置后执行的回调函数
+    },
+    cancle: function () {
+        // 如果取消飞行则会调用此函数
+    },
+    pitchAdjustHeight: -90, // 如果摄像机飞越高于该值，则调整俯仰俯仰的俯仰角度，并将地球保持在视口中。
+    maximumHeight: 5000, // 相机最大飞行高度
+    flyOverLongitude: 100, // 如果到达目的地有2种方式，设置具体值后会强制选择方向飞过这个经度(这个，很好用)
+});
+```
+
+### lookAt
+
+```js
+var center = Cesium.Cartesian3.fromDegrees(114.44455, 22.0444); //camera视野的中心点坐标
+var heading = Cesium.Math.toRadians(50.0);
+var pitch = Cesium.Math.toRadians(-20.0);
+var range = 5000.0;
+view.camera.lookAt(center, new Cesium.HeadingPitchRange(heading, pitch, range));
+```
+
+## CallbackProperty使用
+
+> 一个 Property ，其值由回调函数延迟计算。
+
+包含两个参数
+
+callback	`CallbackProperty.Callback`	评估属性时要调用的函数。
+isConstant	Boolean	每次回调函数返回相同值时，为 `true` ，如果值将更改，则为 `false`。[是否返回相同的值]
+
+
 ## 常见效果
 
 ### 轨迹漫游
@@ -531,3 +683,50 @@ Cesium官方提供了一些地形数据集的例子，以及如何配置这些�
 ### 雷达图
 
 
+
+### 鹰眼实现
+
+创建一个小的三维球
+禁止缩放
+主视图变化，鹰眼也变化
+
+```js
+//1.创建双球
+var viewer = new Cesium.Viewer('cesiumContainer', {});
+var viewer1 = new Cesium.Viewer('eye', {});
+
+//2.设置鹰眼图中球属性
+let control = viewer1.scene.screenSpaceCameraController;
+control.enableRotate = false;
+control.enableTranslate = false;
+control.enableZoom = false;
+control.enableTilt = false;
+control.enableLook = false;
+let syncViewer = function() {
+    viewer1.camera.flyTo({
+        destination: viewer.camera.position,
+        orientation: {
+            heading: viewer.camera.heading,
+            pitch: viewer.camera.pitch,
+            roll: viewer.camera.roll
+        },
+        duration: 0.0
+    });
+};
+
+//3.同步
+// viewer.camera.changed.addEventListener(syncViewer);//卡顿，失败
+// viewer.scene.preRender.addEventListener(syncViewer);//谢谢木遥告知，如果添加这个事件监听，效果和第三种方式一样，成功
+
+// 使用回调CallbackProperty
+viewer.entities.add({
+    position : Cesium.Cartesian3.fromDegrees(0, 0),
+    label: {
+        text: new Cesium.CallbackProperty(function(){
+            syncViewer();
+            return "";
+        }, true)
+    }
+});
+
+```

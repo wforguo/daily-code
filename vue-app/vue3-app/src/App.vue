@@ -36,7 +36,15 @@
                     <div id="vue2App"></div>
                 </el-card>
             </el-main>
-            <el-footer style="background-color: #f6f9fe; display: flex; align-items: center; justify-content: center">
+            <el-footer
+                style="
+                    display: none;
+                    background-color: #f6f9fe;
+                    /*display: flex;*/
+                    align-items: center;
+                    justify-content: center;
+                "
+            >
                 &copy; 2022
             </el-footer>
         </el-container>

@@ -10,9 +10,27 @@
 
 <script lang="ts" setup>
 import { onBeforeMount } from 'vue'
-import rawCode from './index'
-onBeforeMount(() => {
-    rawCode()
+// import rawCode from './index'
+
+// async本身就返回了一个promise，默认返回一个resolve(undefined)
+const request = async () => {
+    console.log('request')
+    // await用于等待一个promise结束，只能在 async 块内使用
+    await new Promise((resolve, reject) => {
+        console.log('setTimeout')
+        setTimeout(() => {
+            console.log('resolve')
+            resolve('async')
+        }, 0)
+    })
+}
+
+onBeforeMount(async () => {
+    console.log('onBeforeMount')
+    // rawCode()
+    request().then(res => {
+        console.log(res)
+    })
 })
 </script>
 
