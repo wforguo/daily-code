@@ -3,10 +3,10 @@
         <Timer />
         <h4>排行榜</h4>
         <div>
-            <p v-for="(item, index) in companies" :key="item.id">
-                <el-tag>{{ item.name }}</el-tag>
-                <el-button @click="send(index)">投递</el-button>
-            </p>
+            <!--            <p v-for="(item, index) in companies" :key="item.id">-->
+            <!--                <el-tag>{{ item.name }}</el-tag>-->
+            <!--                <el-button @click="send(index)">投递</el-button>-->
+            <!--            </p>-->
         </div>
 
         <p>已经投递：{{ target }}</p>

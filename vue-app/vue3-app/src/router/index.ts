@@ -1,3 +1,8 @@
+/**
+ * @Author: forguo
+ * @Date: 2023/2/23 17:04
+ * @Description: index.ts
+ */
 import { createRouter, createWebHistory } from 'vue-router'
 
 // 路由集合

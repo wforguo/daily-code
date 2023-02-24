@@ -6,6 +6,7 @@
 -->
 <template>
     <div class="tool-bar">
+        <el-button @click="handleClick('captureScreen')">录屏</el-button>
         <el-button @click="handleClick('shape')">矩形</el-button>
         <el-button @click="handleClick('dynamicImage')">动态图片</el-button>
         <el-button @click="handleClick('roaming')">漫游</el-button>

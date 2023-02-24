@@ -27,11 +27,11 @@
                     shadow="never"
                     body-style="flex: 1;width: 100%; height: 100%;"
                 >
-                    <template #header>
-                        <div class="card-header">
-                            <span>{{ $route?.meta?.title }}</span>
-                        </div>
-                    </template>
+                    <!--                    <template #header>-->
+                    <!--                        <div class="card-header">-->
+                    <!--                            <span>{{ $route?.meta?.title }}</span>-->
+                    <!--                        </div>-->
+                    <!--                    </template>-->
                     <router-view />
                     <div id="vue2App"></div>
                 </el-card>

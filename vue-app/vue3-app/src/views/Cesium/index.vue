@@ -212,6 +212,10 @@ const handleClick = (type: string | number) => {
             drawPrimitiveAndEntity()
             break
         }
+        case 'captureScreen': {
+            captureScreen()
+            break
+        }
     }
 }
 
@@ -651,7 +655,7 @@ const drawPrimitiveAndEntity = () => {
         })
     }
     function createPrimitive(linesInstances: any) {
-        var primitive = mapViewer.scene.primitives.add(
+        mapViewer.scene.primitives.add(
             new Cesium.Primitive({
                 geometryInstances: linesInstances,
                 appearance: new Cesium.PerInstanceColorAppearance({
@@ -675,6 +679,19 @@ const drawPrimitiveAndEntity = () => {
     }
     createPrimitive(linesInstances)
     mapViewer.zoomTo(mapViewer.entities)
+}
+
+/**
+ * 实现录屏
+ */
+const captureScreen = () => {
+    const canvas: HTMLCanvasElement = document.createElement('canvas')
+    const ctx: CanvasRenderingContext2D = canvas.getContext('2d')
+    const video: HTMLVideoElement = document.createElement('video')
+    canvas.width = video?.videoWidth
+    canvas.height = video?.videoHeight
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+    return canvas.toDataURL('image/png')
 }
 
 let rotation = Cesium.Math.toRadians(30)
