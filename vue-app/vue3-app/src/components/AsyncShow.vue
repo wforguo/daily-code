@@ -5,9 +5,12 @@
  * @Description: AsyncShow
 -->
 <template>
-    <div>
-        {{ res.data }}
-    </div>
+    <el-card shadow="hover">
+        <template #header>我是异步组件</template>
+        <div>
+            {{ res.data }}
+        </div>
+    </el-card>
 </template>
 
 <script lang="ts">

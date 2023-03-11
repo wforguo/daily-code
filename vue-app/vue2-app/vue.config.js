@@ -13,6 +13,7 @@ const BASE_URL = process.env.NODE_ENV === 'production' ? `/daily-code/${title}` 
 
 // 代码压缩
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const openInEditor = require('launch-editor-middleware')
 
 // 增加环境变量
 process.env.VUE_APP_VERSION = require('./package.json').version
@@ -115,6 +116,9 @@ module.exports = {
         }
     },
     devServer: {
+        before(app) {
+            app.use('/__open-in-editor', openInEditor())
+        },
         headers: {
             'Access-Control-Allow-Origin': '*'
         },

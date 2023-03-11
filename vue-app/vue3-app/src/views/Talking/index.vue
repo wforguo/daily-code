@@ -5,9 +5,9 @@
  * @Description: TalkingView
 -->
 <template>
-    <div class="page talking">
-        <div class="talking-inner">
-            <div class="talking-device">
+    <div class="page" :class="['talking', { loading: className }]">
+        <div class="talking-inner" :class="{ loading: className }">
+            <div class="talking-device" :class="className">
                 <!-- 给自己本地的视频播放设置静音，防止产生回音 -->
                 <video id="local" class="talking-video" autoplay playsinline muted></video>
             </div>
@@ -17,6 +17,7 @@
             <div>
                 <el-input v-model="offerSdp" placeholder="offer" />
                 <el-input v-model="answerSdp" placeholder="answer" />
+                <div v-html="html"></div>
             </div>
         </div>
         <div class="talking-tool">
@@ -46,15 +47,20 @@ export default {
  */
 
 import 'webrtc-adapter'
-import { ref } from 'vue'
+import { Ref, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 const pc = new RTCPeerConnection()
 // import rtmp from 'rtmp-stream'
 
 // 创建本地/远程 SDP 描述, 用于描述本地/远程的媒体流
-let offerSdp = ref<string>('')
-let answerSdp = ref<string>('')
-
+let offerSdp: Ref<string> = ref('')
+let answerSdp: Ref<string> = ref('')
+let className: Ref<string> = ref('')
+const html = ref(
+    'Using text interpolation: <span style="color: red">This should be red.</span><script>console.log("alert(1)")' +
+        '<' +
+        '/script>Using v-html directive: This should be red.'
+)
 // 开启通话
 const open = async () => {
     // 获取本地端视频标签
@@ -223,9 +229,13 @@ let recorder: any = null
 
 // 录屏
 const startRecord = async () => {
-    // 获取用户屏幕录制的权限
-    const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })
-    startRecording(stream)
+    try {
+        // 获取用户屏幕录制的权限
+        const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })
+        startRecording(stream)
+    } catch (e) {
+        console.log(e)
+    }
 }
 
 const startRecording = (stream: MediaStream) => {
@@ -285,6 +295,9 @@ const downRecord = () => {
     height: 100%;
     display: flex;
     flex-direction: column;
+    &.loading {
+        background: #eee;
+    }
     &-inner {
         flex: 1;
         display: flex;

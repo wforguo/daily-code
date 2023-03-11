@@ -54,7 +54,7 @@
 
     // 添加数据监听
     // 由于Object.defineProperty只能作用于Object，
-    // 所以数组的监听，使用了伪装者模式
+    // 所以数组的监听，使用了装饰者模式
     Vue.prototype.defineReactive = function (target, key, value) {
         let that = this;
         // ES5语法，不支持IE8及以下版本

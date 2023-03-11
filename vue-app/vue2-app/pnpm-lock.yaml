@@ -21,6 +21,7 @@ specifiers:
   heatmap.js: ^2.0.5
   html-webpack-plugin: ^3.2.0
   js-cookie: ^2.2.0
+  launch-editor-middleware: ^2.6.0
   lint-staged: ^9.5.0
   normalize.css: ^8.0.1
   postcss-loader: ^5.0.0
@@ -65,6 +66,7 @@ devDependencies:
   eslint-plugin-prettier: registry.npmmirror.com/eslint-plugin-prettier/3.4.1_2gle4i5hazz2mnhcmwidhnpqte
   eslint-plugin-vue: registry.npmmirror.com/eslint-plugin-vue/6.2.2_eslint@6.8.0
   html-webpack-plugin: registry.npmmirror.com/html-webpack-plugin/3.2.0_webpack@4.46.0
+  launch-editor-middleware: registry.npmmirror.com/launch-editor-middleware/2.6.0
   lint-staged: registry.npmmirror.com/lint-staged/9.5.0
   postcss-loader: registry.npmmirror.com/postcss-loader/5.3.0_7txe6tnhmtcxddz7ujcri4xd4a
   postcss-pxtorem: registry.npmmirror.com/postcss-pxtorem/5.1.1

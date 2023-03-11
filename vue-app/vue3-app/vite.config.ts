@@ -4,6 +4,8 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { viteMockServe } from 'vite-plugin-mock'
 import { dayjs } from 'element-plus'
+// 打开组件
+import Inspector from 'vite-plugin-vue-inspector'
 
 const { name: title, version: APP_VERSION } = require('./package.json')
 
@@ -16,7 +18,7 @@ export default (configEnv: any) => {
     env.APP_BUILD_TIME = dayjs().format('YYYY-MM-DD HH:mm:ss')
 
     // 插件
-    const plugins = [vue(), vueJsx()]
+    const plugins = [vue(), vueJsx(), Inspector({ enabled: true, toggleButtonVisibility: 'always' })]
     const isMock = mode === 'mock'
 
     if (isMock) {
@@ -27,16 +29,19 @@ export default (configEnv: any) => {
             })
         )
     }
-
+    // app.use('/__open-in-editor', openInEditor('webstorm'))
     return defineConfig({
         base: process.env.NODE_ENV === 'production' ? `/daily-code/${title}` : '/',
         server: {
+            // before(app) {
+            //     app.use('/__open-in-editor', openInEditor('webstorm'))
+            // },
             headers: {
                 'Access-Control-Allow-Origin': '*'
             },
             open: false,
             port: 30001,
-            host: '0.0.0.0'
+            host: true
         },
         resolve: {
             alias: {

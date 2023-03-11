@@ -10,7 +10,8 @@ import router, { menus } from './router'
 // @ts-ignore
 import WeDesign from '@wei_design/web-vue'
 import '@wei_design/web-vue/lib/style.css'
-import { log } from '@/libs/utils'
+import plugin, { log } from '@/plugin'
+
 console.log(import.meta.env)
 // @ts-ignore
 console.log(process.env)
@@ -22,7 +23,8 @@ log.capsule('BuildTime', `${process.env.APP_BUILD_TIME}`, 'primary')
 
 const app = createApp(App)
 
-app.use(createPinia()).use(router).use(ElementPlus).use(WeDesign).mount('#app')
+app.use(plugin).use(createPinia()).use(router).use(ElementPlus).use(WeDesign).mount('#app')
+
 const menu = useMenuStore()
 menu.updateMenu(menus)
 
