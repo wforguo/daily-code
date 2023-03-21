@@ -15,12 +15,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import axios from 'axios'
+import { request } from '@/plugin'
 
 export default defineComponent({
     name: 'AsyncShow',
     async setup() {
-        const res = await axios({
+        const res = await request({
             url: 'https://www.forguo.cn/api/common/wechat/sdk',
             params: {
                 url: window.location.href

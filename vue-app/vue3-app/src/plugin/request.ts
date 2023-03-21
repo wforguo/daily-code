@@ -5,21 +5,25 @@
  */
 
 import axios from 'axios'
+import { log } from '@/plugin/index'
 
 const request = axios.create({
     baseURL: '/api'
 })
 
 request.interceptors.request.use(config => {
-    console.log(config)
+    config.headers = {
+        ...config.headers,
+        'x-auth-token': import.meta.env.VITE_TOKEN
+    }
     return config
 })
 
 request.interceptors.response.use(res => {
-    console.log('res --->', res)
     if (res.status === 200) {
         return Promise.resolve(res.data)
     }
+    log.danger(res)
     return Promise.reject(res)
 })
 

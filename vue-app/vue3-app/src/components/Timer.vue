@@ -1,5 +1,7 @@
 <template>
-    <div class="we-timer">现在是：{{ nowTime }}</div>
+    <el-card>
+        <el-alert class="we-timer">现在是：{{ nowTime }}</el-alert>
+    </el-card>
 </template>
 
 <script lang="ts" setup>
@@ -9,6 +11,7 @@ defineProps<{
     msg?: string
 }>()
 defineEmits(['count-down'])
+const radio = ref(3)
 
 const nowTime = ref<string>('00:00:00')
 const getNowTime = () => {
@@ -17,7 +20,7 @@ const getNowTime = () => {
     const m = now.getMinutes() < 10 ? `0${now.getMinutes()}` : now.getMinutes()
     const s = now.getSeconds() < 10 ? `0${now.getSeconds()}` : now.getSeconds()
     nowTime.value = `${h}:${m}:${s}`
-    setTimeout(getNowTime, 1000)
+    window.requestAnimationFrame(getNowTime)
 }
 
 onMounted(() => {

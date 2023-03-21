@@ -51,4 +51,6 @@ class request {
         )
     }
 }
-export default new request()
+export default params => {
+    return new request().request(params)
+}

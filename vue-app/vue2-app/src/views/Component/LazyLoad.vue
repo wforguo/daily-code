@@ -23,31 +23,31 @@ export default {
     components: {
         MyButton
     },
-
+    created() {
+        console.log(request)
+    },
     methods: {
         initSdk(done) {
-            request
-                .request({
-                    method: 'post',
-                    url: 'https://www.forguo.cn/api/common/wechat/sdk',
-                    data: qs.stringify({
-                        url: window.location.href
-                    })
+            request({
+                method: 'post',
+                url: 'https://www.forguo.cn/api/common/wechat/sdk',
+                data: qs.stringify({
+                    url: window.location.href
                 })
-                .then(
-                    res => {
-                        console.log(res)
-                        this.$toast({
-                            message: '成功',
-                            type: 'success'
-                        })
-                        done()
-                    },
-                    err => {
-                        console.log(err)
-                        done()
-                    }
-                )
+            }).then(
+                res => {
+                    console.log(res)
+                    this.$toast({
+                        message: '成功',
+                        type: 'success'
+                    })
+                    done()
+                },
+                err => {
+                    console.log(err)
+                    done()
+                }
+            )
         }
     }
 }

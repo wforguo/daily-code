@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <timer />
+        <timer :title="1" type="success" />
 
         <div>
             <p v-for="(item, index) in companies" :key="item.id">
@@ -44,6 +44,7 @@ import {
 } from 'vue'
 import { Timer } from '@/components/index'
 import AsyncShow from '@/components/AsyncShow.vue'
+import { ElMessage } from 'element-plus'
 
 console.log('1-开始创建组件-----setup()')
 const companies: object[] = reactive([
@@ -68,6 +69,7 @@ const send = (index: number) => {
     const item: any = companies[index]
     target.name = item.name
 }
+
 /**
  * 生命周期
  */

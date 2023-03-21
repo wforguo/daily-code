@@ -9,10 +9,22 @@
                 <div>——数据结构化 比如浏览器的渲染，最终是解析成了DOM树，cssom，最后才去渲染</div>
             </el-collapse-item>
             <el-collapse-item title="5大设计原则">
-                <div>5大设计原则</div>
+                <h2>S</h2>
+                single 单一性原则
+                <h2>O</h2>
+                open 开发封闭原则
+                <h2>L</h2>
+                lishi 李氏置换原则
+                <h2>I</h2>
+                interface 接口独立原则
+                <h2>D</h2>
+                dependence 依赖原则
             </el-collapse-item>
             <el-collapse-item title="23种设计模式">
-                <div>23种设计模式</div>
+                <h2>创建形</h2>
+                工厂模式 单列模式 原型模式
+                <h2>结构形</h2>
+                <h2>组合形</h2>
             </el-collapse-item>
             <el-collapse-item title="项目应用">
                 <div>项目应用</div>

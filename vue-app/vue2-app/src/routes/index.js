@@ -108,7 +108,7 @@ const routes = [
         title: '组件',
         name: 'Component',
         meta: { title: '组件' },
-        hidden: true,
+        // hidden: true,
         component: () => import(/* webpackChunkName: "Component" */ '@/views/Component')
     },
     {

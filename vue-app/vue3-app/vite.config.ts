@@ -18,7 +18,7 @@ export default (configEnv: any) => {
     env.APP_BUILD_TIME = dayjs().format('YYYY-MM-DD HH:mm:ss')
 
     // 插件
-    const plugins = [vue(), vueJsx(), Inspector({ enabled: true, toggleButtonVisibility: 'always' })]
+    const plugins = [vue(), vueJsx(), Inspector({ enabled: false, toggleButtonVisibility: 'always' })]
     const isMock = mode === 'mock'
 
     if (isMock) {
@@ -41,7 +41,14 @@ export default (configEnv: any) => {
             },
             open: false,
             port: 30001,
-            host: true
+            host: true,
+            proxy: {
+                '/api': {
+                    target: 'https://www.yuque.com/api/v2/',
+                    changeOrigin: true,
+                    rewrite: path => path.replace(/^\/api/, '')
+                }
+            }
         },
         resolve: {
             alias: {
