@@ -1,6 +1,6 @@
 <template>
     <el-container style="height: 100vh; overflow: hidden">
-        <el-aside style="max-width: 200px; height: 100vh; width: 0">
+        <el-aside style="max-width: 200px; height: 100vh" v-if="isDev">
             <el-menu :default-active="$route?.path || '/'" router style="height: 100%">
                 <el-menu-item
                     :index="path"
@@ -51,32 +51,23 @@
     </el-container>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { onBeforeRouteUpdate, useRouter, onBeforeRouteLeave } from 'vue-router'
-import { defineComponent } from 'vue'
+import { ref } from 'vue'
 import { useMenuStore } from '@/store'
-export default defineComponent({
-    components: {},
-    setup() {
-        const menu = useMenuStore()
-        const router = useRouter()
-        onBeforeRouteUpdate(to => {
-            console.log({ ...router }, to)
-        })
-        onBeforeRouteLeave(to => {
-            console.log({ ...router }, to)
-        })
-        const handleNav = (name: string) => {
-            console.log(name)
-            router.push({
-                name
-            })
-        }
-        return {
-            menu,
-            handleNav,
-            router
-        }
-    }
+const isDev = ref(import.meta.env.MODE === 'development')
+const menu = useMenuStore()
+const router = useRouter()
+onBeforeRouteUpdate(to => {
+    console.log({ ...router }, to)
 })
+onBeforeRouteLeave(to => {
+    console.log({ ...router }, to)
+})
+const handleNav = (name: string) => {
+    console.log(name)
+    router.push({
+        name
+    })
+}
 </script>

@@ -16,12 +16,14 @@
         "lint": "eslint  --ext .vue,.js,.jsx,.ts,.tsx --fix src --ignore-path .eslintignore"
     },
     "dependencies": {
+        "@highlightjs/vue-plugin": "^2.1.0",
         "@turf/turf": "^6.5.0",
         "@wei_design/web-vue": "^1.0.0",
         "axios": "^0.27.2",
         "cesium": "^1.84.0",
         "element-plus": "^2.2.0",
         "heatmap.js": "^2.0.5",
+        "highlight.js": "^11.7.0",
         "pinia": "^2.0.21",
         "vue": "^3.2.45",
         "vue-router": "^4.1.5",

@@ -4,13 +4,19 @@ import { createPinia } from 'pinia' // 状态管理
 import { useMenuStore } from '@/store'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-import App from './App.vue'
-import './assets/main.scss'
-import router, { menus } from './router'
+// highlight 的样式，依赖包，组件
+import 'highlight.js/styles/github-dark.css'
+import 'highlight.js/lib/common'
+import hljsVuePlugin from '@highlightjs/vue-plugin'
+
 // @ts-ignore
 import WeDesign from '@wei_design/web-vue'
 import '@wei_design/web-vue/lib/style.css'
+
 import plugin, { log } from '@/plugin'
+import App from './App.vue'
+import './assets/main.scss'
+import router, { menus } from './router'
 
 console.log(import.meta.env)
 // @ts-ignore
@@ -23,7 +29,7 @@ log.capsule('BuildTime', `${process.env.APP_BUILD_TIME}`, 'primary')
 
 const app = createApp(App)
 
-app.use(plugin).use(createPinia()).use(router).use(ElementPlus).use(WeDesign).mount('#app')
+app.use(plugin).use(createPinia()).use(router).use(ElementPlus).use(WeDesign).use(hljsVuePlugin).mount('#app')
 
 const menu = useMenuStore()
 menu.updateMenu(menus)
