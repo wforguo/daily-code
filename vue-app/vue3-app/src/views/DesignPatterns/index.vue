@@ -1,5 +1,6 @@
 <template>
     <div class="page page-scroll-y design-patterns">
+        <el-link href="//forguo.cn" target="_blank" type="primary">设计模式</el-link>
         <el-collapse>
             <el-collapse-item title="面向对象">
                 <el-descriptions title="" :column="1">
@@ -13,8 +14,8 @@
             </el-collapse-item>
             <el-collapse-item title="5大设计原则">
                 <el-descriptions title="" :column="1">
-                    <el-descriptions-item label="S">单一性原则</el-descriptions-item>
-                    <el-descriptions-item label="O">开发封闭原则（开发扩展，封闭修改）</el-descriptions-item>
+                    <el-descriptions-item label="S">单一职责原则</el-descriptions-item>
+                    <el-descriptions-item label="O">开放封闭原则（开放扩展，封闭修改）</el-descriptions-item>
                     <el-descriptions-item label="L">李氏置换原则</el-descriptions-item>
                     <el-descriptions-item label="I">接口独立原则</el-descriptions-item>
                     <el-descriptions-item label="D">依赖导致原则</el-descriptions-item>
@@ -24,12 +25,13 @@
                 <el-divider>创建形</el-divider>
                 <FactoryPatterns />
                 <SinglePatterns />
+                <i>原型模式</i>
                 <el-divider>结构形</el-divider>
-                <FactoryPatterns />
-                <SinglePatterns />
+                <AdaptPatterns />
+                <DecoratorPatterns />
+                <ProxyPatterns />
+                <i>外观模式</i>
                 <el-divider>组合形</el-divider>
-                <FactoryPatterns />
-                <SinglePatterns />
             </el-collapse-item>
         </el-collapse>
     </div>
@@ -46,7 +48,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { FactoryPatterns, SinglePatterns } from './patterns/index'
+import { FactoryPatterns, SinglePatterns, AdaptPatterns, DecoratorPatterns, ProxyPatterns } from './patterns/index'
 </script>
 <style lang="scss">
 .design-patterns {

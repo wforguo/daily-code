@@ -68,11 +68,10 @@
     }
 
     let handleScroll = function (e) {
-        console.log(e);
+        console.log('handleScroll', this, arguments)
     }
 
     document.getElementById('scroll').addEventListener('scroll', throttle(handleScroll, 600));
-
 </script>
 
 </html>
