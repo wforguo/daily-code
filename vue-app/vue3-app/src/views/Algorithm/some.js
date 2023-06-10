@@ -36,32 +36,26 @@
 // let res = twoSome([1,3,4,2], 6);
 // console.log(res);
 
-// 两数之和等于目标数值
 /**
- * @desc 双指针的方式来求解
+ * @desc 两数之和等于目标数值/双指针的方式来求解
  * @param arr
  * @param target
  * @return {[*,*]}
  */
-let twoSome = function (arr, target) {
-    let sortArr = JSON.parse(JSON.stringify(arr)).sort((a, b) => a - b)
-    let length = sortArr.length
-    let i = 0
-    let j = length - 1
-    let res = []
-    while (i < j) {
-        if (sortArr[i] + sortArr[j] === target && i !== j) {
-            res = [sortArr[i], sortArr[j]]
-            let a = arr.indexOf(res[0])
-            let b = arr.lastIndexOf(res[1])
-            return [a, b]
-        } else if (sortArr[i] + sortArr[j] < target) {
-            i = i + 1
+const twoSome = (arr, target) => {
+    let start = 0
+    let end = arr.length - 1
+    const sortArr = [...arr].sort((a, b) => a - b)
+    // [0, 2, 3, 4, 6, 9]
+    while (start < end) {
+        if (sortArr[start] + sortArr[end] === target && start !== end) {
+            return [arr.indexOf(sortArr[start]), arr.lastIndexOf(sortArr[end])]
+        } else if (sortArr[start] + sortArr[end] < target) {
+            start++
         } else {
-            j = j - 1
+            end--
         }
     }
 }
 
-let res = twoSome([3, 6, 9, 4, 2, 0], 7)
-console.log(res)
+console.log(twoSome([7, 2, 3, 4, 6, 1], 7))

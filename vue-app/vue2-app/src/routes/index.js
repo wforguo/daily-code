@@ -32,8 +32,6 @@ import VueRouter from 'vue-router'
  * };
  */
 
-// let routes = [];
-
 /**
  * 通过require.context函数获取一个特定的上下文
  * 要搜索的文件夹目录
@@ -49,7 +47,8 @@ import VueRouter from 'vue-router'
     )
  */
 
-// let views = require.context('@/views/', true, /index\.vue$/);
+let views = require.context('@/views/', true, /index\.vue$/)
+let routes = []
 
 // 导出的方法有 3 个属性： resolve, keys, id。
 // - resolve 是一个函数，它返回请求被解析后得到的模块 id。
@@ -58,28 +57,24 @@ import VueRouter from 'vue-router'
 
 // 这里只用到 keys，返回搜索到的数组
 
-// views.keys().forEach((fileName) => {
-//     let $route = views(fileName).default
-//     let routerName = $route.name;
-//     let routerTitle = $route.title;
-//     let componentPath = fileName.replace(/^\.\//i, 'views/');
-//     routes.push({
-//         path: routerName === 'Home' ? '/' : `/${routerName}`,
-//         title: routerTitle || routerName,
-//         // 这里不能够使用懒加载...
-//         // component: $route,
-//         component: () => import(
-//             /* webpackChunkName: "[request]" */
-//             `@/${componentPath}`)
-//         ,
-//         name: routerName,
-//         meta: {
-//             title: routerTitle || routerName,
-//         }
-//     })
-// });
-
-// process.env.NODE_ENV === 'development' && console.log('所有的路由', routes);
+views.keys().forEach(fileName => {
+    let $route = views(fileName).default
+    let routerName = $route.name
+    let routerTitle = $route.title
+    let componentPath = fileName.replace(/^\.\//i, 'views/')
+    console.log($route)
+    routerName &&
+        routes.push({
+            path: routerName === 'Home' ? '/' : `/${routerName}`,
+            title: routerTitle || routerName,
+            // component: $route,
+            component: () => import(`../${componentPath}`),
+            name: routerName,
+            meta: {
+                title: routerTitle || routerName
+            }
+        })
+})
 
 /************************
  * @description: 实现路由的自动加载
@@ -87,7 +82,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = [
+const routes1 = [
     {
         path: '/',
         title: '首页',
@@ -149,5 +144,7 @@ const routes = [
         component: () => import('@/views/Error/404')
     }
 ]
+
+console.log(routes)
 
 export default routes.filter(item => !item.hidden)

@@ -6,14 +6,17 @@
 -->
 <template>
     <el-card>
-        <template #header>装饰者模式</template>
+        <template #header>{{ title }}</template>
+        <el-alert>AOP 面向切片编程</el-alert>
         <highlightjs language="JavaScript" lineNumbers :autodetect="false" :code="code"></highlightjs>
     </el-card>
 </template>
 
 <script lang="ts" setup>
-import { nextTick } from 'vue'
-console.log('装饰者模式')
+import { defineProps, nextTick } from 'vue'
+defineProps({
+    title: String
+})
 const code = `
 class Circle {
     constructor() {

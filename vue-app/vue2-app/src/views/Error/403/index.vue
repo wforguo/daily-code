@@ -7,3 +7,8 @@
         </el-result>
     </div>
 </template>
+<script>
+export default {
+    name: 'Error403'
+}
+</script>

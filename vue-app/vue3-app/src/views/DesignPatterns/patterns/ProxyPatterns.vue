@@ -6,14 +6,16 @@
 -->
 <template>
     <el-card>
-        <template #header>代理模式</template>
+        <template #header>{{ title }}</template>
         <highlightjs language="JavaScript" lineNumbers :autodetect="false" :code="code"></highlightjs>
     </el-card>
 </template>
 
 <script lang="ts" setup>
-import { nextTick } from 'vue'
-console.log('代理模式')
+import { defineProps, nextTick } from 'vue'
+defineProps({
+    title: String
+})
 const code = `
 class ReadImg {
   constructor(fileName) {

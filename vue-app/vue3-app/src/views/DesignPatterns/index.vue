@@ -23,13 +23,13 @@
             </el-collapse-item>
             <el-collapse-item title="23种设计模式">
                 <el-divider>创建形</el-divider>
-                <FactoryPatterns />
-                <SinglePatterns />
+                <FactoryPatterns title="工厂模式" />
+                <SinglePatterns title="单列模式" />
                 <i>原型模式</i>
                 <el-divider>结构形</el-divider>
-                <AdaptPatterns />
-                <DecoratorPatterns />
-                <ProxyPatterns />
+                <AdaptPatterns title="适配器模式" />
+                <DecoratorPatterns title="装饰器模式" />
+                <ProxyPatterns title="代理模式" />
                 <i>外观模式</i>
                 <el-divider>组合形</el-divider>
             </el-collapse-item>

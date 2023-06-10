@@ -6,13 +6,16 @@
 -->
 <template>
     <el-card>
-        <template #header>工厂模式</template>
+        <template #header>{{ title }}</template>
         <highlightjs language="JavaScript" lineNumbers :autodetect="false" :code="code"></highlightjs>
     </el-card>
 </template>
 
 <script lang="ts" setup>
-import { nextTick } from 'vue'
+import { nextTick, defineProps } from 'vue'
+defineProps({
+    title: String
+})
 console.log('工厂模式')
 const code = `
 // 构造函数和创建者分离

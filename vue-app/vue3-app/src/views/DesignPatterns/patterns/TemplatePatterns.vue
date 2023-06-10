@@ -6,14 +6,17 @@
 -->
 <template>
     <el-card>
-        <template #header>设计模式</template>
+        <template #header>{{ title }}</template>
         <highlightjs language="JavaScript" :autodetect="false" :code="code"></highlightjs>
     </el-card>
 </template>
 
 <script lang="ts" setup>
-import { nextTick } from 'vue'
+import { defineProps, nextTick } from 'vue'
 console.log('设计模式')
+defineProps({
+    title: String
+})
 const code = `
     `
 nextTick(() => {
