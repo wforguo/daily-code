@@ -7,7 +7,7 @@
 <template>
     <div class="page cesium">
         <div id="cesiumContainer"></div>
-        <cesium-roam />
+        <!--        <cesium-roam />-->
         <!--热力图容器-->
         <div
             id="heatMap"
@@ -38,7 +38,7 @@ import 'cesium/Source/Widgets/widgets.css'
 import { onMounted, reactive } from 'vue'
 import { ElMessage as message } from 'element-plus'
 import { log } from '@/plugin'
-import CesiumRoam from './components/CesiumRoam.vue'
+// import CesiumRoam from './components/CesiumRoam.vue'
 import ToolBar from './components/ToolBar.vue'
 import GlobeView from '@/views/Cesium/util/GlobeView'
 import { position } from '@/views/Cesium/data'
