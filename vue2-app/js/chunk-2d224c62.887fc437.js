@@ -1,2 +1,0 @@
-(window["webpackJsonp_vue2-app"]=window["webpackJsonp_vue2-app"]||[]).push([["chunk-2d224c62"],{e221:function(e,t,n){"use strict";n.r(t);var l=function(){var e=this,t=e._self._c;return t("div",[t("el-result",{attrs:{icon:"info",title:"404",subTitle:"Page Not Found"}},[t("template",{slot:"extra"},[t("el-link",{attrs:{type:"primary",size:"medium",href:"/"}},[e._v("返回首页")])],1)],2)],1)},u=[],a=n("0abc"),i={},r=Object(a["a"])(i,l,u,!1,null,null,null);t["default"]=r.exports}}]);
-//# sourceMappingURL=chunk-2d224c62.887fc437.js.map

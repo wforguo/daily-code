@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://vue2-app-[name]/./src/assets/logo.png"],"names":["module","exports"],"mappings":"qHAAAA,EAAOC,QAAU,IAA0B","file":"js/chunk-2d22269e.a27f2fa5.js","sourcesContent":["module.exports = __webpack_public_path__ + \"img/logo.82b9c7a5.png\";"],"sourceRoot":""}
