@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <db-click-input v-model="name" />
+        <db-click-input v-model="name" v-show="false" />
         <div style="white-space: pre-line; word-break: break-word">
             {{ name }}
         </div>

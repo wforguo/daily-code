@@ -62,8 +62,8 @@ views.keys().forEach(fileName => {
     let routerName = $route.name
     let routerTitle = $route.title
     let componentPath = fileName.replace(/^\.\//i, 'views/')
-    console.log($route)
     routerName &&
+        !$route.hidden &&
         routes.push({
             path: routerName === 'Home' ? '/' : `/${routerName}`,
             title: routerTitle || routerName,
@@ -147,4 +147,4 @@ const routes1 = [
 
 console.log(routes)
 
-export default routes.filter(item => !item.hidden)
+export default routes

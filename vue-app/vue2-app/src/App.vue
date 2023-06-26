@@ -1,6 +1,6 @@
 <template>
     <el-container style="height: 100vh; overflow: hidden">
-        <el-aside style="height: 100vh" width="200px">
+        <el-aside style="height: 100vh" width="200px" v-if="isDev">
             <el-menu :default-active="$route?.path || '/'" router style="height: 100%">
                 <el-menu-item :index="path" v-for="{ path, title, name } in list" :key="path" @select="handleNav(name)">
                     <span>{{ title }}</span>
@@ -40,6 +40,11 @@ export default {
     name: 'vueApp',
     computed: {
         ...mapState('menu', ['list'])
+    },
+    data() {
+        return {
+            isDev: process.env.NODE_ENV === 'development'
+        }
     },
     methods: {
         handleNav(name) {

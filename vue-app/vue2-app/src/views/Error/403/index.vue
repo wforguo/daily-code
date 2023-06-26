@@ -9,6 +9,7 @@
 </template>
 <script>
 export default {
+    hidden: true,
     name: 'Error403'
 }
 </script>
