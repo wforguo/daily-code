@@ -28,10 +28,10 @@ for (const componentPath in views) {
     const match: Array<any> = componentPath.match(/..\/views\/(\w+)/) || []
     /// 匹配到的路由名称
     const routerName = match[1]
+    // 找到example的组件，并加载
+    const $component = module.default
     // 默认首页必须得
-    if (routerName && routerName !== 'Home') {
-        // 找到example的组件，并加载
-        const $component = module.default
+    if (routerName && routerName !== 'Home' && !$component.hidden) {
         const routerTitle = $component.title
         const title = routerTitle || routerName
         routes.push({

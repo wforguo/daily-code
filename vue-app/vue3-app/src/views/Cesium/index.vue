@@ -741,7 +741,8 @@ export default {
     name: 'CesiumStart',
     title: '三维地图',
     inheritAttrs: false,
-    customOptions: {}
+    customOptions: {},
+    hidden: true
 }
 </script>
 
