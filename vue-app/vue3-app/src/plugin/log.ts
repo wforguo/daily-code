@@ -15,7 +15,7 @@ interface ILog {
     danger: (text: any) => void
 }
 
-export const log: ILog = {}
+export const log: any = {}
 
 /**
  * @description 返回这个样式的颜色值

@@ -47,15 +47,15 @@ export default {
  */
 
 import 'webrtc-adapter'
-import { Ref, ref } from 'vue'
+import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 const pc = new RTCPeerConnection()
 // import rtmp from 'rtmp-stream'
 
 // 创建本地/远程 SDP 描述, 用于描述本地/远程的媒体流
-let offerSdp: Ref<string> = ref('')
-let answerSdp: Ref<string> = ref('')
-let className: Ref<string> = ref('')
+let offerSdp = ref('')
+let answerSdp = ref('')
+let className = ref('')
 const html = ref(
     'Using text interpolation: <span style="color: red">This should be red.</span><script>console.log("alert(1)")' +
         '<' +

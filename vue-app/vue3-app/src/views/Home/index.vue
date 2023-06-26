@@ -47,7 +47,7 @@ import AsyncShow from '@/components/AsyncShow.vue'
 import { ElMessage } from 'element-plus'
 
 console.log('1-开始创建组件-----setup()')
-const companies: object[] = reactive([
+const companies: any[] = reactive([
     {
         id: '10001',
         name: '阿里'
