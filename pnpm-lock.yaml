@@ -1,0 +1,26 @@
+lockfileVersion: 5.4
+
+specifiers:
+  '@wei_design/web-vue': ^1.0.0
+
+dependencies:
+  '@wei_design/web-vue': registry.npmmirror.com/@wei_design/web-vue/1.0.0
+
+packages:
+
+  registry.npmmirror.com/@wei_design/web-vue/1.0.0:
+    resolution: {integrity: sha512-/AOmf5bg1B/N944xmgrwJnGmg8LfWMBvJgk+Ekv2cJZyqAGcPmfwho6+rHp5N1gx2a7Rdfj7zBzFtCmfd3LqyQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@wei_design/web-vue/-/web-vue-1.0.0.tgz}
+    name: '@wei_design/web-vue'
+    version: 1.0.0
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      vue: ^3.2.33
+    dependencies:
+      dayjs: registry.npmmirror.com/dayjs/1.11.8
+    dev: false
+
+  registry.npmmirror.com/dayjs/1.11.8:
+    resolution: {integrity: sha512-LcgxzFoWMEPO7ggRv1Y2N31hUf2R0Vj7fuy/m+Bg1K8rr+KAs1AEy4y9jd5DXe8pbHgX+srkHNS7TH6Q6ZhYeQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/dayjs/-/dayjs-1.11.8.tgz}
+    name: dayjs
+    version: 1.11.8
+    dev: false

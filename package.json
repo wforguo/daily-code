@@ -18,5 +18,8 @@
         "commitizen": {
             "path": "cz-conventional-changelog"
         }
+    },
+    "dependencies": {
+        "@wei_design/web-vue": "^1.0.0"
     }
 }
