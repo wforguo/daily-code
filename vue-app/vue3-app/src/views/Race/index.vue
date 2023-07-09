@@ -27,12 +27,13 @@ export default {
 <script lang="ts" setup>
 import { onBeforeMount, reactive, ref } from 'vue'
 import type { Ref } from 'vue'
+import { request } from '@/plugin'
+import axios from 'axios'
+
 const keyword: Ref<string> = ref('')
 let res = reactive({
     data: []
 })
-import { request } from '@/plugin'
-import axios from 'axios'
 
 const handleSearch = async (keyword?: string) => {
     try {
@@ -45,7 +46,7 @@ const handleSearch = async (keyword?: string) => {
             }
         })
         res.data = data.data
-    } catch (e) {
+    } catch (e: any) {
         if (axios.isCancel(e)) {
             console.log('Request canceled', e)
         } else {
