@@ -1,2 +1,0 @@
-(window["webpackJsonp_vue2-app"]=window["webpackJsonp_vue2-app"]||[]).push([["chunk-2d22269e"],{cf05:function(p,n,o){p.exports=o.p+"img/logo.82b9c7a5.png"}}]);
-//# sourceMappingURL=chunk-2d22269e.a27f2fa5.js.map
