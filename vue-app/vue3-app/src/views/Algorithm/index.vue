@@ -5,7 +5,7 @@
  * @Description: index
 -->
 <template>
-    <div class="page">算法</div>
+    <div class="page algorithm">算法</div>
 </template>
 
 <script lang="ts" setup>

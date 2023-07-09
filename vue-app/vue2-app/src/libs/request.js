@@ -1,19 +1,21 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 
-class request {
-    constructor() {
+class Request {
+    constructor(config) {
         this.config = {
             baseURL: 'https://forguo.cn',
             timeout: 10000
         }
+        // 创建axios实例
+        const options = Object.assign({}, this.config, config)
+        this.instance = axios.create(options)
+        // 设置拦截器
+        this.setInterceptors(this.instance)
     }
 
-    request(options) {
-        const config = Object.assign({}, this.config, options)
-        const instance = axios.create()
-        this.setInterceptors(instance)
-        return instance(config) // 返回axios实例的执行结果
+    request(config) {
+        return this.instance.request(config) // 返回axios实例的执行结果
     }
 
     setInterceptors(instance) {
@@ -51,6 +53,7 @@ class request {
         )
     }
 }
-export default params => {
-    return new request().request(params)
-}
+
+const request = new Request()
+
+export default request

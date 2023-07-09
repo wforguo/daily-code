@@ -5,7 +5,7 @@
  * @Description: index
 -->
 <template>
-    <div>typescript</div>
+    <div class="page">typescript</div>
 </template>
 
 <script lang="ts" setup>

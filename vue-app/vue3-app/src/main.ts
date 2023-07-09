@@ -18,9 +18,6 @@ import App from './App.vue'
 import './assets/main.scss'
 import router, { menus } from './router'
 
-console.log(import.meta.env)
-// @ts-ignore
-console.log(process.env)
 log.capsule('Environment', `${import.meta.env.MODE}`, 'primary')
 // @ts-ignore
 log.capsule('Version', `${process.env.APP_VERSION}`, 'primary')

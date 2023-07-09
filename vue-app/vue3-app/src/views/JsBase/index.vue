@@ -5,7 +5,7 @@
  * @Description: index
 -->
 <template>
-    <div>JS基础</div>
+    <div class="page js-base">JS基础</div>
 </template>
 
 <script lang="ts" setup>

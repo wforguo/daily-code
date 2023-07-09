@@ -28,7 +28,7 @@
     set.onclick = function () {
         axios({
             method: 'post',
-            url: 'https://www.forguo.cn/api/common/wechat/login',
+            url: 'https://api.forguo.cn/common/wechat/login',
             withCredentials: true, // ++ 携带cookie数据【同源无效】
             data: {
                 user: 'forguo_www_cookie',
@@ -56,7 +56,7 @@
     button.onclick = function () {
         axios({
             method: 'post',
-            url: 'https://www.forguo.cn/api/common/wechat/info',
+            url: 'https://api.forguo.cn/common/wechat/info',
             withCredentials: true, // ++ 携带cookie数据【同源无效】
             data: {
                 user: 'forguo_www_cookie',

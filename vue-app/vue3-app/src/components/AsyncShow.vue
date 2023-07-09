@@ -20,8 +20,8 @@ import { request } from '@/plugin'
 export default defineComponent({
     name: 'AsyncShow',
     async setup() {
-        const res = await request({
-            url: 'https://www.forguo.cn/api/common/wechat/sdk',
+        const res = await request.request({
+            url: 'https://api.forguo.cn/common/wechat/sdk',
             params: {
                 url: window.location.href
             }

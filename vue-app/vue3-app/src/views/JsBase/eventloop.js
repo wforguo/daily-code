@@ -3,56 +3,55 @@
  * @Date: 2022/4/11 09:46
  * @Description: eventloop.js
  */
-
-// console.log(1);
+//
+// console.log(1)
 // setTimeout(function () {
-//     console.log(2);
-// });
+//     console.log(2)
+// })
 //
 // new Promise(resolve => {
-//     console.log(3);
+//     console.log(3)
 //     resolve(3)
-// }).then(res => {
-//     console.log(4);
-// });
+// }).then(() => {
+//     console.log(4)
+// })
 //
-// console.log(5);
+// console.log(5)
 
+// 1,3,5,4,2
 
 // for (var i = 0; i < 4; i++) {
 //     setTimeout(function () {
-//         console.log(i);
-//     }, 1000);
-//     console.log(i);
+//         console.log(i) // 4
+//     }, 0)
+//     console.log(i)
 // }
 //
-// console.log(i); // 4
+// console.log(i) // 4
 
-
-console.log(1); // 4
+console.log(1)
 
 setImmediate(() => {
-    console.log('setImmediate');
+    console.log('setImmediate')
 })
 
 setTimeout(() => {
-    console.log('setTimeout');
+    console.log('setTimeout')
 }, 0)
 
 process.nextTick(() => {
-    console.log('next');
+    console.log('next')
 })
 
 new Promise(resolve => {
-    console.log(4);
-    resolve();
-}).then(res => {
-    console.log(5);
+    console.log(4)
+    resolve()
+}).then(() => {
+    console.log(5)
 })
 
-//
+// 1, 4, next, 5, setTimeout, setImmediate
 // console.log(0);
-//
 // setTimeout(function () {
 //     console.log(1);
 //     new Promise(resolve => {
@@ -61,7 +60,6 @@ new Promise(resolve => {
 //     }).then(res => {
 //         console.log(3);
 //     })
-//
 // }, 0)
 //
 // new Promise(resolve => {
@@ -86,6 +84,7 @@ new Promise(resolve => {
 // new Promise(function(resolve) {
 //     console.log('promise1');
 //     resolve();
+//     console.log('promise11');
 // }).then(function() {
 //     console.log('promise2');
 // });
@@ -95,6 +94,7 @@ new Promise(resolve => {
  * async1 start
  * async2
  * promise1
+ * promise11
  * script end
  * async1 end
  * promise2

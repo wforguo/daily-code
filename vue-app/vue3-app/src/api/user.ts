@@ -11,9 +11,9 @@ export default {
      * @param {object} data
      */
     login: (data: any) =>
-        request({
+        request.request({
             method: 'post',
-            url: '/users/login',
+            url: '/api/user/login',
             data
         })
 }

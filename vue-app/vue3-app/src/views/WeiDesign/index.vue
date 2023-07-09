@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="page wei-design">
         <h2>组件库</h2>
 
         <el-divider />

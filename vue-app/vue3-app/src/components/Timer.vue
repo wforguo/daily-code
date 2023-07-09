@@ -1,6 +1,6 @@
 <template>
     <el-card>
-        <el-alert class="we-timer">现在是：{{ nowTime }}</el-alert>
+        <el-alert class="we-timer" :closable="false">现在是：{{ nowTime }}</el-alert>
     </el-card>
 </template>
 

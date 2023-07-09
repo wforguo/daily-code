@@ -72,7 +72,7 @@ class ToDoList extends Component {
 
     componentDidMount() {
         request({
-            url: 'https://www.forguo.cn/api/weixin/share',
+            url: 'https://api.forguo.cn/common/wechat/sdk',
             type: 'get'
         }).then(res => {
             const action = getListAction(Array.from(res) || []);

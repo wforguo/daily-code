@@ -19,11 +19,13 @@ export default (configEnv: any) => {
 
     // 插件
     const plugins = [vue(), vueJsx(), Inspector({ enabled: false, toggleButtonVisibility: 'always' })]
-    const isMock = mode === 'mock'
+    // dev环境下使用mock
+    const isMock = process.env.NODE_ENV !== 'production'
 
     if (isMock) {
         plugins.push(
             viteMockServe({
+                timeout: '2000-6000',
                 // 配置mock位置
                 mockPath: './src/mock'
             })

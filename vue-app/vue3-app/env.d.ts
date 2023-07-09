@@ -7,6 +7,9 @@ interface ImportMetaEnv {
     VITE_TOKEN: string
 }
 
+interface ImportMeta {
+    readonly env: ImportMetaEnv
+}
 interface Window {
     CESIUM_BASE_URL: string
 }

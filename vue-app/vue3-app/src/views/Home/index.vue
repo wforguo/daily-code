@@ -1,10 +1,11 @@
 <template>
     <div class="home">
         <timer :title="1" type="success" />
+        <el-divider />
 
         <div>
             <p v-for="(item, index) in companies" :key="item.id">
-                <el-tag>{{ item.name }}</el-tag>
+                <el-tag :closable="false">{{ item.name }}</el-tag>
                 <el-button @click="send(index)">投递</el-button>
             </p>
         </div>

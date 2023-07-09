@@ -57,18 +57,23 @@ let routes = []
 
 // 这里只用到 keys，返回搜索到的数组
 
-views.keys().forEach(fileName => {
-    let $route = views(fileName).default
-    let routerName = $route.name
-    let routerTitle = $route.title
-    let componentPath = fileName.replace(/^\.\//i, 'views/')
+views.keys().forEach(filePath => {
+    // filePath：./AmapDrop/index.vue
+    // 文件详情
+    let $component = views(filePath).default
+    let routerName = $component.name
+    let routerTitle = $component.title
+
+    // ./AmapDrop/index.vue --> views/AmapDrop/index.vue
+    // let componentPath = filePath.replace(/^\.\//i, 'views/')
+
     routerName &&
-        !$route.hidden &&
+        !$component.hidden &&
         routes.push({
             path: routerName === 'Home' ? '/' : `/${routerName}`,
             title: routerTitle || routerName,
-            // component: $route,
-            component: () => import(`../${componentPath}`),
+            component: $component,
+            // component: () => import(`../${componentPath}`),
             name: routerName,
             meta: {
                 title: routerTitle || routerName

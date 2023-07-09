@@ -5,7 +5,7 @@
  * @Description: index
 -->
 <template>
-    <div>Web Api</div>
+    <div class="page web-api">Web Api</div>
 </template>
 
 <script lang="ts" setup>

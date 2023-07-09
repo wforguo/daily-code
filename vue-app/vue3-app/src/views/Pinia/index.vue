@@ -5,7 +5,7 @@
  * @Description: Pinia
 -->
 <template>
-    <div class="Pinia">
+    <div class="page pinia">
         <p>name: {{ user.name }}</p>
         <p>signature: {{ user.signature || '' }}</p>
         <p>

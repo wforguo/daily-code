@@ -4,7 +4,7 @@
  * @description: 数组常用方法
  */
 
-let arrOrigin = [11, 3, 5, 6, 8, 13, 8];
+let arrOrigin = [11, 3, 5, 6, 8, 13, 8]
 /**
  * @desc 冒泡排序算法
  * @param arr
@@ -14,17 +14,16 @@ const maoPao = function (arr) {
     for (let i = arr.length - 1; i > 0; i--) {
         for (let j = 0; j < i; j++) {
             if (arr[j] < arr[j + 1]) {
-                let temp = arr[j + 1];
+                let temp = arr[j + 1]
                 arr[j + 1] = arr[j]
-                arr[j] = temp;
+                arr[j] = temp
             }
         }
     }
-    console.log(arr);
-    return arr;
-};
-// maoPao(arrOrigin);
-
+    console.log(arr)
+    return arr
+}
+maoPao(arrOrigin)
 
 /**
  * 数组的高阶函数
@@ -33,12 +32,12 @@ const maoPao = function (arr) {
  * @description: 数组高阶函数的使用
  */
 
-let reducerArr = arrOrigin.reduce((accumulator, currentValue, index, source) => {
-    console.log(accumulator, currentValue, index);
-    return accumulator + currentValue;
-});
+let reducerArr = arrOrigin.reduce((sum, currentValue, index, source) => {
+    console.log(sum, currentValue, index, source)
+    return sum + currentValue
+}, 0)
 
-console.log('reducerArr', reducerArr);
+console.log('reducerArr', reducerArr)
 
 const filterArr = [
     {
@@ -60,7 +59,7 @@ const filterArr = [
     {
         age: 20,
         name: '孙***'
-    },
+    }
 ]
 
 /**
@@ -70,37 +69,37 @@ const filterArr = [
 const resArr = filterArr.filter(function (item) {
     return item.age >= 18
 })
-console.log(resArr);
+console.log(resArr)
 // 1.进行一个搜索
 const resArr2 = filterArr.filter(function (item) {
     return item.name.indexOf('张') > -1
 })
-console.log(resArr2);
+console.log(resArr2)
 
 /**
  * 返回数组中第一个找到一个给定元素的下标，否则为-1
  */
-console.log(arrOrigin.indexOf(8));
+console.log(arrOrigin.indexOf(8))
 
 /**
  * 返回数组中是否能找到一个给定元素，否则为false
  */
-console.log(arrOrigin.includes(8));
+console.log(arrOrigin.includes(8))
 
 /**
  * 返回数组中第一个满足指定条件的选项，否则为 undefined
  */
-console.log(arrOrigin.find(element => element < 11));
+console.log(arrOrigin.find(element => element < 11))
 
 /**
  * 返回数组中第一个满足指定条件的下标，否则为 -1
  */
-console.log(arrOrigin.findIndex(element => element < 11));
+console.log(arrOrigin.findIndex(element => element < 11))
 
 /**
  * 如果说数组中有满足条件的，则返回true，否则为false
  */
-console.log(arrOrigin.some(element => element < 11));
+console.log(arrOrigin.some(element => element < 11))
 
 /**
  * @author: forguo
@@ -111,13 +110,14 @@ let unique = function (arr) {
     // 1.Es6的写法
     // return Array.from(new Set(arr)) 或者 [...new Set(arr))]
     // Array.from类数组转换成数组，[...]可遍历的转换成数组
-
     // 2.常规做法
-    let res = [];
+    let res = []
     arr.forEach(item => {
         if (res.indexOf(item) === -1) {
-            res.push(item);
+            res.push(item)
         }
-    });
-    return res;
+    })
+    return res
 }
+
+unique([1, 3])
