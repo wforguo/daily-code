@@ -22,16 +22,18 @@
                 </el-descriptions>
             </el-collapse-item>
             <el-collapse-item title="23种设计模式">
-                <el-divider>创建形</el-divider>
                 <FactoryPatterns title="工厂模式" />
                 <SinglePatterns title="单列模式" />
-                <i>原型模式</i>
-                <el-divider>结构形</el-divider>
                 <AdaptPatterns title="适配器模式" />
                 <DecoratorPatterns title="装饰器模式" />
                 <ProxyPatterns title="代理模式" />
-                <i>外观模式</i>
-                <el-divider>组合形</el-divider>
+                <IteratorPatterns title="迭代器模式" />
+                <el-alert type="success" :closable="false" style="margin-bottom: 12px">订阅、发布模式</el-alert>
+                <el-alert type="success" :closable="false" style="margin-bottom: 12px">原型模式</el-alert>
+                <el-alert type="success" :closable="false" style="margin-bottom: 12px">状态模式</el-alert>
+                <el-alert type="success" :closable="false" style="margin-bottom: 12px">享元模式</el-alert>
+                <el-alert type="success" :closable="false" style="margin-bottom: 12px">策略模式</el-alert>
+                <el-alert type="success" :closable="false" style="margin-bottom: 12px">策略模式</el-alert>
             </el-collapse-item>
         </el-collapse>
     </div>
@@ -48,7 +50,14 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { FactoryPatterns, SinglePatterns, AdaptPatterns, DecoratorPatterns, ProxyPatterns } from './patterns/index'
+import {
+    IteratorPatterns,
+    FactoryPatterns,
+    SinglePatterns,
+    AdaptPatterns,
+    DecoratorPatterns,
+    ProxyPatterns
+} from './patterns/index'
 </script>
 <style lang="scss">
 .design-patterns {

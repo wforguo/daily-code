@@ -1,8 +1,8 @@
 export default async () => {
-    // async函数返回的是 Promise 对象，可以作为await命令的参数
-    const asyncF1 = async function () {
+    const asyncF1 = function () {
+        console.log('asyncF1', Date.now())
         // 这里需要加return，将异步执行结果进行返回
-        return await new Promise(resolve => {
+        return new Promise(resolve => {
             setTimeout(() => {
                 console.log('resolve 1')
                 resolve('async 1')
@@ -11,6 +11,7 @@ export default async () => {
     }
 
     const asyncF2 = function () {
+        console.log('asyncF2', Date.now())
         return new Promise(resolve => {
             setTimeout(() => {
                 console.log('resolve 2')
@@ -34,17 +35,17 @@ export default async () => {
             const [foo, bar] = await Promise.all([asyncF1(), asyncF2()])
             console.log(foo, bar)
 
-            // 并发
-            for (const item of [asyncF1, asyncF2]) {
-                const res1 = await item()
-                console.log(res1)
-            }
-
-            // 继发
-            // for (let i = 0;i < 3; i++) {
-            //     console.log(i);
-            //     let res1 = await asyncF1();
-            //     console.log(res1);
+            // // 继发
+            // for (const item of [asyncF1, asyncF2]) {
+            //     const res = await item()
+            //     console.log(res)
+            // }
+            //
+            // // 继发
+            // for (let i = 0; i < 3; i++) {
+            //     console.log(i)
+            //     const res = await asyncF1()
+            //     console.log(res)
             // }
         } catch (e) {
             console.log(e)

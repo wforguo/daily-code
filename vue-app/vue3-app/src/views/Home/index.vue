@@ -1,16 +1,6 @@
 <template>
     <div class="home">
         <timer :title="1" type="success" />
-        <el-divider />
-
-        <div>
-            <p v-for="(item, index) in companies" :key="item.id">
-                <el-tag :closable="false">{{ item.name }}</el-tag>
-                <el-button @click="send(index)">投递</el-button>
-            </p>
-        </div>
-
-        <p>已经投递：{{ target?.name }}</p>
 
         <el-divider />
 
@@ -33,11 +23,9 @@ export default {
 
 <script lang="ts" setup>
 import {
-    reactive,
     onBeforeMount,
     onMounted,
     onErrorCaptured,
-    watch,
     onBeforeUpdate,
     onUpdated,
     onRenderTracked,
@@ -45,31 +33,8 @@ import {
 } from 'vue'
 import { Timer } from '@/components/index'
 import AsyncShow from '@/components/AsyncShow.vue'
-import { ElMessage } from 'element-plus'
 
 console.log('1-开始创建组件-----setup()')
-const companies: any[] = reactive([
-    {
-        id: '10001',
-        name: '阿里'
-    },
-    {
-        id: '10002',
-        name: '腾讯'
-    },
-    {
-        id: '10003',
-        name: '字节'
-    }
-])
-
-let target: any = reactive({})
-
-const send = (index: number) => {
-    // 不能够直接赋值
-    const item: any = companies[index]
-    target.name = item.name
-}
 
 /**
  * 生命周期
@@ -98,21 +63,6 @@ onRenderTriggered(event => {
     console.log('状态触发组件--------------->')
     console.log(event)
 })
-
-// 监听多个使用数组
-watch(
-    target,
-    (newValue: any, oldValue: object) => {
-        console.log(`new--->${JSON.stringify(newValue)}`)
-        console.log(`old--->${JSON.stringify(oldValue)}`)
-        if (newValue && newValue.name) {
-            document.title = `已投递：${newValue.name}`
-        }
-    },
-    {
-        deep: true
-    }
-)
 
 // 异常捕获
 onErrorCaptured(err => {

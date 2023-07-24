@@ -1,11 +1,8 @@
 <template>
     <div class="home">
         <db-click-input v-model="name" v-show="false" />
-        <div style="white-space: pre-line; word-break: break-word">
-            {{ name }}
-        </div>
         <!--热力图容器-->
-        <div id="heatMap" style="width: 100%; height: 720px"></div>
+        <div id="heatMap" v-show="false" style="width: 100%; height: 720px"></div>
     </div>
 </template>
 
