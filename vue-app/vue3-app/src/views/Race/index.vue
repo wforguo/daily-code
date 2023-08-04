@@ -12,7 +12,7 @@
                 <el-table-column prop="age" label="年龄" />
                 <el-table-column prop="city" label="城市" />
             </el-table>
-            <el-button @click="cancelRequest">取消请求</el-button>
+            <el-button @click="cancelApi">取消请求</el-button>
         </el-card>
     </div>
 </template>
@@ -27,7 +27,7 @@ export default {
 <script lang="ts" setup>
 import { onBeforeMount, reactive, ref } from 'vue'
 import type { Ref } from 'vue'
-import { request } from '@/plugin'
+import { request, cancelRequest } from '@/libs'
 import axios from 'axios'
 
 const keyword: Ref<string> = ref('')
@@ -37,10 +37,10 @@ let res = reactive({
 
 const handleSearch = async (keyword?: string) => {
     try {
-        request.cancelRequest('/search')
-        const data = await request.request({
+        cancelRequest('/api/search')
+        const data = await request({
             method: 'post',
-            url: '/search',
+            url: '/api/search',
             data: {
                 keyword
             }
@@ -56,7 +56,7 @@ const handleSearch = async (keyword?: string) => {
     }
 }
 
-const cancelRequest = () => {
+const cancelApi = () => {
     const CancelToken = axios.CancelToken
     const source = CancelToken.source()
 

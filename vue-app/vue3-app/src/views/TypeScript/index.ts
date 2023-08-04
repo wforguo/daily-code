@@ -14,7 +14,7 @@ export default () => {
      */
 
     // ** 基础静态类型
-    // null,undefined,symbol,boolean，void
+    // number,string,null,undefined,symbol,boolean，void
     const count: number = 1
     const www: string = 'www'
 

@@ -15,13 +15,14 @@ export default [
         timeout: 1000, // 超时时间
         statusCode: 200, // 返回的http状态码
         response: { // 返回的结果集
-            uid: Random.id(),
+            time: '@now',
             code: 200,
             message: "登录成功",
             data: {
                 code: 200,
                 message: "用户登录成功",
-                signature: "www"
+                signature: '@guid',
+                id: Random.id(),
             },
         },
     },

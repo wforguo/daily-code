@@ -13,7 +13,7 @@ import hljsVuePlugin from '@highlightjs/vue-plugin'
 import WeDesign from '@wei_design/web-vue'
 import '@wei_design/web-vue/lib/style.css'
 
-import plugin, { log } from '@/plugin'
+import { log } from '@/libs'
 import App from './App.vue'
 import './assets/main.scss'
 import router, { menus } from './router'
@@ -26,7 +26,7 @@ log.capsule('BuildTime', `${process.env.APP_BUILD_TIME}`, 'primary')
 
 const app = createApp(App)
 
-app.use(plugin).use(createPinia()).use(router).use(ElementPlus).use(WeDesign).use(hljsVuePlugin).mount('#app')
+app.use(createPinia()).use(router).use(ElementPlus).use(WeDesign).use(hljsVuePlugin).mount('#app')
 
 const menu = useMenuStore()
 menu.updateMenu(menus)

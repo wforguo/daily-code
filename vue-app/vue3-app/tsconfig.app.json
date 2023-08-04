@@ -9,6 +9,7 @@
         "src/**/__tests__/*"
     ],
     "compilerOptions": {
+        "experimentalDecorators": true,
         "composite": true,
         "baseUrl": "./",
         "paths": {

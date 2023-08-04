@@ -8,7 +8,6 @@ const useUserStore = defineStore({
         isAdmin: false,
         signature: ''
     }),
-
     actions: {
         /**
          * user  logout

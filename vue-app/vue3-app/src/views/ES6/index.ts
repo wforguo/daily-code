@@ -1,3 +1,16 @@
+export const log = function (type = 'log') {
+    return function (target: any, name: any, descriptor: any) {
+        const oldValue = descriptor.value
+        descriptor.value = async function () {
+            console.log(`log ${type} ${name} start`)
+            // eslint-disable-next-line prefer-rest-params
+            await oldValue.apply(this, arguments)
+            console.log(`log ${type} ${name} end`)
+        }
+        return descriptor
+    }
+}
+
 export default async () => {
     const asyncF1 = function () {
         console.log('asyncF1', Date.now())
@@ -53,4 +66,19 @@ export default async () => {
     }
 
     await request()
+
+    // es6装饰器
+    class Person {
+        name: string
+        constructor(name: string) {
+            this.name = name
+        }
+
+        // "experimentalDecorators": true,
+        @log('get')
+        getName() {
+            console.log('getName', Date.now())
+        }
+    }
+    new Person('test').getName()
 }

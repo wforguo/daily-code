@@ -15,12 +15,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { request } from '@/plugin'
+import { request } from '@/libs'
 
 export default defineComponent({
     name: 'AsyncShow',
     async setup() {
-        const res = await request.request({
+        const res = await request({
             url: 'https://api.forguo.cn/common/wechat/sdk',
             params: {
                 url: window.location.href
