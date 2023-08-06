@@ -65,15 +65,15 @@ views.keys().forEach(filePath => {
     let routerTitle = $component.title
 
     // ./AmapDrop/index.vue --> views/AmapDrop/index.vue
-    // let componentPath = filePath.replace(/^\.\//i, 'views/')
+    let componentPath = filePath.replace(/^\.\//i, 'views/')
 
     routerName &&
         !$component.hidden &&
         routes.push({
             path: routerName === 'Home' ? '/' : `/${routerName}`,
             title: routerTitle || routerName,
-            component: $component,
-            // component: () => import(`../${componentPath}`),
+            // component: $component,
+            component: () => import(`../${componentPath}`),
             name: routerName,
             meta: {
                 title: routerTitle || routerName
