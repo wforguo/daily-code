@@ -1,8 +1,7 @@
 {
     "name": "daily-code",
-    "version": "2.0.0",
+    "version": "1.0.0",
     "description": "daily-code",
-    "main": "index.js",
     "packageManager": "pnpm@7.6.0",
     "repository": {
         "type": "git",
@@ -17,8 +16,5 @@
         "commitizen": {
             "path": "cz-conventional-changelog"
         }
-    },
-    "dependencies": {
-        "@wei_design/web-vue": "^1.0.0"
     }
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery Demo</title>
+</head>
+<body>
+<div class="page">
+    <h4 class="title">Callbacks实现</h4>
+</div>
+<div>
+    <h2>正文</h2>
+</div>
+</body>
+<script type="text/javascript" src="../jQuery.1.0.0.js"></script>
+<!--<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>-->
+
+<script>
+    // Callbacks
+
+    /**
+     $.Callbacks 用于管理函数队列，
+     通过 add 添加处理函数到队列中，
+     通过 fire 执行这些处理函数
+     在 jQuery 内部或者插件中使用，提供基础功能。
+     */
+    var cb = $.Callbacks('memory');
+
+    cb.add(function () {
+        console.log('fn1');
+    }, function () {
+        console.log('fn2');
+    });
+
+    cb.fire();
+    cb.add(function () {
+        console.log('fn3');
+    });
+
+</script>
+
+</html>

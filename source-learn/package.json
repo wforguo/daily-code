@@ -1,0 +1,24 @@
+{
+    "name": "source-learning",
+    "version": "1.0.0",
+    "description": "source-learning",
+    "scripts": {
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/f2e-learning/source-learning.git"
+    },
+    "keywords": [
+        "mini-jQuery"
+    ],
+    "author": "wforguo@qq.com",
+    "bugs": {
+        "url": "https://github.com/wforguo/f2e-learning/source-learning/issues"
+    },
+    "homepage": "https://github.com/wforguo/f2e-learning/source-learning",
+    "config": {
+        "commitizen": {
+            "path": "cz-conventional-changelog"
+        }
+    }
+}

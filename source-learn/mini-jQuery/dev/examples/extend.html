@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery Demo</title>
+</head>
+<body>
+<div class="page">
+    <h4 class="title">extend实现</h4>
+</div>
+</body>
+<script type="text/javascript" src="../jQuery.1.0.0.js"></script>
+<!--<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>-->
+<script>
+    // extend实现
+    console.log($());
+    let originObj = {
+        info: {
+            gender: 'man',
+            name: 'originObj',
+            sex: 'originObj',
+            duty: 'originObj',
+        },
+    }
+    let originObj1 = {
+        hobby: 'basketball',
+        name: 'forguo',
+        info: [1,2,3]
+    }
+    // 第一个参数为true，是一个深拷贝
+    let objCopy = $.extend(true, {}, originObj, originObj1);
+
+    console.log(objCopy);
+
+    /**
+     * @author: forguo
+     * @time: 2021/6/19 14:34
+     * @description: 插件扩展
+     */
+
+    // 如果要对jQuery做一个扩展，需要使用
+    $.extend({
+        say$ () {
+            console.log('jQuery本身的扩展');
+        }
+    });
+    $.say$();
+
+    // 如果要对jQuery的实例做一个扩展，需要使用
+    $.fn.extend({
+        sayFn() {
+            console.log('jQuery实例的扩展');
+        }
+    });
+    $().sayFn();
+</script>
+
+</html>

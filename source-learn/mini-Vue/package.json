@@ -1,0 +1,22 @@
+{
+    "name": "mini-vue",
+    "version": "1.0.0",
+    "description": "mini-vue",
+    "main": "index.js",
+    "scripts": {
+        "server": "node ./server.js",
+        "dev": "npm run server",
+        "flow": "flow"
+    },
+    "keywords": [
+        "mini-Vue"
+    ],
+    "author": "wforguo@qq.com",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/cli": "^7.15.4",
+        "@babel/core": "^7.15.5",
+        "@babel/preset-flow": "^7.14.5",
+        "webpack-dev-server": "^3.11.2"
+    }
+}

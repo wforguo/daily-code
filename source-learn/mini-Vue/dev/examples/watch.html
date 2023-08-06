@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Watch</title>
+</head>
+<body>
+
+<div id="app">
+    <button onclick="handleClick()">点击</button>
+</div>
+<script type="text/javascript">
+    function handleClick() {
+        console.log('click')
+    }
+
+    var data = {
+        name: 'vue',
+        age: 18,
+        info: {
+            sex: 'man',
+            age: 18
+        },
+        list: ['basketball', 'pingpang'],
+    }
+
+    // 数据观测
+    function observe (data) {
+        // 存在变量提升，需要使用块级作用域
+        for (let key in data) {
+            // 依赖收集
+            let deps = [];
+            let val = data[key];
+
+            // 如果是数组，观测原型的方式
+            if (toString.call(val) === '[object Object]') {
+                // 递归监听Object
+                observe(val);
+            } else {
+                Object.defineProperty(data, key, {
+                    get: function () {
+                        console.log('val =====> ', val);
+                        // 依赖收集
+                        deps.push(target);
+                        return val;
+                    },
+                    set: function (newValue) {
+                        // 这里不能使用 data[key]来取值，会重新触发一次get钩子
+                        if (newValue === val) {
+                            return false;
+                        }
+                        val = newValue;
+                        deps.forEach(function (fn) {
+                            fn();
+                        });
+                    },
+                })
+            }
+        }
+    }
+
+    // 数据观测
+    observe(data);
+
+    var target = null; // 宿主对象
+
+    // 触发get，依赖收集
+    function $watch (str, fn) {
+        target = fn;
+        var obj = data;
+        // 触发get的钩子函数
+        if (typeof str === 'function') {
+            str();
+            return;
+        }
+        // 如果是 info.sex 嵌套对象的形式
+        if (/\./.test(str)) {
+            var keyList = str.split('.'); // ['info', 'sex']
+            keyList.forEach(function (key) {
+                obj = obj[key];
+            })
+        } else {
+            data[str]; // get操作，触发一次依赖收集
+        }
+    }
+
+    // 依赖
+    /** S
+     *
+    $watch('info.sex', function () {
+        console.log('数据发生了改变, data.info.sex');
+    });
+    $watch('name', function () {
+        console.log('数据发生了改变, data.name');
+    });
+
+    // 触发更新
+    data.name = 'fuck';
+    data.info.sex = 'woman';
+     E **/
+
+    // 渲染函数
+    function render () {
+        // with 作用域的绑定
+        with (data) {
+            // 触发get钩子做依赖收集，相当于访问data[name]，data[age]
+            console.count(`姓名：${name}，年龄：${age}`); // 会做重复的依赖收集
+        }
+    }
+
+    $watch(render, render);
+    data.name = 'react';
+
+
+</script>
+</body>
+</html>

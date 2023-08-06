@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="author" content="forguo" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<title>图片轮播</title>
+	</head>
+
+	<body>
+		<!-- 轮播体结构 -->
+		<div class="carousel-container">
+			<div class="carousel-slider clearfix">
+				<div class="carousel-item">
+					<span>Page1</span>
+					<img src="img/slide1.jpg" />
+				</div>
+				<div class="carousel-item">
+					<span>Page2</span>
+					<img src="img/slide2.jpg" />
+				</div>
+				<div class="carousel-item">
+					<span>Page3</span>
+					<img src="img/slide3.jpg" />
+				</div>
+				<div class="carousel-item">
+					<span>Page4</span>
+					<img src="img/slide4.jpg" />
+				</div>
+			</div>
+			<!-- 翻页按钮-->
+			<div class="btn prev-btn">
+			</div>
+			<div class="btn next-btn">
+			</div>
+
+			<!-- 分页器 -->
+			<ul class="paging">
+			</ul>
+		</div>
+		<div class="container">
+		</div>
+	</body>
+	<script src="js/jquery-1.8.3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jQuery-carousel-v1.3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		/*
+		 * 分页按钮，和切换按钮的层级必须都在轮播容器里面，
+		 * 否则无法正常轮播
+		 * */
+
+		$(".carousel-container").Carousel({
+			autoTime: '3000', // 自动播放间隔
+			paging: '.paging', // 分页容器
+			prevBtn: '.prev-btn', // 前进按钮
+			nextBtn: '.next-btn' // 后退按钮
+		});
+
+	</script>
+
+</html>

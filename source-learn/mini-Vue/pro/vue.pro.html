@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="vue.pro.js"></script>
+<script>
+    const App = Vue.component('button-counter', {
+        data: function () {
+            return {
+                count: 0,
+                info: {
+                    name: 'www',
+                    sex: 1,
+                },
+                list: [1,2,3]
+            }
+        },
+        template: '<div><button v-on:click="info.sex++">You clicked me {{ info.sex }} times.</button>' +
+            '<div>' +
+            '<p v-for="(item, index) in list" :key="index">{{ item }}, {{index}}</p>' +
+            '</div></div>'
+    });
+
+    new Vue({
+        render: h => h(App),
+        mounted () {
+            console.log(this);
+            // console.log(this.$options) // => 'foo'
+        },
+    }).$mount('#app');
+
+</script>
+</body>
+</html>

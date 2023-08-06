@@ -1,0 +1,84 @@
+* {
+  text-decoration: none;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+.carousel-container {
+  overflow: hidden;
+  position: relative;
+}
+.carousel-container .carousel-slider {
+  z-index: 1;
+  position: relative;
+}
+.carousel-slider .carousel-item {
+  height: auto;
+  position: relative;
+  float: left;
+  transition: ease-in-out all 300ms;
+  text-align: center;
+}
+.carousel-slider .carousel-item img {
+  width: 1200px;
+}
+.carousel-slider .carousel-item img:hover {
+  cursor: pointer;
+}
+.carousel-slider .carousel-item span {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.btn {
+  width: 22px;
+  height: 66px;
+  position: absolute;
+  top: 100px;
+  z-index: 9;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: 50% 50%;
+}
+.btn:hover {
+  cursor: pointer;
+}
+.prev-btn {
+  background-image: url(../img/btn_prev.png);
+  left: 0;
+}
+.next-btn {
+  background-image: url(../img/btn_next.png);
+  right: 0;
+}
+.paging {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: auto;
+  text-align: center;
+  bottom: 15px;
+}
+.paging li {
+  list-style: none;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 0 3px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.8);
+}
+.paging li:hover {
+  cursor: pointer;
+}
+.paging .curr-page {
+  background: rgba(6, 109, 197, 0.8);
+}
