@@ -20,6 +20,7 @@
     // 通过检测window去判断是不是浏览器环境
     var inBrowser = typeof window !== 'undefined';
 
+    // 重写是因为 prototype 不可修改 writable为false，Object.getOwnPropertyDescriptor(Array, "prototype")
     var arrayProto = Array.prototype;
     var arrayMethods = Object.create(arrayProto);
     var methodsToPatch = [
@@ -313,7 +314,6 @@
                 return val;
             },
             set: function (newVal) {
-                /* eslint-disable no-self-compare */
                 log('触发更新---', newVal);
                 if (newVal === val) {
                     return
@@ -561,6 +561,7 @@
     var $mount = Vue.prototype.$mount;
 
     function update (data) {
+        console.log('update', data)
         const app = document.getElementById('app');
         app.innerHTML = `obj.text = ${JSON.stringify(data)}`
     }
