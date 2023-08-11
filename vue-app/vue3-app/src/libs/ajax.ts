@@ -34,6 +34,11 @@ export default (params: any) => {
                 }
             }
         }
+        xhr.onprogress = function (event) {
+            const { loaded, total } = event
+            const percent = Math.floor((loaded / total) * 100)
+            console.log('percent', percent)
+        }
         xhr.send(JSON.stringify(data) || null)
     })
 }
