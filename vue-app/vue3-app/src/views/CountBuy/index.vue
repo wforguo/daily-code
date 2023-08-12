@@ -17,7 +17,6 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, onUnmounted } from 'vue'
 import { useLoading, useState } from '@/hooks'
-let interval: any = null
 
 // emits
 const emits = defineEmits(['buy'])
@@ -37,21 +36,36 @@ const disabled = computed(() => {
     return count.value > 0
 })
 
-// lifecycle
-onBeforeMount(() => {
-    interval = setInterval(() => {
-        // 结束倒计时
+let requestRef: any = null
+let prevTime: number | undefined
+let timeDifferance = 0 // 每1s倒计时偏差值，单位ms
+
+const animate = (timestamp: number) => {
+    if (prevTime) {
         if (count.value <= 0) {
-            clearInterval(interval)
+            cancelAnimationFrame(requestRef)
             return
         }
-        setCount(count.value - 1)
-    }, 1000)
+        if (parseInt(String(timeDifferance / 1000)) === 1) {
+            timeDifferance = 0
+            setCount(count.value - 1)
+        }
+        // 时间差
+        timeDifferance = timestamp - prevTime + timeDifferance
+        prevTime = timestamp
+    } else {
+        prevTime = timestamp
+    }
+    requestAnimationFrame(animate)
+}
+
+// lifecycle
+onBeforeMount(() => {
+    requestRef = requestAnimationFrame(animate)
 })
 
 onUnmounted(() => {
-    interval && clearInterval(interval)
-    interval = null
+    // interval && clearInterval(interval)
 })
 
 // methods

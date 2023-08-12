@@ -11,7 +11,6 @@ defineProps<{
     msg?: string
 }>()
 defineEmits(['count-down'])
-const radio = ref(3)
 
 const nowTime = ref<string>('00:00:00')
 const getNowTime = () => {
