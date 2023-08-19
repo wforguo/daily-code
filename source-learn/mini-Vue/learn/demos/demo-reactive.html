@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>响应式原理解析</title>
+</head>
+<body>
+
+Hello Vue.js!
+
+<h3>响应式原理解析</h3>
+
+<div id="app">
+</div>
+
+</body>
+<script type="text/javascript" src="../source-reactive.js"></script>
+<script type="text/javascript">
+    var data = {
+        message: 'Hello Vue.js!',
+        list: []
+    }
+    new Vue({
+        data
+    })
+    data.message = 'Hello'
+    data.list.push('Hello')
+</script>
+</html>

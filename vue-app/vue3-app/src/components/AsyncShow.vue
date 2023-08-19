@@ -8,7 +8,7 @@
     <el-card shadow="hover">
         <template #header>我是异步组件</template>
         <div>
-            {{ res.data }}
+            {{ res }}
         </div>
     </el-card>
 </template>
@@ -21,11 +21,12 @@ export default defineComponent({
     name: 'AsyncShow',
     async setup() {
         const res = await request({
-            url: 'https://api.forguo.cn/common/wechat/sdk',
+            url: 'https://api.fenghua.rainyman.cn/auth/login',
             params: {
                 url: window.location.href
             }
         })
+        console.log(res.data)
         return {
             res: res.data
         }

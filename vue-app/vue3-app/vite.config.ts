@@ -33,6 +33,14 @@ export default (configEnv: any) => {
     }
     // app.use('/__open-in-editor', openInEditor('webstorm'))
     return defineConfig({
+        test: {
+            environment: 'jsdom', // or 'jsdom', 'node'
+            // 测试覆盖率
+            coverage: {
+                provider: 'istanbul', // or 'v8'
+                reporter: ['text', 'json', 'html']
+            }
+        },
         base: process.env.NODE_ENV === 'production' ? `/daily-code/${title}` : '/',
         server: {
             // before(app) {

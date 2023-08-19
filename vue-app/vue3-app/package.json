@@ -8,6 +8,7 @@
         "prettier": "prettier .  --write",
         "build": "run-p type-check build-only",
         "preview": "vite preview --port 4173",
+        "coverage": "vitest run --coverage",
         "test:unit": "vitest --environment jsdom",
         "test:e2e": "start-server-and-test preview http://localhost:4173/ 'cypress open --e2e'",
         "test:e2e:ci": "start-server-and-test preview http://localhost:4173/ 'cypress run --e2e'",
@@ -36,6 +37,7 @@
         "@types/node": "^18.15.0",
         "@vitejs/plugin-vue": "^4.0.0",
         "@vitejs/plugin-vue-jsx": "^3.0.0",
+        "@vitest/coverage-istanbul": "^0.34.2",
         "@vue/eslint-config-prettier": "^7.0.0",
         "@vue/eslint-config-typescript": "^11.0.0",
         "@vue/test-utils": "^2.0.2",
@@ -57,7 +59,7 @@
         "vite-plugin-html-config": "^1.0.11",
         "vite-plugin-mock": "^2.9.6",
         "vite-plugin-vue-inspector": "^3.3.2",
-        "vitest": "^0.23.0",
+        "vitest": "^0.34.2",
         "vue-tsc": "^0.40.7"
     }
 }

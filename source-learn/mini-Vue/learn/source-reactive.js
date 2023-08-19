@@ -3,7 +3,7 @@ function Vue(options) {
 }
 
 // 重写是因为 prototype 不可修改 writable为false，Object.getOwnPropertyDescriptor(Array, "prototype")
-var arrayMethods = Object.create(Array.prototype);
+var arrayProto = Object.create(Array.prototype);
 
 var methods = [
     'push',
@@ -16,8 +16,8 @@ var methods = [
 ]
 
 methods.forEach((method) => {
-    var origin = arrayMethods[method]
-    arrayMethods[method] = function () {
+    var origin = arrayProto[method]
+    arrayProto[method] = function () {
         arrayUpdate(Array.from(arguments))
         origin.apply(this, arguments)
     }
@@ -43,7 +43,7 @@ function Observer (data) {
     this.value = data
     // 数组的响应式处理
     if (Array.isArray(data)) {
-        data.__proto__ = arrayMethods
+        data.__proto__ = arrayProto
         this.observeArray(data)
     } else {
         // 对象的响应式处理
