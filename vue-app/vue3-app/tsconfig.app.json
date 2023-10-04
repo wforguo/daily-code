@@ -1,21 +1,25 @@
 {
-    "extends": "@vue/tsconfig/tsconfig.web.json",
+    "extends": "@vue/tsconfig/tsconfig.dom.json",
     "include": [
         "env.d.ts",
         "src/**/*",
-        "src/**/*.vue"
+        "src/**/*.vue",
+        "./auto-imports.d.ts"
     ],
-    "exclude": [
-        "src/**/__tests__/*"
-    ],
+    "exclude": ["src/**/__tests__/*"],
     "compilerOptions": {
-        "experimentalDecorators": true,
         "composite": true,
-        "baseUrl": "./",
+        "baseUrl": ".",
         "paths": {
-            "@/*": [
-                "./src/*"
-            ]
-        }
+            "@/*": ["./src/*"]
+        },
+        /* Bundler mode */
+        "moduleResolution": "node",
+        "allowImportingTsExtensions": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "preserve",
+        "experimentalDecorators": true,
     }
 }

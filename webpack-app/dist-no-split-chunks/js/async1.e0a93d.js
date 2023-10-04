@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([["async1"],{"./src/js/async1.js":function(n,s,c){"use strict";c.r(s);!async function(){await new Promise(n=>{n("async1")})}()}}]);

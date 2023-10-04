@@ -1,7 +1,5 @@
-import { ref } from 'vue'
-
-const useLoading = function () {
-    const loading = ref<boolean>(false)
+const useLoading = function (value: boolean = false) {
+    const loading = ref<boolean>(value)
 
     function showLoading() {
         loading.value = true
@@ -10,10 +8,14 @@ const useLoading = function () {
     function hideLoading() {
         loading.value = false
     }
+    function toggleLoading() {
+        loading.value = !loading.value
+    }
     return {
-        loading,
+        value: loading,
         showLoading,
-        hideLoading
+        hideLoading,
+        toggleLoading
     }
 }
 

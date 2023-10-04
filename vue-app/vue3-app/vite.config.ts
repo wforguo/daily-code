@@ -6,7 +6,8 @@ import { viteMockServe } from 'vite-plugin-mock'
 import { dayjs } from 'element-plus'
 // 打开组件
 import Inspector from 'vite-plugin-vue-inspector'
-
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
 const { name: title, version: APP_VERSION } = require('./package.json')
 
 // https://vitejs.dev/config/
@@ -18,14 +19,48 @@ export default (configEnv: any) => {
     env.APP_BUILD_TIME = dayjs().format('YYYY-MM-DD HH:mm:ss')
 
     // 插件
-    const plugins = [vue(), vueJsx(), Inspector({ enabled: false, toggleButtonVisibility: 'always' })]
+    const plugins = [
+        vue(),
+        vueJsx(),
+        Inspector({ enabled: false, toggleButtonVisibility: 'always' }),
+        // 按需导入
+        AutoImport({
+            // targets to transform
+            include: [
+                /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+                /\.vue$/,
+                /\.vue\?vue/, // .vue
+                /\.md$/ // .md
+            ],
+
+            // global imports to register
+            imports: ['vue', 'vue-router'],
+
+            // Filepath to generate corresponding .d.ts file.
+            // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.
+            // Set `false` to disable.
+            dts: './auto-imports.d.ts',
+
+            // Inject the imports at the end of other imports
+            injectAtEnd: true,
+
+            // Generate corresponding .eslintrc-auto-import.json file.
+            // eslint globals Docs - https://eslint.org/docs/user-guide/configuring/language-options#specifying-globals
+            eslintrc: {
+                enabled: true, // Default `false`
+                filepath: './.eslintrc-auto-import.json' // Default `./.eslintrc-auto-import.json`
+            }
+        }),
+        Components({})
+    ]
     // dev环境下使用mock
     const isMock = process.env.NODE_ENV !== 'production'
 
     if (isMock) {
         plugins.push(
             viteMockServe({
-                timeout: '2000-6000',
+                // @ts-ignore
+                timeOut: '2000-6000',
                 // 配置mock位置
                 mockPath: './src/mock'
             })
@@ -33,6 +68,7 @@ export default (configEnv: any) => {
     }
     // app.use('/__open-in-editor', openInEditor('webstorm'))
     return defineConfig({
+        // @ts-ignore
         test: {
             environment: 'jsdom', // or 'jsdom', 'node'
             // 测试覆盖率

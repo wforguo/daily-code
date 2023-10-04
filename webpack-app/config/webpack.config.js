@@ -100,7 +100,7 @@ module.exports = (env) => {
             chunkFilename: 'js/[name].[chunkhash:6].js',
             // 打包后的文件名，默认打包出来是main.js
             filename: 'js/[name].[chunkhash:6].js',
-            publicPath: devMode ? `` : `https://forguo.cn/app/`,
+            publicPath: devMode ? `` : ``,
         },
         module: {
             rules: [
@@ -300,6 +300,7 @@ module.exports = (env) => {
             // 代码分割
             splitChunks: {
                 name: true,
+                // 选择哪些 chunk 进行优化，可选值：initial(初始块)、async(按需加载块)、all(全部块)，默认为all,
                 chunks: 'all', // 表示对所有的第三方库进行代码分割(包括async和initial)
                 minSize: 10000, // 大于10kb，再去提取
                 // 指定需要打包哪些内容
@@ -312,14 +313,19 @@ module.exports = (env) => {
                         priority: 10,
                         name: 'vendor'
                     },
-                    // common: {
-                    //     // 公共资源的打包
-                    //     chunks: "all",
-                    //     minChunks: 2, // 表示被引用次数大于等于2的module符合该cacheGroup的条件
-                    //     name: 'common',
-                    //     enforce: true,
-                    //     priority: 5, // 表示优先处理，webpack默认的两个cacheGroup的优先级为负数。
-                    // }
+                    /**
+                     * https://webpack.docschina.org/plugins/split-chunks-plugin/#splitchunkscachegroupscachegrouppriority
+                     * 一个模块可以属于多个缓存组。优化将优先考虑具有更高 priority（优先级）的缓存组。
+                     * 默认组的优先级为负，以允许自定义组获得更高的优先级（自定义组的默认值为 0）。
+                     */
+                    common: {
+                        // 公共资源的打包
+                        chunks: "all",
+                        minChunks: 2, // 表示被引用次数大于等于2的module符合该cacheGroup的条件
+                        name: 'common',
+                        enforce: true,
+                        priority: 5, // 表示优先处理，webpack默认的两个cacheGroup的优先级为负数。
+                    }
                 },
             },
             // 运行时，webpack配置文件

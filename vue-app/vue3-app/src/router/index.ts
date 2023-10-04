@@ -23,13 +23,15 @@ const routes = [
 const views = import.meta.glob(`@/views/*/index.vue`, { eager: true })
 
 // 动态加载路由
-for (const componentPath in views) {
-    const module: any = views[componentPath]
-    const match: Array<any> = componentPath.match(/..\/views\/(\w+)/) || []
-    /// 匹配到的路由名称
+for (const filePath in views) {
+    const module: any = views[filePath]
+    const match: Array<any> = filePath.match(/..\/views\/(\w+)/) || []
+    // 匹配到的路由名称
     const routerName = match[1]
     // 找到example的组件，并加载
     const $component = module.default
+    // /src/views/TypeScript/index.vue --> /src/views/TypeScript/index.vue
+    const componentPath = filePath.replace(/^\/src/i, '..')
     // 默认首页必须得
     if (routerName && routerName !== 'Home' && !$component.hidden) {
         const routerTitle = $component.title
@@ -38,6 +40,7 @@ for (const componentPath in views) {
             path: routerName === 'Home' ? '/' : `/${routerName}`,
             name: routerName,
             title,
+            // component: () => import(`${componentPath}`),
             component: $component,
             meta: {
                 name: routerName,

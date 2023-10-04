@@ -14,6 +14,7 @@
             </el-table>
             <el-button @click="cancelApi">取消请求</el-button>
         </el-card>
+        <el-alert>width is {{ width }}, height is {{ height }}</el-alert>
     </div>
 </template>
 
@@ -29,6 +30,10 @@ import { onBeforeMount, reactive, ref } from 'vue'
 import type { Ref } from 'vue'
 import { request, cancelRequest } from '@/libs'
 import axios from 'axios'
+
+import useResize from '@/hooks/useResize'
+
+const { width, height } = useResize()
 
 const keyword: Ref<string> = ref('')
 let res = reactive({

@@ -36,7 +36,7 @@ class Request {
     // 拦截器
     setInterceptors(request: AxiosInstance) {
         // 请求拦截器
-        request.interceptors.request.use(config => {
+        request.interceptors.request.use((config: any) => {
             // toDo 也可以在这里做一个重复请求的拦截
             // https://github.com/axios/axios/tree/main#abortcontroller
             // 请求url为key

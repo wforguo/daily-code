@@ -15,7 +15,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, onUnmounted } from 'vue'
 import { useLoading, useState } from '@/hooks'
 
 // emits
@@ -24,7 +23,7 @@ const emits = defineEmits(['buy'])
 // state
 // 默认10
 const [count, setCount] = useState(10)
-const { loading, showLoading, hideLoading } = useLoading()
+const { value: loading, showLoading, hideLoading } = useLoading()
 
 // 按钮文案
 const btnText = computed(() => {

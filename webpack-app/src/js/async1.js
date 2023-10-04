@@ -4,7 +4,7 @@
  * @Description: async.js
  */
 import './async.less';
-let async1 = function () {
+let async1 = () => {
     return new Promise((resolve => {
         resolve('async1')
     }));

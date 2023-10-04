@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <timer :title="1" type="success" />
+        <Timer :title="1" type="success" />
 
         <el-divider />
 
@@ -31,8 +31,6 @@ import {
     onRenderTracked,
     onRenderTriggered
 } from 'vue'
-import { Timer } from '@/components/index'
-import AsyncShow from '@/components/AsyncShow.vue'
 
 console.log('1-开始创建组件-----setup()')
 

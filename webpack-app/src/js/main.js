@@ -3,7 +3,7 @@
  * @Date: 2022/3/25 14:32
  * @Description: main.js
  */
-import _ from 'lodash'
+import { isArray } from 'lodash-es'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import dayjs from 'dayjs'
@@ -15,6 +15,7 @@ let App = function () {
 }
 
 let unused = 'unused';
+let unused1 = 'unused1';
 
 // 异步加载
 require.ensure(['./async1'], () => {
@@ -24,7 +25,7 @@ App.prototype = {
     init: function () {
         document.getElementById('app').innerHTML = 'Webpack App';
         console.log('app created');
-        console.log(_.isArray(this.data));
+        console.log(isArray(this.data));
 
         axios({
             url: 'https://forguo.cn/api/common/wechat/sdk'

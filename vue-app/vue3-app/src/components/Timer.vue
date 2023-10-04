@@ -5,14 +5,21 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+defineProps({
+    countDown: {
+        type: Number,
+        default: 0
+    }
+})
 
-defineProps<{
-    msg?: string
-}>()
 defineEmits(['count-down'])
 
+defineOptions({
+    name: 'TimerView',
+    title: 'Timer'
+})
 const nowTime = ref<string>('00:00:00')
+
 const getNowTime = () => {
     const now = new Date()
     const h = now.getHours() < 10 ? `0${now.getHours()}` : now.getHours()
