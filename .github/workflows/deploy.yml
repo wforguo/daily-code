@@ -41,7 +41,7 @@ jobs:
 
             - name: Install NodeModules/vue2-app - 安装依赖
               run: cd vue-app/vue2-app && pnpm install # 安装依赖
-            - name: Install NodeModules/vue2-app - 安装依赖
+            - name: Install NodeModules/vue3-app - 安装依赖
               run: cd vue-app/vue3-app && pnpm install # 安装依赖
 
             - name: Build/vue2-app - 打包
