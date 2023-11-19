@@ -3,15 +3,18 @@ import type { VNode } from 'vue'
 import { Spin as Loading } from 'ant-design-vue'
 import { LoadingOutlined } from '@ant-design/icons-vue'
 
-import type { LoadingOptions } from './types'
+import type { LoadingOptionsResolved } from './types'
 
-export function createLoading(options: LoadingOptions & { style: Partial<CSSStyleDeclaration> }, wait = false) {
+export function createLoading(options: LoadingOptionsResolved & { style: Partial<CSSStyleDeclaration> }, wait = false) {
     const target = options.target
-    const data = {
+    const originOptions = {
         ...options
     }
-    delete data.target
-    delete data.parent
+    delete originOptions.target
+    delete originOptions.parent
+    const data = reactive({
+        ...originOptions
+    })
 
     // 默认加载器
     const indicatorDefault = createVNode(LoadingOutlined, {
@@ -84,6 +87,7 @@ export function createLoading(options: LoadingOptions & { style: Partial<CSSStyl
     }
 
     return {
+        ...toRefs(data),
         vm,
         close,
         open,

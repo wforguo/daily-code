@@ -4,10 +4,10 @@
  * @Description: v-loading 指令
  */
 import { isObject } from '@vueuse/core'
-import type { Directive, DirectiveBinding } from 'vue'
+import type { Directive, DirectiveBinding, UnwrapRef } from 'vue'
 
 import { createLoading } from './createLoading'
-import type { LoadingOptions, ElementLoading, LoadingBinding } from './types'
+import type { LoadingOptions, ElementLoading, LoadingBinding, LoadingOptionsResolved } from './types'
 import { INSTANCE_KEY } from './types'
 const isString = (target: any): boolean => typeof target === 'string'
 
@@ -15,12 +15,12 @@ const isString = (target: any): boolean => typeof target === 'string'
  * 参数处理
  * @param options
  */
-const resolveOptions = (options: LoadingOptions): Partial<LoadingOptions> => {
-    let target: HTMLElement | string
+const resolveOptions = (options: LoadingOptions): LoadingOptionsResolved => {
+    let target: HTMLElement
     if (isString(options.target)) {
         target = document.querySelector<HTMLElement>(options.target as string) ?? document.body
     } else {
-        target = options.target || document.body
+        target = (options.target || document.body) as HTMLElement
     }
     return {
         delay: Number(options.delay || 0),
@@ -84,8 +84,7 @@ const createInstance = (el: ElementLoading, binding: DirectiveBinding<LoadingBin
         top: '0',
         right: '0',
         left: '0',
-        bottom: '0',
-        transition: 'ease all 300ms'
+        bottom: '0'
     }
 
     // 保存实例
@@ -103,9 +102,10 @@ const createInstance = (el: ElementLoading, binding: DirectiveBinding<LoadingBin
  * @param newOptions
  * @param originalOptions
  */
-const updateOptions = (newOptions: LoadingOptions, originalOptions: LoadingOptions) => {
+const updateOptions = (newOptions: UnwrapRef<LoadingOptions>, originalOptions: LoadingOptions) => {
     for (const key of Object.keys(originalOptions)) {
-        if (isRef(originalOptions[key])) originalOptions[key].value = newOptions[key]
+        const optionKey = key as keyof LoadingOptions // 类型断言
+        if (isRef(originalOptions[optionKey])) originalOptions[optionKey].value = newOptions[optionKey]
     }
 }
 
@@ -123,6 +123,7 @@ const vLoading: Directive<ElementLoading, LoadingBinding> = {
     // 在绑定元素的父组件
     // 及他自己的所有子节点都更新后调用
     updated(el, binding) {
+        console.log('updated')
         const instance = el[INSTANCE_KEY]
         if (binding.oldValue !== binding.value) {
             if (binding.value && !binding.oldValue) {

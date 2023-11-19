@@ -1,9 +1,8 @@
 <template>
-    <div class="page race" v-spin="true">
-        <el-card>
+    <div class="page race">
+        <el-card v-spin="loading" :loading-text="text">
             <i class="el-icon-loading"></i>
             <i class="el-icon-edit"></i>
-
             <el-link target="_blank" href="https://mp.weixin.qq.com/s/smOJHGkPegvs5ENv7PTbmw">竞态问题</el-link>
             <el-link target="_blank" href="https://juejin.cn/post/7071518211392405541#heading-13">axios封装</el-link>
             <el-divider />
@@ -14,20 +13,17 @@
                 <el-table-column prop="age" label="年龄" />
                 <el-table-column prop="city" label="城市" />
             </el-table>
-            <el-button @click="cancelApi">取消请求</el-button>
         </el-card>
-        <el-alert>width is {{ width }}, height is {{ height }}</el-alert>
+        <el-button type="primary" @click="cancelApi">取消请求</el-button>
+        <el-card :closable="false">width is {{ width }}, height is {{ height }}</el-card>
     </div>
 </template>
 
-<script lang="ts">
-export default {
-    name: 'HomeView',
-    title: '竞态问题'
-}
-</script>
-
 <script lang="ts" setup>
+defineOptions({
+    name: 'RaceView',
+    title: '竞态问题'
+})
 import { onBeforeMount, reactive, ref } from 'vue'
 import type { Ref } from 'vue'
 import { request, cancelRequest } from '@/libs'
@@ -41,10 +37,19 @@ const keyword: Ref<string> = ref('')
 let res = reactive({
     data: []
 })
+const loading = ref(false)
+const text = ref('加载中...')
+const handleLoading = () => {
+    loading.value = true
+    setTimeout(() => {
+        loading.value = false
+    }, 1000)
+}
 
 const handleSearch = async (keyword?: string) => {
     try {
         cancelRequest('/api/search')
+        handleLoading()
         const data = await request({
             method: 'post',
             url: '/api/search',
@@ -64,6 +69,7 @@ const handleSearch = async (keyword?: string) => {
 }
 
 const cancelApi = () => {
+    handleLoading()
     const CancelToken = axios.CancelToken
     const source = CancelToken.source()
 
