@@ -11,5 +11,9 @@
     "bugs": {
         "url": "https://github.com/wforguo/daily-code/issues"
     },
-    "homepage": "https://github.com/wforguo/daily-code#readme"
+    "homepage": "https://github.com/wforguo/daily-code#readme",
+    "dependencies": {
+        "@wei_design/web-vue": "^1.0.0",
+        "vite-plugin-meta-env": "^1.0.2"
+    }
 }
