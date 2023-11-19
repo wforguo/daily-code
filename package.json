@@ -1,0 +1,15 @@
+{
+    "name": "daily-code",
+    "version": "1.0.0",
+    "description": "daily-code",
+    "packageManager": "pnpm@7.6.0",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wforguo/daily-code.git"
+    },
+    "author": "forguo",
+    "bugs": {
+        "url": "https://github.com/wforguo/daily-code/issues"
+    },
+    "homepage": "https://github.com/wforguo/daily-code#readme"
+}
