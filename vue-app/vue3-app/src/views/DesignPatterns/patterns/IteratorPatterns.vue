@@ -12,7 +12,6 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, nextTick } from 'vue'
 console.log('设计模式')
 defineProps({
     title: String

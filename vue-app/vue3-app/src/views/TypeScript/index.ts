@@ -389,4 +389,8 @@ export default () => {
     }
 
     ;(get(res) as string).length
+
+    /**
+     * 使用ts的类型工具Partial，将指定的类型中所有属性都设为可选
+     */
 }

@@ -12,7 +12,6 @@
 </template>
 
 <script lang="ts" setup>
-import { nextTick, defineProps } from 'vue'
 defineProps({
     title: String
 })

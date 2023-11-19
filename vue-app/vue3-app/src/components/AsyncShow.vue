@@ -21,7 +21,7 @@ export default defineComponent({
     name: 'AsyncShow',
     async setup() {
         const res = await request({
-            url: 'https://api.fenghua.rainyman.cn/auth/login',
+            url: 'https://forguo.cn/api/v1/weapp/jssdk',
             params: {
                 url: window.location.href
             }

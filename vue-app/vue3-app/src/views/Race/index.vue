@@ -1,8 +1,10 @@
 <template>
-    <div class="page race">
+    <div class="page race" v-spin="true">
         <el-card>
+            <i class="el-icon-loading"></i>
+            <i class="el-icon-edit"></i>
+
             <el-link target="_blank" href="https://mp.weixin.qq.com/s/smOJHGkPegvs5ENv7PTbmw">竞态问题</el-link>
-            &nbsp;
             <el-link target="_blank" href="https://juejin.cn/post/7071518211392405541#heading-13">axios封装</el-link>
             <el-divider />
             <el-input v-model="keyword" @input="handleSearch" clearable placeholder="请输入搜索内容" />

@@ -17,9 +17,11 @@
         "lint": "eslint  --ext .vue,.js,.jsx,.ts,.tsx --fix src --ignore-path .eslintignore"
     },
     "dependencies": {
+        "@ant-design/icons-vue": "^7.0.1",
         "@highlightjs/vue-plugin": "^2.1.0",
-        "@turf/turf": "^6.5.0",
+        "@vueuse/core": "^10.6.1",
         "@wei_design/web-vue": "^1.0.0",
+        "ant-design-vue": "^4.0.7",
         "axios": "^1.5.1",
         "element-plus": "^2.3.14",
         "highlight.js": "^11.7.0",
@@ -30,7 +32,7 @@
     },
     "devDependencies": {
         "@rushstack/eslint-patch": "^1.1.4",
-        "@tsconfig/node18": "^18.2.2",
+        "@tsconfig/node18": "^2.0.1",
         "@types/jsdom": "^21.1.0",
         "@types/mockjs": "^1.0.7",
         "@types/node": "^18.15.0",

@@ -107,6 +107,9 @@ export default (configEnv: any) => {
                 // 确保外部化处理那些你不想打包进库的依赖
                 output: {
                     dir: `../../dist/${title}/`,
+                    chunkFileNames: 'js/[name]-[hash].js', // 引入文件名的名称
+                    entryFileNames: 'js/[name]-[hash].js', // 包的入口文件名称
+                    assetFileNames: '[ext]/[name]-[hash].[ext]', // 资源文件像 字体，图片等
                     // format: 'cjs',
                     // entryFileNames: 'main-app.js',
                     manualChunks(id, { getModuleInfo }) {
