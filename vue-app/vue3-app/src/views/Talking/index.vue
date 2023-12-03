@@ -35,7 +35,8 @@
 // 使用了setup写法时，额外的name、title等信息，需要单独一个script标签，并且lang同setup的script标签
 export default {
     name: 'TalkingView',
-    title: 'Rtc通信'
+    title: 'Rtc通信',
+    hidden: true
 }
 </script>
 

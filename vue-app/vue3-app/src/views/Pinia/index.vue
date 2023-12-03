@@ -25,6 +25,7 @@ import { ElMessage } from 'element-plus'
 export default defineComponent({
     components: {},
     title: '状态',
+    hidden: true,
     setup() {
         const user = useUserStore()
         const handleAddCart = async () => {

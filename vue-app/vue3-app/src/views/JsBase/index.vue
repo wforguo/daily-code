@@ -19,7 +19,8 @@ export default {
     name: 'JsBaseView',
     title: 'JS基础',
     inheritAttrs: false,
-    customOptions: {}
+    customOptions: {},
+    hidden: true
 }
 </script>
 <style scoped></style>

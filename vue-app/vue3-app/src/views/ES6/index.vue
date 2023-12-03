@@ -23,7 +23,8 @@ export default {
     name: 'ES6View',
     title: 'ES6',
     inheritAttrs: false,
-    customOptions: {}
+    customOptions: {},
+    hidden: true
 }
 </script>
 

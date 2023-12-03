@@ -1,7 +1,5 @@
 /**
- * @Author: weiguo
- * @Date: 2023/11/10 21:37
- * @Description: v-loading 指令
+ * v-loading 指令
  */
 import { isObject } from '@vueuse/core'
 import type { Directive, DirectiveBinding, UnwrapRef } from 'vue'
@@ -9,6 +7,7 @@ import type { Directive, DirectiveBinding, UnwrapRef } from 'vue'
 import { createLoading } from './createLoading'
 import type { LoadingOptions, ElementLoading, LoadingBinding, LoadingOptionsResolved } from './types'
 import { INSTANCE_KEY } from './types'
+
 const isString = (target: any): boolean => typeof target === 'string'
 
 /**
@@ -44,7 +43,6 @@ const resolveOptions = (options: LoadingOptions): LoadingOptionsResolved => {
 const createInstance = (el: ElementLoading, binding: DirectiveBinding<LoadingBinding>) => {
     // 获取对应属性，HTML属性，绑定为 loading-xxx
     const getProp = <K extends keyof LoadingOptions>(name: K) => el.getAttribute(`loading-${name}`)
-
     // 全屏展示
     const fullscreen = getProp('fullscreen') ?? binding.modifiers.fullscreen
 
@@ -62,13 +60,8 @@ const createInstance = (el: ElementLoading, binding: DirectiveBinding<LoadingBin
         fullscreen: !!fullscreen
     })
 
-    // 父级元素相对定位
-    if (options?.parent instanceof HTMLElement) {
-        options.parent.style.position = 'relative'
-    }
-
     // 背景色
-    const backgroundColor = options.background || 'rgba(44, 48, 56, 0.4)'
+    const backgroundColor = options.background || 'rgba(44, 48, 56, 0.55)'
 
     // 实例样式
     const instanceStyle: Partial<CSSStyleDeclaration> = {
@@ -84,7 +77,8 @@ const createInstance = (el: ElementLoading, binding: DirectiveBinding<LoadingBin
         top: '0',
         right: '0',
         left: '0',
-        bottom: '0'
+        bottom: '0',
+        transition: 'opacity 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86)'
     }
 
     // 保存实例
@@ -123,7 +117,6 @@ const vLoading: Directive<ElementLoading, LoadingBinding> = {
     // 在绑定元素的父组件
     // 及他自己的所有子节点都更新后调用
     updated(el, binding) {
-        console.log('updated')
         const instance = el[INSTANCE_KEY]
         if (binding.oldValue !== binding.value) {
             if (binding.value && !binding.oldValue) {
@@ -140,5 +133,25 @@ const vLoading: Directive<ElementLoading, LoadingBinding> = {
         el[INSTANCE_KEY]?.instance.close()
     }
 }
+
+// 添加基础样式
+const style = document.createElement('style')
+style.innerHTML = `
+  .v-loading-target {
+    position: relative;
+    > :not(.ant-spin) {
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.5;
+      transition: opacity 0.3s;
+    }
+    > .ant-spin {
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+  }
+`
+
+document.head.appendChild(style)
 
 export default vLoading

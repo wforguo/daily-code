@@ -80,6 +80,7 @@ const buy = () => {
 </script>
 <script lang="ts">
 export default {
-    name: 'CountBuy'
+    name: 'CountBuy',
+    hidden: true
 }
 </script>

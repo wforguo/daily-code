@@ -26,7 +26,7 @@
         "element-plus": "^2.3.14",
         "highlight.js": "^11.7.0",
         "pinia": "^2.1.6",
-        "vue": "^3.3.4",
+        "vue": "^3.3.9",
         "vue-router": "^4.2.5",
         "webrtc-adapter": "^8.2.1"
     },

@@ -22,7 +22,8 @@ export default {
     name: 'WebApiView',
     title: 'WebApi',
     inheritAttrs: false,
-    customOptions: {}
+    customOptions: {},
+    hidden: true
 }
 </script>
 <style scoped></style>

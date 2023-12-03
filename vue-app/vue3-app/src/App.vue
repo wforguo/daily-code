@@ -1,6 +1,6 @@
 <template>
     <el-container style="height: 100vh; overflow: hidden">
-        <el-aside style="max-width: 200px; height: 100vh" v-if="false">
+        <el-aside style="max-width: 200px; height: 100vh">
             <el-menu :default-active="$route?.path || '/'" router style="height: 100%">
                 <el-menu-item
                     :index="path"

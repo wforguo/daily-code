@@ -1,7 +1,7 @@
 import { createVNode, render } from 'vue'
 import type { VNode } from 'vue'
 import { Spin as Loading } from 'ant-design-vue'
-import { LoadingOutlined } from '@ant-design/icons-vue'
+// import { LoadingOutlined } from '@ant-design/icons-vue'
 
 import type { LoadingOptionsResolved } from './types'
 
@@ -17,12 +17,12 @@ export function createLoading(options: LoadingOptionsResolved & { style: Partial
     })
 
     // 默认加载器
-    const indicatorDefault = createVNode(LoadingOutlined, {
-        style: {
-            fontSize: '24px'
-        },
-        spin: true
-    })
+    // const indicatorDefault = createVNode(LoadingOutlined, {
+    //   style: {
+    //     fontSize: '24px'
+    //   },
+    //   spin: true
+    // })
 
     // 自定义加载器，可以是一个 svg
     const svg = data.indicator
@@ -45,7 +45,7 @@ export function createLoading(options: LoadingOptionsResolved & { style: Partial
         // options
         {
             delay: data.delay,
-            indicator: data.indicator ? indicator : indicatorDefault,
+            indicator: data.indicator ? indicator : '',
             size: data.size,
             spinning: data.spinning,
             tip: data.tip || '加载中...',
@@ -72,6 +72,7 @@ export function createLoading(options: LoadingOptionsResolved & { style: Partial
         if (vm?.el && vm.el.parentNode) {
             vm.el.parentNode.removeChild(vm.el)
         }
+        target?.classList.remove('v-loading-target')
     }
 
     // 挂载
@@ -80,6 +81,7 @@ export function createLoading(options: LoadingOptionsResolved & { style: Partial
             return
         }
         target.appendChild(vm.el as HTMLElement)
+        target.classList.add('v-loading-target')
     }
 
     if (target) {

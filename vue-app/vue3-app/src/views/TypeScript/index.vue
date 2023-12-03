@@ -19,6 +19,7 @@ defineOptions({
     name: 'TsView',
     title: 'Ts',
     inheritAttrs: false,
-    customOptions: {}
+    customOptions: {},
+    hidden: true
 })
 </script>

@@ -20,6 +20,7 @@ export default {
     name: 'WeiDesignView',
     title: '组件库',
     inheritAttrs: false,
-    customOptions: {}
+    customOptions: {},
+    hidden: true
 }
 </script>

@@ -30,10 +30,8 @@ for (const filePath in views) {
     const routerName = match[1]
     // 找到example的组件，并加载
     const $component = module.default
-    // /src/views/TypeScript/index.vue --> /src/views/TypeScript/index.vue
-    const componentPath = filePath.replace(/^\/src/i, '..')
     // 默认首页必须得
-    if (routerName && routerName !== 'Home' && !$component.hidden) {
+    if (routerName && routerName !== 'Home') {
         const routerTitle = $component.title
         const title = routerTitle || routerName
         routes.push({
@@ -52,14 +50,32 @@ for (const filePath in views) {
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
-    routes: [...routes]
+    routes: [
+        ...routes,
+        ...[
+            {
+                path: '/:pathMatch(.*)',
+                // 访问主页的时候 重定向到index页面
+                redirect: '/404'
+            },
+            {
+                path: '/404',
+                name: '/404',
+                component: import('@/views/Error/404/index.vue')
+            }
+        ]
+    ]
 })
 
-export const menus = routes.map((item: any) => {
-    delete item.component
-    return {
-        ...item
-    }
-})
+export const menus = routes
+    .map((item: any) => {
+        const hidden = item.component?.hidden || false
+        delete item.component
+        return {
+            hidden,
+            ...item
+        }
+    })
+    .filter((item: any) => !item.hidden)
 
 export default router
