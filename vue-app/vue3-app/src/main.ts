@@ -3,7 +3,6 @@ import { registerMicroApps, start } from 'qiankun'
 import { createPinia } from 'pinia' // 状态管理
 import { useMenuStore } from '@/store'
 import ElementPlus from 'element-plus'
-import Antd from 'ant-design-vue'
 import 'element-plus/dist/index.css'
 // highlight 的样式，依赖包，组件
 import 'highlight.js/styles/github-dark.css'
@@ -18,7 +17,6 @@ import { log } from '@/libs'
 import App from './App.vue'
 import './assets/main.scss'
 import router, { menus } from './router'
-import directives from '@/plugins/directives'
 
 log.capsule('Environment', `${import.meta.env.MODE}`, 'primary')
 // @ts-ignore
@@ -27,14 +25,7 @@ log.capsule('Version', `${process.env.APP_VERSION}`, 'primary')
 log.capsule('BuildTime', `${process.env.APP_BUILD_TIME}`, 'primary')
 
 const app = createApp(App)
-app.use(createPinia())
-    .use(router)
-    .use(Antd)
-    .use(ElementPlus)
-    .use(WeDesign)
-    .use(hljsVuePlugin)
-    .use(directives)
-    .mount('#app')
+app.use(createPinia()).use(router).use(ElementPlus).use(WeDesign).use(hljsVuePlugin).mount('#app')
 
 const menu = useMenuStore()
 menu.updateMenu(menus)

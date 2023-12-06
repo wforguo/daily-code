@@ -30,6 +30,7 @@ for (const filePath in views) {
     const routerName = match[1]
     // 找到example的组件，并加载
     const $component = module.default
+    // const componentPath = filePath.replace(/^\/src/i, '..')
     // 默认首页必须得
     if (routerName && routerName !== 'Home') {
         const routerTitle = $component.title

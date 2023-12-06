@@ -89,10 +89,15 @@ export default (configEnv: any) => {
             port: 30001,
             host: true,
             proxy: {
-                '/api': {
-                    target: 'https://www.yuque.com/api/v2/',
+                '/apis/': {
+                    target: 'http://127.0.0.1:3003/',
                     changeOrigin: true,
-                    rewrite: path => path.replace(/^\/api/, '')
+                    rewrite: path => path.replace(/^\/apis/, '')
+                },
+                '/amap/': {
+                    target: 'https://restapi.amap.com/',
+                    changeOrigin: true,
+                    rewrite: path => path.replace(/^\/amap/, '')
                 }
             }
         },

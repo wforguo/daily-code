@@ -5,15 +5,13 @@
  */
 import { request } from '@/libs'
 
-export default {
-    /**
-     * Simulate a login
-     * @param {object} data
-     */
-    login: (data: any) =>
-        request({
-            method: 'post',
-            url: '/api/user/login',
-            data
-        })
-}
+/**
+ * 登录
+ * @param {object} data
+ */
+export const login = (data: any) =>
+    request({
+        method: 'post',
+        url: '/api/user/login',
+        data
+    })

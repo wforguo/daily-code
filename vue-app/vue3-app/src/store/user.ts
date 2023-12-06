@@ -1,5 +1,5 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
-import api from '@/api'
+import { login } from '@/api'
 
 const useUserStore = defineStore({
     id: 'user',
@@ -24,7 +24,7 @@ const useUserStore = defineStore({
          * @param {string} password
          */
         async login(user: string, password: string) {
-            const userData = await api.user.login({
+            const userData = await login({
                 user,
                 password
             })

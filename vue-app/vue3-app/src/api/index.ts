@@ -3,8 +3,5 @@
  * @Date: 2022/7/14 14:00
  * @Description: index
  */
-import user from './user'
-
-export default {
-    user
-}
+export * from './user'
+export * from './upload'

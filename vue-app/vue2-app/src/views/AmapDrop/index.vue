@@ -214,12 +214,12 @@ export default {
                 }).then(
                     res => {
                         clearMap()
-                        res.map((item, index) => {
+                        res.forEach((item, index) => {
                             let position = []
-                            item.areaIdList.map(areaId => {
+                            item.areaIdList.forEach(areaId => {
                                 if (areaPaths[areaId]) {
                                     let areaPath = JSON.parse(JSON.stringify(areaPaths[areaId]))
-                                    areaPath.map(path => {
+                                    areaPath.forEach(path => {
                                         position = [...position, ...path]
                                         /**
                                          * tips：小细节，

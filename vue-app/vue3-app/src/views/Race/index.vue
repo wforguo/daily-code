@@ -1,6 +1,6 @@
 <template>
     <div class="page race">
-        <el-card v-spin="loading" :loading-text="text">
+        <el-card v-loading="loading" :loading-text="text">
             <i class="el-icon-loading"></i>
             <i class="el-icon-edit"></i>
             <el-link target="_blank" href="https://mp.weixin.qq.com/s/smOJHGkPegvs5ENv7PTbmw">竞态问题</el-link>

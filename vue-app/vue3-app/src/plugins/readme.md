@@ -1,1 +1,0 @@
-# 插件所有的插件都在这里[writing-a-plugin](https://vuejs.org/guide/reusability/plugins.html#writing-a-plugin)## 自定义指令[自定义指令](https://cn.vuejs.org/v2/guide/custom-directive.html)目前包含 `v-loading` 自定义指令

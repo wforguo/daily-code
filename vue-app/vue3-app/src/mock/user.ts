@@ -10,7 +10,7 @@ const Random = Mock.Random;
 
 export default [
     {
-        url: "/api/user/login", // 请求url
+        url: "/apis/api/user/login", // 请求url
         method: "post", // 请求方式
         timeout: 1000, // 超时时间
         statusCode: 200, // 返回的http状态码
@@ -27,7 +27,7 @@ export default [
         },
     },
     {
-        url: "/api/search", // 请求url
+        url: "/apis/api/search", // 请求url
         method: "post", // 请求方式
         timeout: 1000, // 超时时间
         statusCode: 200, // 返回的http状态码
@@ -44,7 +44,7 @@ export default [
         },
     },
     {
-        url: "/api/search", // 请求url
+        url: "/apis/api/search", // 请求url
         method: "get", // 请求方式
         timeout: 1000, // 超时时间
         statusCode: 200, // 返回的http状态码
