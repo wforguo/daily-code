@@ -1,2 +1,0 @@
-import{_ as a}from"./index-b04b253f.js";import{e,f as r,i as l,h as t,w as o,l as c,m as _}from"./vendor-b373db1a.js";const i={},m={slot:"extra"};function d(f,p){const n=e("el-link"),s=e("el-result");return r(),l("div",null,[t(s,{icon:"info",title:"404",subTitle:"Page Not Found"},{default:o(()=>[c("template",m,[t(n,{type:"primary",size:"medium",href:"/"},{default:o(()=>[_("返回首页")]),_:1})])]),_:1})])}const h=a(i,[["render",d]]);export{h as default};
-//# sourceMappingURL=index-195e2202.js.map
