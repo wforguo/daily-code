@@ -20,6 +20,15 @@
                 <el-breadcrumb separator-class="el-icon-arrow-right">
                     <el-breadcrumb-item>{{ $route?.meta?.title }}</el-breadcrumb-item>
                 </el-breadcrumb>
+                <div class="page-header__main">
+                    <NoticeBar
+                        class="page-notice"
+                        :notices="[
+                            '无论我们能活多久，我们能够享受的只有无法分割的此刻，此外别无其他。',
+                            '不会回头的东西有四件：说出口的话、离弦的箭、逝去的生活和失去的机会。'
+                        ]"
+                    />
+                </div>
             </el-header>
             <el-main style="background: #f2f3f5">
                 <el-card
@@ -55,6 +64,7 @@
 import { onBeforeRouteUpdate, useRouter, onBeforeRouteLeave } from 'vue-router'
 import { ref } from 'vue'
 import { useMenuStore } from '@/store'
+import NoticeBar from '@/components/NoticeBar/index.vue'
 const isDev = ref(import.meta.env.MODE === 'development')
 const menu = useMenuStore()
 const router = useRouter()
@@ -71,3 +81,16 @@ const handleNav = (name: string) => {
     })
 }
 </script>
+
+<style lang="scss">
+.page-header__main {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 100px;
+    .page-notice {
+        width: 100%;
+    }
+}
+</style>

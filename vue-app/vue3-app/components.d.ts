@@ -8,6 +8,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AsyncShow: typeof import('./src/components/AsyncShow.vue')['default']
+    IconNotice: typeof import('./src/components/NoticeBar/IconNotice.vue')['default']
+    NoticeBar: typeof import('./src/components/NoticeBar/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Timer: typeof import('./src/components/Timer.vue')['default']

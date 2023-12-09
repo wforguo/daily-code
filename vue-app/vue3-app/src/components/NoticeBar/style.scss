@@ -1,0 +1,49 @@
+.notice-bar {
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 16px;
+    .notice-bar__icon {
+        width: 20px;
+        height: 20px;
+        color: #222;
+        font-size: 20px;
+    }
+    .notice-bar__notices {
+        width: 100%;
+        position: relative;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        display: flex;
+        flex: 1 1;
+        align-items: center;
+        height: 100%;
+        overflow: hidden;
+    }
+    .notice-bar__content {
+        color: #303133;
+        position: absolute;
+        white-space: nowrap;
+        animation-name: notice-bar-scroll;
+        animation-iteration-count: 1;
+        animation-fill-mode: none;
+        animation-timing-function: linear;
+        &.running {
+            animation-play-state: running;
+        }
+        &.paused {
+            animation-play-state: paused;
+        }
+    }
+    @keyframes notice-bar-scroll {
+        to {
+            transform: translate3d(-100%, 0, 0)
+        }
+    }
+}
