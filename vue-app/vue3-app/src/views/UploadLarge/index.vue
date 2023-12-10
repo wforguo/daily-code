@@ -23,14 +23,20 @@
                 </div>
             </template>
             <template v-else>
-                <el-progress :text-inside="true" :stroke-width="16" :percentage="uploadPercentage" />
+                <el-progress
+                    style="margin: 48px 0"
+                    :text-inside="true"
+                    :stroke-width="16"
+                    :percentage="uploadPercentage"
+                />
             </template>
         </el-upload>
         <el-row :gutter="20" style="margin-top: 16px">
-            <el-col :span="8" :offset="8">
-                <el-button :loading="loading" type="primary" fill @click="handleUpload" style="width: 100%">
-                    上传
-                </el-button>
+            <el-col :span="6" :offset="6">
+                <el-button type="primary" fill @click="startUpload" style="width: 100%">开始上传</el-button>
+            </el-col>
+            <el-col :span="6">
+                <el-button type="danger" fill @click="stopUpload" style="width: 100%">停止上传</el-button>
             </el-col>
         </el-row>
     </div>
@@ -41,9 +47,10 @@ defineOptions({
     title: '大文件上传',
     name: 'UploadLarge'
 })
+import type { GenericAbortSignal } from 'axios'
 import { UploadFilled } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
-import { calculateHash, createFileChunk } from '@/libs/'
+import { calculateHash, cancelRequest, createFileChunk } from '@/libs/'
 import { mergeChunks, uploadChunk } from '@/api'
 
 const fileChunkList = ref<any[]>([])
@@ -53,6 +60,7 @@ const chunkSize = 3 * 1024 * 1024 // 定义切片的大小
 
 let file = ref<File>()
 let loading = ref<boolean>(false)
+let controller = ref<any>(null)
 
 // 计算总文件上传进度
 const uploadPercentage = computed(() => {
@@ -73,9 +81,9 @@ const handleChange = (uploadFile: any, uploadFiles: any) => {
 }
 
 /**
- * 点击上传
+ * 开始上传
  */
-const handleUpload = async () => {
+const startUpload = async () => {
     if (!file.value) {
         ElMessage.warning('请选择文件')
         return
@@ -99,7 +107,6 @@ const handleUpload = async () => {
     // 上传进度监听函数
     function onProgress(item: any) {
         return (e: any) => {
-            console.log(e)
             item.percentage = parseInt(String((e.loaded / e.total) * 100))
         }
     }
@@ -108,8 +115,12 @@ const handleUpload = async () => {
     const uploadChunks = async (chunkList: any[] = []) => {
         try {
             loading.value = true
+            if (controller.value) {
+                controller.value = null
+            }
+            controller.value = new AbortController()
             requestList.value = chunkList.map((item: any, idx: number) =>
-                uploadChunk(item, onProgress(fileChunkList.value[idx]))
+                uploadChunk(item, onProgress(fileChunkList.value[idx]), item.chunkHash)
             )
             await Promise.all(requestList.value)
             // 通知服务器合并切片
@@ -124,12 +135,24 @@ const handleUpload = async () => {
             file.value = undefined
             loading.value = false
         } catch (error) {
-            ElMessage.error('上传失败')
+            console.log(error)
             loading.value = false
         }
     }
 
     await uploadChunks(fileChunkList.value)
+}
+
+/**
+ * 停止上传
+ */
+const stopUpload = () => {
+    console.log('停止上传 --->', controller.value)
+    fileChunkList.value.forEach(item => {
+        cancelRequest(`/v1/common/upload/chunk${item.chunkHash}`)
+    })
+    requestList.value = []
+    loading.value = false
 }
 </script>
 

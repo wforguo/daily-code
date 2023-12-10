@@ -15,7 +15,7 @@ const instance = new Request({
 })
 
 // 请求
-export const request = (config: AxiosRequestConfig) => {
+export const request = (config: AxiosRequestConfig & { abortKey?: string }) => {
     return instance.request(config)
 }
 

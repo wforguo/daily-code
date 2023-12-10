@@ -4,6 +4,7 @@
  * @Description: upload.ts
  */
 import { request } from '@/libs'
+import type { GenericAbortSignal } from 'axios'
 
 /**
  * Simulate a login
@@ -20,8 +21,9 @@ export const upload = (data: any) =>
  * 上传文件分片
  * @param data
  * @param onUploadProgress
+ * @param abortKey
  */
-export const uploadChunk = (data: any, onUploadProgress: any) =>
+export const uploadChunk = (data: any, onUploadProgress: any, abortKey: string) =>
     request({
         url: '/v1/common/upload/chunk',
         method: 'post',
@@ -30,7 +32,8 @@ export const uploadChunk = (data: any, onUploadProgress: any) =>
         headers: {
             'Content-type': 'multipart/form-data;charset=UTF-8'
         },
-        onUploadProgress
+        onUploadProgress,
+        abortKey
     })
 
 /**
@@ -41,9 +44,5 @@ export const mergeChunks = (data: any) =>
     request({
         url: '/v1/common/upload/merge',
         method: 'post',
-        data,
-        onUploadProgress: (progressEvent: any) => {
-            // 上传进度
-            console.log(progressEvent.loaded, progressEvent.total)
-        }
+        data
     })
