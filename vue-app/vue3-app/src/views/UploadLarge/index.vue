@@ -36,7 +36,7 @@
                 <el-button type="primary" fill @click="startUpload" style="width: 100%">开始上传</el-button>
             </el-col>
             <el-col :span="6">
-                <el-button type="danger" fill @click="stopUpload" style="width: 100%">停止上传</el-button>
+                <el-button type="danger" fill @click="stopUpload" style="width: 100%">取消上传</el-button>
             </el-col>
         </el-row>
     </div>
@@ -66,15 +66,14 @@ const uploadPercentage = computed(() => {
     // 每个切片的上传进度 * 切片大小除以总文件大小
     if (!file.value || !fileChunkList.value.length) return 0
     const loaded = fileChunkList.value.map(item => item.size * item.percentage).reduce((acc, cur) => acc + cur)
-    return parseInt((loaded / file.value.size).toFixed(2))
+    return Math.ceil(loaded / file.value.size)
 })
 
 /**
  * 选择文件
  * @param uploadFile
- * @param uploadFiles
  */
-const handleChange = (uploadFile: any, uploadFiles: any) => {
+const handleChange = (uploadFile: any) => {
     file.value = uploadFile.raw
 }
 
@@ -103,6 +102,8 @@ const startUpload = async () => {
         ElMessage.success(verify.message)
         return
     }
+    // 服务器已经存在的切片
+    const savedChunkList = verify.data.uploadList || []
     // 文件分片
     const chunkList = createFileChunk(file.value, chunkSize)
     fileChunkList.value = chunkList.map(({ file }, index) => {
@@ -112,28 +113,33 @@ const startUpload = async () => {
             chunkHash: `${fileHash.value} - ${index}`,
             fileHash: fileHash.value,
             index,
-            percentage: 0
+            // 是否已存在对应切片
+            percentage: savedChunkList.includes(`${fileHash.value} - ${index}`) ? 100 : 0
         }
     })
 
     // 上传进度监听函数
-    function onProgress(item: any) {
+    function onProgress(chunkHash: any) {
         return (e: any) => {
-            item.percentage = parseInt(String((e.loaded / e.total) * 100))
+            const chunkIdx = fileChunkList.value.findIndex(chunk => chunk.chunkHash === chunkHash)
+            if (chunkIdx) {
+                fileChunkList.value[chunkIdx].percentage = parseInt(String((e.loaded / e.total) * 100))
+            }
         }
     }
 
     // 上传文件切片
-    const uploadChunks = async (chunkList: any[] = []) => {
+    const uploadChunks = async (savedChunkList: any[] = []) => {
         try {
             loading.value = true
             if (controller.value) {
                 controller.value = null
             }
             controller.value = new AbortController()
-            requestList.value = chunkList.map((item: any, idx: number) =>
-                uploadChunk(item, onProgress(fileChunkList.value[idx]), item.chunkHash)
-            )
+            requestList.value = fileChunkList.value
+                // 过滤已经上传的切片
+                .filter((chunk: any) => !savedChunkList.includes(chunk.chunkHash))
+                .map((chunk: any) => uploadChunk(chunk, onProgress(chunk.chunkHash), chunk.chunkHash))
             await Promise.all(requestList.value)
             // 通知服务器合并切片
             await mergeChunks({
@@ -151,8 +157,7 @@ const startUpload = async () => {
             loading.value = false
         }
     }
-
-    await uploadChunks(fileChunkList.value)
+    await uploadChunks(savedChunkList)
 }
 
 /**
@@ -165,6 +170,7 @@ const stopUpload = () => {
     })
     requestList.value = []
     loading.value = false
+    ElMessage.warning('取消上传')
 }
 </script>
 
