@@ -47,11 +47,10 @@ defineOptions({
     title: '大文件上传',
     name: 'UploadLarge'
 })
-import type { GenericAbortSignal } from 'axios'
 import { UploadFilled } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { calculateHash, cancelRequest, createFileChunk } from '@/libs/'
-import { mergeChunks, uploadChunk } from '@/api'
+import { mergeChunks, uploadChunk, uploadVerify } from '@/api'
 
 const fileChunkList = ref<any[]>([])
 const requestList = ref<any[]>([])
@@ -76,7 +75,6 @@ const uploadPercentage = computed(() => {
  * @param uploadFiles
  */
 const handleChange = (uploadFile: any, uploadFiles: any) => {
-    console.log(uploadFile.raw, uploadFiles)
     file.value = uploadFile.raw
 }
 
@@ -89,10 +87,24 @@ const startUpload = async () => {
         return
     }
 
-    // 文件分片
-    const chunkList = createFileChunk(file.value, chunkSize)
+    // 计算文件 hash
     fileHash.value = await calculateHash(file.value)
 
+    // 校验文件是否已经上传过
+    const verify = await uploadVerify({
+        fileName: file.value?.name,
+        fileHash: fileHash.value
+    })
+
+    if (!verify.data.shouldUpload) {
+        loading.value = false
+        file.value = undefined
+        fileHash.value = ''
+        ElMessage.success(verify.message)
+        return
+    }
+    // 文件分片
+    const chunkList = createFileChunk(file.value, chunkSize)
     fileChunkList.value = chunkList.map(({ file }, index) => {
         return {
             chunk: file,
@@ -127,8 +139,8 @@ const startUpload = async () => {
             await mergeChunks({
                 fileName: file.value?.name,
                 fileSize: file.value?.size,
-                size: chunkSize,
-                hash: fileHash.value
+                fileHash: fileHash.value,
+                size: chunkSize
             })
             ElMessage.success('上传成功')
             fileChunkList.value = []

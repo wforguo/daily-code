@@ -4,7 +4,6 @@
  * @Description: upload.ts
  */
 import { request } from '@/libs'
-import type { GenericAbortSignal } from 'axios'
 
 /**
  * Simulate a login
@@ -13,6 +12,17 @@ import type { GenericAbortSignal } from 'axios'
 export const upload = (data: any) =>
     request({
         url: '/v1/common/upload',
+        method: 'post',
+        data
+    })
+
+/**
+ * 是否已上传
+ * @param data
+ */
+export const uploadVerify = (data: any) =>
+    request({
+        url: '/v1/common/upload/verify',
         method: 'post',
         data
     })

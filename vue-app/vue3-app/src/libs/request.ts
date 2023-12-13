@@ -45,7 +45,7 @@ class Request {
             return Promise.reject(res)
         }
         if (res.status === 200 && res.data.code === 200) {
-            return Promise.resolve(res)
+            return Promise.resolve(res.data)
         } else {
             console.log('/*******************/')
             console.error(res)
